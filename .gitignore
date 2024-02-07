@@ -1,0 +1,51 @@
+# Go related files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+.idea/
+*.iml
+.vscode/
+
+# Compiled Object files, Static and Dynamic libs (Go)
+*.o
+*.a
+*.pyc
+
+# Node.js related files
+node_modules/
+dist/
+.tmp/
+
+# Angular CLI configuration
+.angular-cli.json
+.angular-config.json
+
+# npm package files
+package-lock.json
+yarn.lock
+
+# Editor files
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Go binary
+MyApp
+
+# Angular production build
+/dist
+
+# Angular environment files
+/src/environments/*.js
+/src/environments/*.js.map
+
+# Log files
+*.log
+
+# Ignore macOS metadata folders
+__MACOSX/
