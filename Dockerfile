@@ -31,3 +31,14 @@ EXPOSE 8080
 # Command to run the compiled binary
 CMD ["./my-golang-app"]
 
+# Use a multi-stage build for smaller and more secure images
+FROM node:latest AS frontend-builder
+
+WORKDIR /app
+
+COPY frontend/package*.json ./
+RUN npm install
+
+COPY frontend/ .
+RUN npm run build
+
