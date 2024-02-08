@@ -41,5 +41,5 @@ RUN npm install
 RUN npm install -g @angular/cli
 
 COPY frontend/ .
-RUN np build
+RUN ng build
 
