@@ -1,28 +1,30 @@
 version: '3'
 
 services:
-  my-app:
+  backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-      - "4200:4200"
     depends_on:
       - mysql
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
   mysql:
     image: mysql:latest
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: my_database
-      MYSQL_USER: my_user
-      MYSQL_PASSWORD: my_password
+      MYSQL_DATABASE: your_database_name
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
