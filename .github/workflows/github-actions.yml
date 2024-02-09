@@ -31,12 +31,27 @@ jobs:
           run: npm test
     # if envronment variables are needed for build add them here
 
-        - name: Building project
+    #can add some things that could be helpfull to know in the future such as:
+        - name: Check building and testing envrionment
+          run: |
+            echo 1. Java version
+            java -version
+            echo
+            echo 2. Go version
+            go version
+            echo
+            echo 3. Build tools:
+            mvn --version
+            gradle --version
+            ant -version
+            echo
+
+        - name: Starting build script
           run: sh ./build.sh
 
     #run bash script here like this: 
     #the "sh" infront of the file location gets past the permissions problem
-        - name: starting unit tests script...
+        - name: Starting unit tests script
           run: sh ./test.sh
 
             
