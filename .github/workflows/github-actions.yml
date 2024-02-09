@@ -28,20 +28,23 @@ jobs:
           run: |
             npm install
     # add things to this part as more things are needed to be installed for the project to work
-        - name: Npm test
-          run: npm test
+        
     # if envronment variables are needed for build add them here
+    #      env:
 
     #can add some things that could be helpfull to know in the future such as:
         - name: Check building and testing envrionment
           run: |
-            echo 1. Java version
+            echo 1. npm & related program versions
+            npm version
+            echo
+            echo 2. Java version
             java -version
             echo
-            echo 2. Go version
+            echo 3. Go version
             go version
             echo
-            echo 3. Build tools:
+            echo 4. Build tools:
             mvn --version
             gradle --version
             ant -version
