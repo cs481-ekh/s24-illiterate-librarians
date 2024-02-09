@@ -1,0 +1,43 @@
+name: Literacy-Link Github Actions 
+
+#This will run if someone pushes to, or does a pull request to the main branch
+on: 
+    pull_request:
+    push:
+        branches: 
+            - main
+
+jobs:
+  test:
+    name: Starting Build and Testing
+    runs-on: ubuntu-latest
+
+# Not sure if these next three lines are strictly necessairy but if you remove them you will need to change the name use on line 21
+    strategy:
+        matrix:
+            node-version: [10.x, 12.x]
+    
+    steps: 
+        - uses: actions/checkout@v1
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: install
+          run: |
+            npm install
+    # add things to this part as more things are needed to be installed for the project to work
+        - name: Npm test
+          run: npm test
+    # if envronment variables are needed for build add them here
+
+        - name: Building project
+          run: sh ./build.sh
+
+    #run bash script here like this: 
+    #the "sh" infront of the file location gets past the permissions problem
+        - name: starting unit tests script...
+          run: sh ./test.sh
+
+            
+
