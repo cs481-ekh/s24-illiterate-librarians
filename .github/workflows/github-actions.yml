@@ -35,7 +35,7 @@ jobs:
     #can add some things that could be helpfull to know in the future such as:
         - name: Check building and testing envrionment
           run: |
-            echo 1. npm & related program versions
+            echo 1. npm and related program versions
             npm version
             echo
             echo 2. Java version
