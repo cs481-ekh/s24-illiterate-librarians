@@ -58,5 +58,10 @@ jobs:
         - name: Starting unit tests script
           run: sh ./test.sh
 
+
+#TODO: If someone wants, they can add a github action that will move things 
+#from "in progress" on a sprint to "done" after a pull request has been completed. 
+#Not a big deal if we don't though
+
             
 
