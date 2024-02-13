@@ -20,4 +20,4 @@ COPY . /frontend
 EXPOSE 4200
 
 # Command to run the Angular app
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "build"]
