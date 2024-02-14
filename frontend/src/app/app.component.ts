@@ -9,14 +9,12 @@ import { HeaderComponent } from './header/header.component';
   imports: [RouterOutlet, CommonModule, HeaderComponent],
   template: `
     <main>
-      <header>
-        <app-header></app-header>
-      </header>
+      <app-header></app-header>
     </main>
   `,
 
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Literacy Link';
 }
