@@ -1,23 +1,31 @@
-# Use an official Node runtime as a parent image
-FROM node:latest
+# Use an official Node.js image as the base image
+FROM node:latest AS build
 
-# Set the working directory to /frontend
-WORKDIR /frontend
+# Set the working directory in the container
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli
-
-# Install app dependencies
+# Install dependencies
 RUN npm install
 
-# Copy the current directory contents into the container at /frontend
-COPY . /frontend
+# Copy the rest of the application files to the container
+COPY . .
 
-# Expose port 4200 to the outside world
-EXPOSE 4200
+# Build the Angular app
+RUN npm run build
 
-# Command to run the Angular app
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# Use an official Apache image as the base image for serving the app
+FROM httpd:latest
+
+WORKDIR /usr/local/apache2/htdocs/
+
+# Copy the built Angular app from the build stage to the Apache document root
+COPY --from=build /app/dist/frontend/browser .
+
+# Expose port 80 for Apache
+EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["httpd-foreground"]
