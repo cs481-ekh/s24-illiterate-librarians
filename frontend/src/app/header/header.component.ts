@@ -8,9 +8,18 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <header class="header">
+      <a href="https://sdp.boisestate.edu/index.html">
+        <img
+          src="../assets/sdp-logo-3.png"
+          alt="SDP Logo"
+          width="100px"
+          heigh="100px"
+        />
+      </a>
       <a [routerLink]="['/']">
         <span class="material-symbols-outlined"> menu </span>
       </a>
+
       <div id="links">
         <a [routerLink]="['/']">
           <div class="option">Home</div>
