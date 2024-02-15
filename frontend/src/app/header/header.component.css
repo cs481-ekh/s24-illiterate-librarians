@@ -10,7 +10,6 @@
 
 #links {
     display: flex;
-
     position: absolute;
     right : 0;
 }
@@ -39,8 +38,8 @@
     bottom: 0;
     left: 7px;
     width: 95%;
-    height: 2px;
-    background-color: #ffa500;
+    height: 3px;
+    background-color: #D64309;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -83,6 +82,6 @@ a:visited {
 }
 
 .material-symbols-outlined:hover {
-    color: #ffa500;
+    color: #D64309;
     transition: color 0.3s; /* Add transition property for color with desired duration */
 }
