@@ -7,6 +7,7 @@ WORKDIR /backend
 # Copy the current directory contents into the container at /backend
 COPY . /backend
 
+RUN go get
 # Build the Go app
 RUN go build -o main .
 
