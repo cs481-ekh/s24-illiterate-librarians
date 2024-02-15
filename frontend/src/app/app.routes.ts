@@ -7,7 +7,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    title: 'Home page',
+    title: 'Literacy Link',
   },
   {
     path: 'dashboard',

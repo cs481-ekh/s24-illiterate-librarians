@@ -1,12 +1,45 @@
 .header{
     background-color: #f8f9fa;
     padding: 10px;
+    height: 60px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+    display: flex;
+}
+#links{
+    display: flex;
+    position: absolute;
+    margin-left: 70%;
+    
 }
 
-.options{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@media ((max-width: 960px)) {
+    #links {
+        visibility: hidden;
+        
+    }
+}
+
+.option {
+    transition: background-color 0.3s;
+    padding: 10px;
+    margin-right: 20px;
+    font-size: 20px;
+    border-left: green;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+#login{
+    text-align: center;
+    margin-right: 20px;
 }

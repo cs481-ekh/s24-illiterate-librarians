@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
   template: `
     <main>
       <app-header></app-header>
+      <router-outlet></router-outlet>
     </main>
   `,
 
