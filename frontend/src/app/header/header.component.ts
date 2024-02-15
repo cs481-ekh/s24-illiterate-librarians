@@ -8,13 +8,9 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <header class="header">
-      <!-- <a [routerLink]="['/']">
-        <img
-          id="logo"
-          class="logo"
-          src="../assets/Signature-square-gray1.webp"
-        />
-      </a> -->
+      <a [routerLink]="['/']">
+        <span class="material-symbols-outlined"> menu </span>
+      </a>
       <div id="links">
         <a [routerLink]="['/']">
           <div class="option">Home</div>
