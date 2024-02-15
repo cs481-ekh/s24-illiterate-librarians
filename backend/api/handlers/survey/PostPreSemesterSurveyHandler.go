@@ -8,7 +8,7 @@ import (
 
 func PostPreSemesterSurveyHandler(c *gin.Context) {
 	userId := c.Param("user_id")
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusAccepted, gin.H{
 		"status":  "success",
 		"message": fmt.Sprintf("TODO: make func to submit results for semester survey form user: %s", userId),
 	})
