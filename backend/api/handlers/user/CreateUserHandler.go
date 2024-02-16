@@ -8,7 +8,7 @@ import (
 
 func CreateUserHandler(c *gin.Context) {
 	username := c.Param("username")
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
 		"status":  "success",
 		"message": fmt.Sprintf("TODO: make func to create new user: %s", username),
 	})

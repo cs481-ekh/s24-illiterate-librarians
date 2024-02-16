@@ -28,49 +28,49 @@ func SetupRoutes(router *gin.Engine) {
 		userRoutes.GET("/lookup", user.LookupAllUsersHandler)
 
 		// GET /user/lookup/:user_id
-		userRoutes.GET("/lookup/:user_id", user.LookupUserHandler)
+		userRoutes.GET("/lookup/:userId", user.LookupUserHandler)
 
 		// PUT /user/update/:user_id
-		userRoutes.PUT("/update/:user_id", user.UpdateUserHandler)
+		userRoutes.PUT("/update/:userId", user.UpdateUserHandler)
 
 		// PUT /user/update/password/:user_id
-		userRoutes.PUT("/update/password/:user_id", user.UpdatePasswordHandler)
+		userRoutes.PUT("/update/password/:userId", user.UpdatePasswordHandler)
 
 		// DELETE /user/delete/:user_id
-		userRoutes.DELETE("/delete/:user_id", user.DeleteUserHandler)
+		userRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
 	}
 
 	surveyRoutes := router.Group("/survey")
 	{
 		// POST /survey/pre_semester_survey/:user_id
-		surveyRoutes.POST("/pre_semester_survey/:user_id", survey.PostPreSemesterSurveyHandler)
+		surveyRoutes.POST("/pre_semester_survey/:userId", survey.PostPreSemesterSurveyHandler)
 
 		// POST /survey/after_semester_survey/:user_id
-		surveyRoutes.POST("/after_semester_survey/:user_id", survey.PostAfterSemesterSurveyHandler)
+		surveyRoutes.POST("/after_semester_survey/:userId", survey.PostAfterSemesterSurveyHandler)
 
 		// GET /survey/pre_semester_survey/taken/:user_id
-		surveyRoutes.GET("/pre_semester_survey/taken/:user_id", survey.PreSemesterSurveyTakenHandler)
+		surveyRoutes.GET("/pre_semester_survey/taken/:userId", survey.PreSemesterSurveyTakenHandler)
 
 		// GET /survey/after_semester_survey/taken/:user_id
-		surveyRoutes.GET("/after_semester_survey/taken/:user_id", survey.AfterSemesterSurveyTakenHandler)
+		surveyRoutes.GET("/after_semester_survey/taken/:userId", survey.AfterSemesterSurveyTakenHandler)
 
 		// GET /survey/pre_semester_survey/:user_id
-		surveyRoutes.GET("/pre_semester_survey/:user_id", survey.GetPreSemesterSurveyHandler)
+		surveyRoutes.GET("/pre_semester_survey/:userId", survey.GetPreSemesterSurveyHandler)
 
 		// GET /survey/after_semester_survey/:user_id
-		surveyRoutes.GET("/after_semester_survey/:user_id", survey.GetAfterSemesterSurveyHandler)
+		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)
 	}
 
 	sessionRoutes := router.Group("/session")
 	{
 		// GET /session/client/:user_id
-		sessionRoutes.GET("/client/:user_id", session.GetClientSessionsHandler)
+		sessionRoutes.GET("/client/:userId", session.GetClientSessionsHandler)
 
 		// GET /session/tutor/:user_id
-		sessionRoutes.GET("/tutor/:user_id", session.GetTutorSessionsHandler)
+		sessionRoutes.GET("/tutor/:userId", session.GetTutorSessionsHandler)
 
 		// GET /session/:session_id
-		sessionRoutes.GET("/:session_id", session.GetSessionByIdHandler)
+		sessionRoutes.GET("/:sessionId", session.GetSessionByIdHandler)
 	}
 
 	// Add more route groups or individual routes as needed
