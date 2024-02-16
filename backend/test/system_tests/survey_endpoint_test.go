@@ -1,31 +1,26 @@
-package system_test
+package system_tests
 
 import (
-	"LiteracyLink.com/backend/api/routes"
 	"bytes"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-// Define a test case structure
-type testCase struct {
-	Method         string
-	Endpoint       string
-	Payload        interface{}
-	ExpectedStatus int
-}
-
 func TestSurveyEndpoints(t *testing.T) {
-	// Create a Gin router and set up routes
-	router := setupTestRouter()
+	// Create a router from your main application
+	router := InitRouterFunction()
 
 	// Define test cases
 	testCases := []testCase{
 		{Method: "POST", Endpoint: "/survey/pre_semester_survey/123", Payload: map[string]string{"answer": "example"}, ExpectedStatus: http.StatusAccepted},
+		{Method: "POST", Endpoint: "/survey/after_semester_survey/123", Payload: map[string]string{"answer": "example"}, ExpectedStatus: http.StatusAccepted},
 		{Method: "GET", Endpoint: "/survey/pre_semester_survey/taken/123", ExpectedStatus: http.StatusOK},
+		{Method: "GET", Endpoint: "/survey/after_semester_survey/taken/123", ExpectedStatus: http.StatusOK},
+		{Method: "GET", Endpoint: "/survey/after_semester_survey/123", ExpectedStatus: http.StatusOK},
+		{Method: "GET", Endpoint: "/survey/pre_semester_survey/123", ExpectedStatus: http.StatusOK},
+
 		// Add more test cases as needed
 	}
 
@@ -47,7 +42,7 @@ func TestSurveyEndpoints(t *testing.T) {
 			// Create a response recorder
 			rec := httptest.NewRecorder()
 
-			// Serve the request
+			// Serve the request using the main application's router
 			router.ServeHTTP(rec, req)
 
 			// Check the status code
@@ -56,14 +51,4 @@ func TestSurveyEndpoints(t *testing.T) {
 			}
 		})
 	}
-}
-
-// Create a test router with the necessary routes
-func setupTestRouter() *gin.Engine {
-	router := gin.Default()
-
-	// Set up routes
-	routes.SetupRoutes(router)
-
-	return router
 }
