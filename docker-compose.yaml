@@ -11,6 +11,8 @@ services:
       - mysql
     networks:
       - literacy-link
+    environment:
+      - GIN_MODE=release
 
   frontend:
     build:
