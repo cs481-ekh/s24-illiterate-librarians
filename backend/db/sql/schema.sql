@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS Semester_tutoring_obj (
      child_id UUID NOT NULL,
      parent_id UUID NOT NULL,
      EOS_parent_survey_complete boolean DEFAULT false,
-     EOS_parent_survey_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     survey_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      EOS_parent_survey_id UUID,
      EOS_report_posted boolean DEFAULT false,
      EOS_report_file_path VARCHAR(127),
@@ -104,6 +104,8 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
      FOREIGN KEY (desired_semester_id) REFERENCES Semester(semester_id),
 )
 
+
+-- Create tutoring structures
 
 CREATE TABLE IF NOT EXISTS Tutor_session (
      tutor_session_id PRIMARY KEY,
