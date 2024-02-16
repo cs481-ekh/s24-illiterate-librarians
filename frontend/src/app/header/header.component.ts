@@ -21,7 +21,7 @@ import { HostListener } from '@angular/core';
         style({
           opacity: 1,
           visibility: 'visible',
-          backgroundColor: 'white',
+          backgroundColor: '#f8f9fa',
         })
       ),
       state(
@@ -32,19 +32,23 @@ import { HostListener } from '@angular/core';
           opacity: 0,
         })
       ),
-      transition('open => closed', [animate('0.2s')]),
-      transition('closed => open', [animate('0.2s')]),
+      transition('open => closed', [animate('0.3s')]),
+      transition('closed => open', [animate('0.3s')]),
     ]),
   ],
   template: `
     <header class="header">
-      <a href="https://sdp.boisestate.edu/index.html">
-        <img src="../assets/sdp-logo-3.png" alt="SDP Logo" width="100px" />
-      </a>
+      <div id="info">
+        <a href="https://sdp.boisestate.edu/index.html">
+          <img src="../assets/sdp-logo-3.png" alt="SDP Logo" width="100px" />
+        </a>
+        <a [routerLink]="['/']">
+          <h1 class="title">BSU Literacy Lab</h1>
+        </a>
+      </div>
       <a (click)="toggle()">
         <div class="material-symbols-outlined">menu</div>
       </a>
-
       <div id="links">
         <a><div class="option">Home</div></a>
         <a [routerLink]="['/dashboard']"><div class="option">Dashboard</div></a>
@@ -53,27 +57,25 @@ import { HostListener } from '@angular/core';
           ><div class="option" id="login">Login or Register</div></a
         >
       </div>
-      <div id="menu" [@openClose]="openClose()">
-        <a
-          [routerLink]="['/dashboard']"
-          [@openClose]="openClose()"
-          (click)="toggle()"
-          ><div class="option">Dashboard</div></a
-        >
-        <a
-          [routerLink]="['/profile']"
-          [@openClose]="openClose()"
-          (click)="toggle()"
-          ><div class="option">Profile</div></a
-        >
-        <a
-          [routerLink]="['/login']"
-          [@openClose]="openClose()"
-          (click)="toggle()"
-          ><div class="option" id="login">Login or Register</div></a
-        >
-      </div>
     </header>
+
+    <div id="menu" [@openClose]="openClose()">
+      <a
+        [routerLink]="['/dashboard']"
+        [@openClose]="openClose()"
+        (click)="toggle()"
+        ><div class="option">Dashboard</div></a
+      >
+      <a
+        [routerLink]="['/profile']"
+        [@openClose]="openClose()"
+        (click)="toggle()"
+        ><div class="option">Profile</div></a
+      >
+      <a [routerLink]="['/login']" [@openClose]="openClose()" (click)="toggle()"
+        ><div class="option" id="login">Login or Register</div></a
+      >
+    </div>
   `,
   styleUrl: './header.component.css',
 })

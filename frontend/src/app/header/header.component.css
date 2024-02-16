@@ -2,7 +2,6 @@
     background-color: #f8f9fa;
     padding: 10px;
     height: 60px;
-    margin-bottom: 20px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
     display: flex;
     font-size: large;
@@ -24,15 +23,29 @@
     }
 }
 
+#info{
+    position: absolute;
+    left: 10px;
+    width: 100%;
+    display: flex;
+}
 .option {
     transition: color 0.3s;
     padding: 10px;
     margin-right: 20px;
     font-size: 20px;
     border-left: 2px solid darkgrey;
-    /** make border height consistent*/
     height: 30px;
     position: relative;
+}
+
+.title{
+    font-size: 30px;
+    margin-left: 20px;
+    /*Set font to Gotham*/
+    font-family: 'Gotham', sans-serif;
+    flex: 1;
+    margin-top: 8px;
 }
 
 .option::after {
@@ -55,6 +68,10 @@ a:link {
     text-decoration: none;
     color: black;
 }
+
+a {
+    cursor: pointer; /* or any other cursor value you want */
+  }
 
 a:visited {
     text-decoration: none;
@@ -90,5 +107,6 @@ a:visited {
 }
 
 #menu {
-    margin-top: 70px;
+    position: absolute;
+    right: 0;
 }
