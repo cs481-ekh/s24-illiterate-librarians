@@ -50,7 +50,7 @@ import { HostListener } from '@angular/core';
         <div class="material-symbols-outlined">menu</div>
       </a>
       <div id="links">
-        <a><div class="option">Home</div></a>
+        <a [routerLink]="['/']"><div class="option">Home</div></a>
         <a [routerLink]="['/dashboard']"><div class="option">Dashboard</div></a>
         <a [routerLink]="['/profile']"><div class="option">Profile</div></a>
         <a [routerLink]="['/login']"
