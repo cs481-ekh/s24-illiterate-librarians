@@ -1,3 +1,8 @@
+-- Create and select the DB
+CREATE DATABASE IF NOT EXISTS literacy_link_db;
+
+USE literacy_link_db;
+
 -- Create the users and associated organization
 
 CREATE TABLE IF NOT EXISTS Users (
