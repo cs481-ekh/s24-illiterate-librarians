@@ -28,10 +28,10 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${Literacy_Link_DB_NAME}"
+      MYSQL_USER: "${Literacy_Link_DB_USERNAME}"
+      MYSQL_PASSWORD: "${Literacy_Link_DB_PASSWORD}"
     ports:
       - "3306:3306"
     networks:
