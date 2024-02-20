@@ -1,17 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'angular-calendar';
+
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,
-    CalendarModule],
+  imports: [CommonModule, CalendarModule],
   template: ` 
-  <!-- <span>
-    <mat-form-field>
-      <button (click)="openDialog">Toggle View</button>
-    </mat-form-field>
-    </span> -->
+  <span>
+    </span>
   <div class="calendar">
   
   <mwl-calendar-week-view
@@ -24,12 +27,13 @@ import { CalendarModule } from 'angular-calendar';
   [events]="events"
  >
 </mwl-calendar-week-view>
+
 </div>
   `,
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  
+
   dayStartHour = 12;
   dayEndHour = 17;
   viewDate: Date = new Date();
@@ -47,4 +51,5 @@ export class DashboardComponent {
       title: 'An event with an end date',
     },
   ];
+
 }

@@ -16,3 +16,7 @@
     height: 50%;
     visibility: hidden;
 }
+
+:host::ng-deep .cal-week-view .cal-hour-odd {
+    background-color: rgba(0, 51, 160, 0.6);
+  }
