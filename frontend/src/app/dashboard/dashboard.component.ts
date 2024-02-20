@@ -1,26 +1,56 @@
-import { Component } from '@angular/core';
-//use angular calendar to display events
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalendarMonthModule } from 'angular-calendar';
+import { CalendarModule } from 'angular-calendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { MatDialog } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, CalendarMonthModule],
-  template: ` <p>dashboard works!</p> 
-  <mwl-calendar-month-view
+  imports: [CommonModule,
+    CalendarModule],
+  template: ` 
+  <!-- <span>
+    <mat-form-field>
+      <button (click)="openDialog">Toggle View</button>
+    </mat-form-field>
+    </span> -->
+  <div class="calendar">
+  
+  <mwl-calendar-week-view
   [viewDate]="viewDate"
+  [dayStartHour]="dayStartHour"
+  [dayEndHour]="dayEndHour"
+  [weekStartsOn]="weekStartsOn"
+  [excludeDays]="excludeDays"
+  [hourSegments]="hourSegments"
   [events]="events"
-  ></mwl-calendar-month-view>
+ >
+</mwl-calendar-week-view>
+</div>
   `,
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+
+  matDialog: MatDialog = inject(MatDialog);
+
+  dayStartHour = 12;
+  dayEndHour = 17;
   viewDate: Date = new Date();
-  events = [
+  weekStartsOn: number = 1;
+  excludeDays: number[] = [0, 6];
+  hourSegments: number = 1;
+  events= [
     {
       start: new Date(),
-      title: 'An event',
+      title: 'An event with no end date',
+    },
+    {
+      start: new Date(),
+      end: new Date(),
+      title: 'An event with an end date',
     },
   ];
 }
