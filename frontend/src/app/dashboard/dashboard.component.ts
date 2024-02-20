@@ -1,10 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'angular-calendar';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import { MatDialog } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -33,9 +29,7 @@ import { Inject } from '@angular/core';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-
-  matDialog: MatDialog = inject(MatDialog);
-
+  
   dayStartHour = 12;
   dayEndHour = 17;
   viewDate: Date = new Date();
