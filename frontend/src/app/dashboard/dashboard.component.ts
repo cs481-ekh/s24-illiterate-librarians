@@ -1,55 +1,83 @@
-import { Component, NgModule, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CalendarModule } from 'angular-calendar';
+import { Component } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 
 
-export interface DialogData {
-  animal: string;
-  name: string;
+export interface eventData {
+  title: string;
+  start: Date;
+  id: string;
 }
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule, CalendarModule],
-  template: ` 
-  <span>
-    </span>
-  <div class="calendar">
-  
-  <mwl-calendar-week-view
-  [viewDate]="viewDate"
-  [dayStartHour]="dayStartHour"
-  [dayEndHour]="dayEndHour"
-  [weekStartsOn]="weekStartsOn"
-  [excludeDays]="excludeDays"
-  [hourSegments]="hourSegments"
-  [events]="events"
- >
-</mwl-calendar-week-view>
-
-</div>
+  template: `
+  <span class="topcomponents">
+    <div class="calendar">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  </span>
   `,
-  styleUrls: ['./dashboard.component.css'],
+  styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
 
-  dayStartHour = 12;
-  dayEndHour = 17;
-  viewDate: Date = new Date();
-  weekStartsOn: number = 1;
-  excludeDays: number[] = [0, 6];
-  hourSegments: number = 1;
-  events= [
-    {
-      start: new Date(),
-      title: 'An event with no end date',
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridWeek',
+    plugins: [dayGridPlugin, interactionPlugin],
+    dateClick: this.handleDateClick.bind(this), 
+    eventClick: (info) => {
+      this.openDialog(info.event.title, info.event.start, info.event.id);
     },
-    {
-      start: new Date(),
-      end: new Date(),
-      title: 'An event with an end date',
-    },
-  ];
+    events: [
+      { title: 'Tutoring', start: '2024-02-20', id: 'a', time: '10:00' }, //we will use a service to pass events when endpoint is ready
+    ],
+    height: '100%',
+  };
+
+  constructor(public dialog: MatDialog) {
+  }
+
+  openDialog(title: string, start: Date | null, id: string) {
+    const dialogRef = this.dialog.open(SessionModal, {
+      width: '500px',
+      height: '500px',
+      data: {title, start, id},
+      position: { top: '7%'},
+    });
+  }
+
+  handleDateClick(arg: any) {
+    console.log("clicked!")
+  }
+
+}
+
+
+@Component({
+  selector: 'session-modal',
+  template: `
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <p> This date of this session is {{data.start | date: 'fullDate'}} </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Ok</button>
+</div>
+
+`,
+})
+export class SessionModal {
+
+  constructor(
+    public dialogRef: MatDialogRef<SessionModal>,
+    @Inject(MAT_DIALOG_DATA) public data: eventData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

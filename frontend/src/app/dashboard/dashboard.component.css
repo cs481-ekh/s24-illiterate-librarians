@@ -1,22 +1,33 @@
 .calendar{
-    width: 50%;
+    width: 40%;
     height: 50%;
     position: absolute;
-    right: 20px;
+    right: 40px;
     overflow-y: scroll;
 }
 
-.monthCalendar{
-    position: fixed;
-    /*Calendar goes in the middle of the screen*/
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
-    visibility: hidden;
+.topcomponents {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
-
-:host::ng-deep .cal-week-view .cal-hour-odd {
-    background-color: rgba(0, 51, 160, 0.6);
+.basic-container {
+    padding: 30px;
+  }
+  
+  .version-info {
+    font-size: 8pt;
+    float: right;
+  }
+:host::ng-deep .fc-event {
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none; 
+    cursor: pointer;
+    height:60px !important;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    background-color: rgba(0, 51, 160, 0.9);
   }

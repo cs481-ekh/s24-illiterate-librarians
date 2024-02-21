@@ -1,17 +1,7 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { importProvidersFrom } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrapApplication(AppComponent, {
-  providers: [provideAnimations(),
-    appConfig.providers,
-  importProvidersFrom(CalendarModule.forRoot({
-    provide: DateAdapter,
-    useFactory: adapterFactory,
-  }))],
-}).catch((err) => console.error(err));
+import { AppModule } from './app/app.module';
+
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
