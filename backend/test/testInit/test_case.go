@@ -1,6 +1,6 @@
-package system_tests
+package testInit
 
-type testCase struct {
+type TestCase struct {
 	Method         string
 	Endpoint       string
 	Payload        interface{}

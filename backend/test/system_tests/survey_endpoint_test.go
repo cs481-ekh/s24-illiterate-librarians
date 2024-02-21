@@ -1,6 +1,7 @@
 package system_tests
 
 import (
+	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
 	"net/http"
@@ -10,10 +11,10 @@ import (
 
 func TestSurveyEndpoints(t *testing.T) {
 	// Create a router from your main application
-	router := InitRouterFunction()
+	router := testInit.InitRouterFunction()
 
 	// Define test cases
-	testCases := []testCase{
+	testCases := []testInit.TestCase{
 		{Method: "POST", Endpoint: "/survey/pre_semester_survey/123", Payload: map[string]string{"answer": "example"}, ExpectedStatus: http.StatusAccepted},
 		{Method: "POST", Endpoint: "/survey/after_semester_survey/123", Payload: map[string]string{"answer": "example"}, ExpectedStatus: http.StatusAccepted},
 		{Method: "GET", Endpoint: "/survey/pre_semester_survey/taken/123", ExpectedStatus: http.StatusOK},
