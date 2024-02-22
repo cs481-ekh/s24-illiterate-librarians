@@ -13,6 +13,7 @@ services:
       - literacy-link
     environment:
       - GIN_MODE=release
+      - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key}
 
   frontend:
     build:
