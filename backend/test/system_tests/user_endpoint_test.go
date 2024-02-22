@@ -2,6 +2,7 @@ package system_tests
 
 import (
 	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
 	"github.com/google/uuid"
@@ -12,7 +13,7 @@ import (
 
 func TestUserEndpointTest(t *testing.T) {
 	// Create a router from your main application
-	router := InitRouterFunction()
+	router := testInit.InitRouterFunction()
 
 	// Create a new UUID for the UserId
 	userID := uuid.New()
@@ -35,7 +36,7 @@ func TestUserEndpointTest(t *testing.T) {
 	}
 
 	// Define test cases
-	testCases := []testCase{
+	testCases := []testInit.TestCase{
 		{Method: "POST", Endpoint: "/user/create", Payload: payload, ExpectedStatus: http.StatusCreated},
 		{Method: "GET", Endpoint: "/user/login", ExpectedStatus: http.StatusOK},
 		{Method: "GET", Endpoint: "/user/lookup", Payload: nil, ExpectedStatus: http.StatusOK},

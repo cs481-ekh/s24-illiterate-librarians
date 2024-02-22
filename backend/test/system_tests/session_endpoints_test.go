@@ -1,6 +1,7 @@
 package system_tests
 
 import (
+	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
 	"net/http"
@@ -10,16 +11,13 @@ import (
 
 func TestSessionEndpointTest(t *testing.T) {
 	// Create a router from your main application
-	router := InitRouterFunction()
+	router := testInit.InitRouterFunction()
 
 	// Define test cases
-	var sessionTestCases = []testCase{
+	var sessionTestCases = []testInit.TestCase{
 		{Method: "GET", Endpoint: "/session/client/123", Payload: nil, ExpectedStatus: http.StatusOK},
-		//{Method: "GET", Endpoint: "/session/client/invalid_user", Payload: nil, ExpectedStatus: http.StatusNotFound},
 		{Method: "GET", Endpoint: "/session/tutor/456", Payload: nil, ExpectedStatus: http.StatusOK},
-		//{Method: "GET", Endpoint: "/session/tutor/invalid_user", Payload: nil, ExpectedStatus: http.StatusNotFound},
 		{Method: "GET", Endpoint: "/session/789", Payload: nil, ExpectedStatus: http.StatusOK},
-		//{Method: "GET", Endpoint: "/session/invalid_session", Payload: nil, ExpectedStatus: http.StatusNotFound},
 	}
 
 	// Iterate through test cases
