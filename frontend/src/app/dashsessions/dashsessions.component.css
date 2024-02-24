@@ -4,7 +4,7 @@
 }
 
 .frame{
-    width: 700px;
+    width: 50%;
     /* thin grey border around the component */
     border: 1px solid #e6d7d7;
     position: absolute;
@@ -51,4 +51,9 @@ h1{
 .event-time{
     font-size: 15px;
     width: 10%;
+}
+
+.event-date{
+    font-size: 20px;
+    margin-top: 7px;
 }

@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { Event } from '../event';
 
 
 export interface eventData {
@@ -16,7 +17,7 @@ export interface eventData {
   selector: 'app-dashboard',
   template: `
   <div class="topcomponents">
-    <app-dashsessions></app-dashsessions>
+    <app-dashsessions [events]="events"></app-dashsessions>
     <div class="calendar">
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
@@ -55,6 +56,26 @@ export class DashboardComponent {
     console.log("clicked!")
   }
 
+  events: Event[] = [
+    {
+      title: 'Tutoring',
+      start: new Date('2024-02-20'),
+      id: 'a',
+      time: '10:00'
+    },
+    {
+      title: 'Tutoring',
+      start: new Date('2024-02-21'),
+      id: 'b',
+      time: '11:00'
+    },
+    {
+      title: 'Tutoring',
+      start: new Date('2024-02-22'),
+      id: 'c',
+      time: '12:00'
+    }
+  ]
 }
 
 

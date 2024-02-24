@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Event } from '../event';
 
 @Component({
   selector: 'app-dashsessions',
@@ -8,26 +9,26 @@ import { Component, input } from '@angular/core';
     <div class="title">
       <h1>Upcoming Tutoring Sessions</h1>
     </div>
-      <div id="events">      
-
+      <div id="events"> 
+        <ul>     
+        <li *ngFor="let event of events">
         <div class="event">
           <span class="timeTitle">
-            <div class="event-title">Weekly Tutoring</div>
-            <div class="event-time">10:00</div>
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-time">{{ event.time }}</div>
           </span>
-            <span class="event-date">2024-02-20</span>
+            <span class="event-date">{{ event.start }}</span>
         </div>
-          <!-- <ul>
-              <li *ngFor="let event of events">
-                  <div class="event">
-                      <div class="event-title">{{event.title}}</div>
-                      <div class="event-time
-                      ">{{event.time}}</div> -->
+      </li>
+    </ul>
 </div>
 
   `,
   styleUrl: './dashsessions.component.css'
 })
 export class DashsessionsComponent {
-  //pass events in from the dashboard component
+  @Input() events!: Event[];
+
+  constructor() { }
+
 }
