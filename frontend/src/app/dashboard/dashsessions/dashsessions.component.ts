@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Event } from '../event';
+import { Event } from '../../event';
 
 @Component({
   selector: 'app-dashsessions',
@@ -28,7 +28,4 @@ import { Event } from '../event';
 })
 export class DashsessionsComponent {
   @Input() events!: Event[];
-
-  constructor() { }
-
 }

@@ -2,6 +2,7 @@
     background-color: #f8f9fa;
     padding: 10px;
     height: 60px;
+    position: relative;
     box-shadow: 0 2px 4px 0 #0000001a;
     display: flex;
     font-size: large;

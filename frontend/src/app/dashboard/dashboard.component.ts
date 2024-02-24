@@ -7,7 +7,6 @@ import { Inject } from '@angular/core';
 import { Event } from '../event';
 import { EventsService } from '../events.service';
 
-
 export interface eventData {
   title: string;
   start: Date;
@@ -17,25 +16,30 @@ export interface eventData {
 @Component({
   selector: 'app-dashboard',
   template: `
+  <div class="dashboard">
   <div class="topcomponents">
+    <div class="sessions">
     <app-dashsessions [events]="events"></app-dashsessions>
+    </div>
     <div class="calendar">
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
   </div>
+  <div class="notifications">
+    <app-notifications></app-notifications>
+  </div>
+</div>
   `,
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-
 
   events: Event[] = [];
   eventService: EventsService = inject(EventsService);
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridWeek',
-    plugins: [dayGridPlugin, interactionPlugin],
-    dateClick: this.handleDateClick.bind(this), 
+    plugins: [dayGridPlugin, interactionPlugin], 
     eventClick: (info) => {
       this.openDialog(info.event.title, info.event.start, info.event.id);
     },
@@ -56,10 +60,6 @@ export class DashboardComponent {
       data: {title, start, id},
       position: { top: '7%'},
     });
-  }
-
-  handleDateClick(arg: any) {
-    console.log("clicked!")
   }
 }
 

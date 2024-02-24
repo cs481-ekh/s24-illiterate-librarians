@@ -4,22 +4,19 @@
 }
 
 .frame{
-    width: 50%;
-    /* thin grey border around the component */
     border: 1px solid #e6d7d7;
-    position: absolute;
-    left: 20px;
     padding: 0px;
-    height: 49.8%;
+    overflow: hidden;
+    height: 99.7%;
 }
 
 .title{
     margin-top: 0px;
-    /*move text slightly left*/
     border-bottom: 1px solid #d3d3d3;
-    background-color: rgba(255, 220, 40, .15);
+    background-color: rgba(214, 67, 9, 1);
     height: 50px;
     overflow: hidden;
+    color: white;
 }
 
 h1{

@@ -16,8 +16,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { DashsessionsComponent } from './dashsessions/dashsessions.component';
+import { DashsessionsComponent } from './dashboard/dashsessions/dashsessions.component';
 import { SessionComponent } from './session/session.component';
+import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SessionComponent } from './session/session.component';
     ProfileComponent,
     SessionModal,
     DashsessionsComponent,
-    SessionComponent
+    SessionComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
