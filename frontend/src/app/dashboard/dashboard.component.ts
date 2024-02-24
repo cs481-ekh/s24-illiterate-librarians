@@ -15,11 +15,12 @@ export interface eventData {
 @Component({
   selector: 'app-dashboard',
   template: `
-  <span class="topcomponents">
+  <div class="topcomponents">
+    <app-dashsessions></app-dashsessions>
     <div class="calendar">
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
-  </span>
+  </div>
   `,
   styleUrl: './dashboard.component.css'
 })

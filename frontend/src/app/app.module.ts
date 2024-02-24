@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { DashsessionsComponent } from './dashsessions/dashsessions.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatButtonModule} from '@angular/material/button';
     DashboardComponent,
     LoginComponent,
     ProfileComponent,
-    SessionModal
+    SessionModal,
+    DashsessionsComponent
   ],
   imports: [
     BrowserModule,
