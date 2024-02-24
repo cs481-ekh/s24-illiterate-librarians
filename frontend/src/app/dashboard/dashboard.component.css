@@ -31,3 +31,7 @@
     font-size: 13px;
     background-color: rgba(0, 51, 160, 0.9);
   }
+
+:host::ng-deep .fc-event:hover {
+    background-color: rgba(0, 51, 160, 0.7);
+  }

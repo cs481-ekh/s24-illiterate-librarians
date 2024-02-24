@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { DashsessionsComponent } from './dashsessions/dashsessions.component';
+import { SessionComponent } from './session/session.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DashsessionsComponent } from './dashsessions/dashsessions.component';
     LoginComponent,
     ProfileComponent,
     SessionModal,
-    DashsessionsComponent
+    DashsessionsComponent,
+    SessionComponent
   ],
   imports: [
     BrowserModule,

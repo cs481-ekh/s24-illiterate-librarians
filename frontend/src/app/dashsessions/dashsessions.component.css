@@ -28,7 +28,8 @@ h1{
 }
 
 #events{
-    overflow-y: scroll;
+    overflow: scroll;
+    height: 85%;
 }
 
 .event{
@@ -43,6 +44,10 @@ h1{
     height: 45px;
 }
 
+.event:hover{
+    background-color: rgba(0, 51, 160, 0.7);
+}
+
 .event-title{
     font-size: 20px;
     font-weight: bold;
@@ -50,10 +55,18 @@ h1{
 
 .event-time{
     font-size: 15px;
-    width: 10%;
 }
 
 .event-date{
     font-size: 20px;
     margin-top: 7px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: white;
 }

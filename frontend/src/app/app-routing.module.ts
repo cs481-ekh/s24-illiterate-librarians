@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { SessionComponent } from './session/session.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
     component: LoginComponent,
     title: 'login',
   },
+  {
+    path: 'session',
+    component: SessionComponent,
+    title: 'session',
+  }
 ];
 
 @NgModule({

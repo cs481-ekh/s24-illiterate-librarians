@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { Event } from '../event';
+import { EventsService } from '../events.service';
 
 
 export interface eventData {
@@ -27,6 +28,10 @@ export interface eventData {
 })
 export class DashboardComponent {
 
+
+  events: Event[] = [];
+  eventService: EventsService = inject(EventsService);
+
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridWeek',
     plugins: [dayGridPlugin, interactionPlugin],
@@ -41,6 +46,7 @@ export class DashboardComponent {
   };
 
   constructor(public dialog: MatDialog) {
+    this.events = this.eventService.getEvents();
   }
 
   openDialog(title: string, start: Date | null, id: string) {
@@ -55,27 +61,6 @@ export class DashboardComponent {
   handleDateClick(arg: any) {
     console.log("clicked!")
   }
-
-  events: Event[] = [
-    {
-      title: 'Tutoring',
-      start: new Date('2024-02-20'),
-      id: 'a',
-      time: '10:00'
-    },
-    {
-      title: 'Tutoring',
-      start: new Date('2024-02-21'),
-      id: 'b',
-      time: '11:00'
-    },
-    {
-      title: 'Tutoring',
-      start: new Date('2024-02-22'),
-      id: 'c',
-      time: '12:00'
-    }
-  ]
 }
 
 
