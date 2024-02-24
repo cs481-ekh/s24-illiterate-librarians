@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Users (
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
+     pref_method_comm VARCHAR(10), -- Has to be "C" for call, "T" for text, or "E" for email.
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -106,6 +107,32 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
      app_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      desired_semester_id BINARY(16) NOT NULL,
      -- add in all of the responses that need to be recorded for the app here
+     child_data_consent boolean DEFAULT false,
+     photo_release_consent boolean DEFAULT false,
+     need_financial_assistnace boolean DEFAULT false,
+     -- NOTE: guardian 2 is not required to be filled out
+     guardian2_first VARCHAR(50),
+     guardian2_last VARCHAR(50),
+     guardian2_phone VARCHAR(20),
+     guardian2_email VARCHAR(255),
+
+     emergency_con_name VARCHAR(50) NOT NULL,
+     emergency_con_relation VARCHAR(255) NOT NULL,
+     emergency_con_phone VARCHAR(20) NOT NULL,
+
+     previous_child_participation boolean DEFAULT false,
+     what_semester VARCHAR(50),
+     child_current_school VARCHAR(50) NOT NULL,
+     list_languages_spoken VARCHAR(255) NOT NULL,
+     received_special_ed VARCHAR(511) NOT NULL,
+     list_challenges VARCHAR(511) NOT NULL,
+     how_long_concerned VARCHAR(255) NOT NULL,
+     describe_hopes VARCHAR(511) NOT NULL,
+     child_allergy_meds VARCHAR(255) NOT NULL,
+     misc_info VARCHAR(511),
+     hear_about_litLab VARCHAR(255),
+
+     --
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
      FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
      FOREIGN KEY (desired_semester_id) REFERENCES Semesters(semester_id)
