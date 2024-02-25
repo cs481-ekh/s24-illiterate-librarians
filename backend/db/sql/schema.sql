@@ -111,8 +111,8 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
      photo_release_consent boolean DEFAULT false,
      need_financial_assistnace boolean DEFAULT false,
      -- NOTE: guardian 2 is not required to be filled out
-     guardian2_first VARCHAR(50),
-     guardian2_last VARCHAR(50),
+     guardian2_first_n VARCHAR(50),
+     guardian2_last_n VARCHAR(50),
      guardian2_phone VARCHAR(20),
      guardian2_email VARCHAR(255),
 
