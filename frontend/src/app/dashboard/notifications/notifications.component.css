@@ -1,4 +1,61 @@
 .frame{
     padding: 0px;
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    width: 15%;
+    margin-left: 40px;
+    flex: 1;
+}
+
+.notifications{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    width: 55%;
+    overflow-x: hidden;
+}
+
+.notification{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    min-height: 80px;
+    margin-top: 30px;
+    width: 700px;
+    min-width: 500px;
+    overflow: hidden;
+    justify-content: right;
+}
+
+.notification-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.notification-heading{
+    flex: 1;
+    font-size: 15px;
+    width: 70%;
+    margin-right: 20px;
+}
+
+.notification-time{
+    font-size: 15px;
+}
+
+.notification-content{
+    font-size: 15px;
+    flex: 2;
 }

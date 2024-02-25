@@ -48,11 +48,8 @@
 }
 
 .notifications {
-  margin-top: 20px;
-  padding: 20px;
   background-color: rgba(0, 51, 160, 0.9);
   color: white;
-  display: flex;
   width: 100%;
   height: 400px;
 }
