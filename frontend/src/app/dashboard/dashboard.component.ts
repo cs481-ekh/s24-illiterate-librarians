@@ -16,6 +16,9 @@ export interface eventData {
 @Component({
   selector: 'app-dashboard',
   template: `
+  <div class="notifications">
+    <app-notifications></app-notifications>
+  </div>
   <div class="dashboard">
   <div class="topcomponents">
     <div class="sessions">
@@ -25,9 +28,7 @@ export interface eventData {
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
   </div>
-  <div class="notifications">
-    <app-notifications></app-notifications>
-  </div>
+  
 </div>
   `,
   styleUrl: './dashboard.component.css'
