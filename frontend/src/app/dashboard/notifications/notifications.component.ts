@@ -44,7 +44,9 @@ import {
         </p>
       </div>
       <div class = "prev-button">
-        <button class="prev" (click)="prevNotification()">Previous</button>
+        <button mat-raised-button	class="arrow" color="primary" (click)="prevNotification()"> <span class="material-symbols-outlined">
+arrow_back
+</span></button>
       </div>
       <div class="notifications">
         <!-- trigger for animation goes here -->
@@ -130,7 +132,9 @@ import {
         </div>
       </div>
       <div class="next-button">
-        <button class="next" (click)="nextNotification()">Next</button>
+      <button mat-raised-button	class="arrow" color="primary" id="arrowright"(click)="nextNotification()"> <span class="material-symbols-outlined">
+arrow_forward
+</span></button>
       </div>
     </div>
   `,

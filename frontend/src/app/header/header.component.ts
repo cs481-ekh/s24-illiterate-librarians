@@ -47,10 +47,10 @@ import { HostListener } from '@angular/core';
       </a>
       <div id="links">
         <a [routerLink]="['/']"><div class="option">Home</div></a>
-        <a [routerLink]="['/dashboard']"><div class="option">Dashboard</div></a>
-        <a [routerLink]="['/profile']"><div class="option">Profile</div></a>
-        <a [routerLink]="['/login']"
-          ><div class="option" id="login">Login or Register</div></a
+        <a [routerLink]="['/dashboard']" routerLinkActive="active"><div class="option" id="dashopt" routerLinkActive="router-link-active">Dashboard</div></a>
+        <a [routerLink]="['/profile']"><div class="option" routerLinkActive="router-link-active">Profile</div></a>
+        <a [routerLink]="['/login']" routerLinkActive="active"
+          ><div class="option" id="login" routerLinkActive="router-link-active">Login or Register</div></a
         >
       </div>
     </header>

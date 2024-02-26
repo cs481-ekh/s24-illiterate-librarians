@@ -115,3 +115,9 @@ a:visited {
     z-index: 1;
     right: 0;
 }
+
+.option.router-link-active::after
+{
+    opacity: 1;
+
+}

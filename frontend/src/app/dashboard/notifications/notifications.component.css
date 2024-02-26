@@ -24,7 +24,7 @@
 .offset {
     display: flex;
     flex-direction: row;
-    margin-left: -750px;
+    margin-left: -748px;
     position: absolute; 
 }
 
@@ -40,7 +40,6 @@
     min-height: 80px;
     margin-top: 20px;
     width: 700px;
-    min-width: 700px;
     overflow: hidden;
     justify-content: right;
 }
@@ -65,3 +64,27 @@
     font-size: 15px;
     flex: 2;
 }
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+
+  .arrow{
+    margin-top: 45px;
+    font-size: 30px;
+    cursor: pointer;
+    /* disable button styling */
+    background: none;
+    border: none;
+    color: #D64309;
+    width: 50px;
+    max-width: 50px;
+  }
+
+  #arrowright{
+    margin-right: 20px;
+  }
