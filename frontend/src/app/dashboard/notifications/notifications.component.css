@@ -8,6 +8,7 @@
 }
 
 .title {
+    margin-top: 60px;
     width: 15%;
     margin-left: 40px;
     overflow: scroll;
@@ -15,6 +16,7 @@
 }
 
 .notifications {
+    margin-top: 60px;
     height: 100%;
     overflow-y: visible;
     width: 730px;
@@ -72,7 +74,7 @@
   }
 
   .arrow{
-    margin-top: 45px;
+    margin-top: 105px;
     font-size: 30px;
     cursor: pointer;
     /* disable button styling */
