@@ -10,6 +10,7 @@
 .title {
     width: 15%;
     margin-left: 40px;
+    overflow: scroll;
     flex: 1;
 }
 
@@ -36,11 +37,8 @@
     color: white;
     display: flex;
     flex-direction: row;
-    height: 80px;
-    min-height: 80px;
     margin-top: 20px;
     width: 700px;
-    overflow: hidden;
     justify-content: right;
 }
 

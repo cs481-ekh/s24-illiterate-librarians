@@ -52,7 +52,7 @@ arrow_back
         <!-- trigger for animation goes here -->
         <div
           class="offset"
-          [@slide]="triggerAnimation ? (direction === 'prev' ? 'left' : 'right') : 'in'"
+          [@slide]="triggerAnimation ? (direction === 'next' ? 'left' : 'right') : 'in'"
         >
           <div class="notification">
             <span class="notification-heading">
@@ -188,8 +188,8 @@ export class NotificationsComponent {
     },
   ];
 
-  nextNotification() {
-    this.direction = 'next';
+  prevNotification() {
+    this.direction = 'prev';
     this.triggerAnimation = true;
     setTimeout(() => {
       this.currentNotification =
@@ -199,8 +199,8 @@ export class NotificationsComponent {
     }, 300);
   }
 
-  prevNotification() {
-    this.direction = 'prev';
+  nextNotification() {
+    this.direction = 'next';
     this.triggerAnimation = true;
     setTimeout(() => {
       this.currentNotification =
