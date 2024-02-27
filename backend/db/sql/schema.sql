@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
      -- add in all of the responses that need to be recorded for the app here
      child_data_consent boolean DEFAULT false,
      photo_release_consent boolean DEFAULT false,
-     need_financial_assistnace boolean DEFAULT false,
+     need_financial_assistance boolean DEFAULT false,
      -- NOTE: guardian 2 is not required to be filled out
      guardian2_first_n VARCHAR(50),
      guardian2_last_n VARCHAR(50),
