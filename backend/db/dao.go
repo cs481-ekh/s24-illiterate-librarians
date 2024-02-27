@@ -10,8 +10,8 @@ import (
 	"os"
 )
 
-func connectDB() *gorm.DB {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+func ConnectDB() *gorm.DB {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		os.Getenv("Literacy_Link_DB_USERNAME"),
 		os.Getenv("Literacy_Link_DB_PASSWORD"),
 		os.Getenv("Literacy_Link_DB_HOST"),
@@ -24,10 +24,11 @@ func connectDB() *gorm.DB {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+	log.Println("Connected to DB!")
 	return db
 }
 
-func disconnectDB(db *gorm.DB) {
+func DisconnectDB(db *gorm.DB) {
 	if db != nil {
 		sqlDB, err := db.DB()
 		if err != nil {
@@ -43,11 +44,9 @@ func disconnectDB(db *gorm.DB) {
 	}
 }
 
-func login(request model.LoginRequest) (model.User, error) {
-	db := connectDB()
+func Login(request model.LoginRequest, db *gorm.DB) (model.User, error) {
 	var user model.User
-	result := db.Where("username = ? AND password = ?", request.Username, request.Password).First(user)
-	disconnectDB(db)
+	result := db.Where("username = ? AND password_hash = ?", request.Username, request.Password).First(&user)
 	if result.Error != nil {
 		return user, errors.New("Invalid username or password")
 	}

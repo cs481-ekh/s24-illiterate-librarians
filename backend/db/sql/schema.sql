@@ -7,10 +7,10 @@ USE literacy_link_db;
 
 CREATE TABLE IF NOT EXISTS Users (
      user_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     username VARCHAR(255) NOT NULL,
+     username VARCHAR(255) NOT NULL UNIQUE,
      password_hash VARCHAR(255) NOT NULL,
-     email VARCHAR(255) NOT NULL,
-     phone_number VARCHAR(20),
+     email VARCHAR(255) NOT NULL UNIQUE,
+     phone_number VARCHAR(20) NULL UNIQUE,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
