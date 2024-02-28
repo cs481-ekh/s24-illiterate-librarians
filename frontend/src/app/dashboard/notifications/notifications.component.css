@@ -39,6 +39,7 @@
     color: white;
     display: flex;
     flex-direction: row;
+    height: 80px;
     margin-top: 20px;
     width: 700px;
     justify-content: right;
