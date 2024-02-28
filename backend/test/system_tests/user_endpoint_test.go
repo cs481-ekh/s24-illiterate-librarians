@@ -8,6 +8,10 @@ import (
 	"testing"
 
 	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/auth"
+	"LiteracyLink.com/backend/test/testInit"
+
+	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/test/testInit"
 	"github.com/google/uuid"
 )
@@ -21,14 +25,19 @@ func TestUserEndpointTest(t *testing.T) {
 
 	// Create a User object
 	user := model.User{
-		UserId:            userID.String(),
-		UserType:          model.Client,
-		FirstName:         "John",
-		LastName:          "Doe",
-		Email:             "john.doe@example.com",
-		Address:           "123 Main Street",
-		PhoneNumber:       "+1234567890",
-		PrefContactMethod: "email",
+		UserID:         userID,
+		Username:       "John_Doe",
+		PasswordHash:   "Hashed_Password",
+		FirstName:      "John",
+		LastName:       "Doe",
+		Email:          "john.doe@example.com",
+		MailingAddress: "123 Main Street",
+		PhoneNumber:    "+1234567890",
+	}
+
+	token, err := auth.GenerateJWT(userID)
+	if err != nil {
+		t.Errorf("Failed to generate JWT token for testing")
 	}
 
 	// Create a payload map
@@ -36,15 +45,19 @@ func TestUserEndpointTest(t *testing.T) {
 		"user": user,
 	}
 
+	header := map[string]interface{}{
+		"Authorization": token,
+	}
+
 	// Define test cases
 	testCases := []testInit.TestCase{
 		{Method: "POST", Endpoint: "/user/create", Payload: payload, ExpectedStatus: http.StatusCreated},
 		{Method: "GET", Endpoint: "/user/login", ExpectedStatus: http.StatusOK},
-		{Method: "GET", Endpoint: "/user/lookup", Payload: nil, ExpectedStatus: http.StatusOK},
-		{Method: "GET", Endpoint: "/user/lookup/123", Payload: nil, ExpectedStatus: http.StatusOK},
-		{Method: "PUT", Endpoint: "/user/update/123", ExpectedStatus: http.StatusAccepted},
-		{Method: "PUT", Endpoint: "/user/update/password/123", ExpectedStatus: http.StatusAccepted},
-		{Method: "DELETE", Endpoint: "/user/delete/123", Payload: nil, ExpectedStatus: http.StatusOK},
+		{Method: "GET", Endpoint: "/user/lookup", Headers: header, ExpectedStatus: http.StatusOK},
+		{Method: "GET", Endpoint: "/user/lookup/123", Headers: header, ExpectedStatus: http.StatusOK},
+		{Method: "PUT", Endpoint: "/user/update/123", Headers: header, ExpectedStatus: http.StatusAccepted},
+		{Method: "PUT", Endpoint: "/user/update/password/123", Headers: header, ExpectedStatus: http.StatusAccepted},
+		{Method: "DELETE", Endpoint: "/user/delete/123", Headers: header, ExpectedStatus: http.StatusOK},
 	}
 
 	// Iterate through test cases
@@ -61,6 +74,9 @@ func TestUserEndpointTest(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Failed to create request: %v", err)
 			}
+
+			// Set headers
+			req.Header.Set("Authorization", token)
 
 			// Create a response recorder
 			rec := httptest.NewRecorder()

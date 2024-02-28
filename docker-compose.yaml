@@ -23,7 +23,7 @@ services:
       MYSQL_USER: "${Literacy_Link_DB_USERNAME}"
       MYSQL_PASSWORD: "${Literacy_Link_DB_PASSWORD}"
     ports:
-      - "3306:3306"
+      - ${Literacy_Link_DB_PORT}:${Literacy_Link_DB_PORT}
     networks:
       - literacy-link
 

@@ -1,9 +1,11 @@
 package system_tests
 
 import (
+	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
+	"github.com/google/uuid"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,7 +14,11 @@ import (
 func TestSessionEndpointTest(t *testing.T) {
 	// Create a router from your main application
 	router := testInit.InitRouterFunction()
-
+	userID := uuid.New()
+	token, err := auth.GenerateJWT(userID)
+	if err != nil {
+		t.Errorf("Failed to generate JWT token for testing")
+	}
 	// Define test cases
 	var sessionTestCases = []testInit.TestCase{
 		{Method: "GET", Endpoint: "/session/client/123", Payload: nil, ExpectedStatus: http.StatusOK},
@@ -37,7 +43,7 @@ func TestSessionEndpointTest(t *testing.T) {
 
 			// Create a response recorder
 			rec := httptest.NewRecorder()
-
+			req.Header.Set("Authorization", token)
 			// Serve the request using the main application's router
 			router.ServeHTTP(rec, req)
 

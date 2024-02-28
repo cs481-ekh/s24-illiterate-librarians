@@ -7,13 +7,14 @@ USE literacy_link_db;
 
 CREATE TABLE IF NOT EXISTS Users (
      user_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     username VARCHAR(255) NOT NULL,
+     username VARCHAR(255) NOT NULL UNIQUE,
      password_hash VARCHAR(255) NOT NULL,
-     email VARCHAR(255) NOT NULL,
-     phone_number VARCHAR(20),
+     email VARCHAR(255) NOT NULL UNIQUE,
+     phone_number VARCHAR(20) NULL UNIQUE,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
+     pref_method_comm VARCHAR(10), -- Has to be "C" for call, "T" for text, or "E" for email.
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -64,7 +65,8 @@ CREATE TABLE IF NOT EXISTS Semesters (
      last_school_day DATE NOT NULL,
      first_tutor_day DATE NOT NULL,
      last_tutor_day DATE NOT NULL,
-     monday_of_break DATE NOT NULL
+     tuesday_of_break DATE NOT NULL,
+     thursday_of_break DATE NOT NULL
 );
 
 
@@ -85,6 +87,7 @@ CREATE TABLE IF NOT EXISTS Semester_tutoring_obj (
      semester_tutoring_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
      child_id BINARY(16) NOT NULL,
      parent_id BINARY(16) NOT NULL,
+     application_approved boolean DEFAULT false,
      EOS_parent_survey_complete boolean DEFAULT false,
      survey_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      EOS_parent_survey_id BINARY(16),
@@ -104,6 +107,32 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
      app_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      desired_semester_id BINARY(16) NOT NULL,
      -- add in all of the responses that need to be recorded for the app here
+     child_data_consent boolean DEFAULT false,
+     photo_release_consent boolean DEFAULT false,
+     need_financial_assistance boolean DEFAULT false,
+     -- NOTE: guardian 2 is not required to be filled out
+     guardian2_first_n VARCHAR(50),
+     guardian2_last_n VARCHAR(50),
+     guardian2_phone VARCHAR(20),
+     guardian2_email VARCHAR(255),
+
+     emergency_con_name VARCHAR(50) NOT NULL,
+     emergency_con_relation VARCHAR(255) NOT NULL,
+     emergency_con_phone VARCHAR(20) NOT NULL,
+
+     previous_child_participation boolean DEFAULT false,
+     what_semester VARCHAR(50),
+     child_current_school VARCHAR(50) NOT NULL,
+     list_languages_spoken VARCHAR(255) NOT NULL,
+     received_special_ed VARCHAR(511) NOT NULL,
+     list_challenges VARCHAR(511) NOT NULL,
+     how_long_concerned VARCHAR(255) NOT NULL,
+     describe_hopes VARCHAR(511) NOT NULL,
+     child_allergy_meds VARCHAR(255) NOT NULL,
+     misc_info VARCHAR(511),
+     hear_about_litLab VARCHAR(255),
+
+     --
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
      FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
      FOREIGN KEY (desired_semester_id) REFERENCES Semesters(semester_id)
@@ -119,6 +148,7 @@ CREATE TABLE IF NOT EXISTS Tutor_session (
      zoom_join_link VARCHAR(512),
      zoom_recording_link VARCHAR(512),
      meeting_date DATETIME NOT NULL,
+     parent_avail boolean DEFAULT true,
      tutor_id BINARY(16) NOT NULL,
      semester_id BINARY(16) NOT NULL,
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
