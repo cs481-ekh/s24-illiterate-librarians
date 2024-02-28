@@ -1,0 +1,69 @@
+.title{
+    margin-top: 0px;
+    text-align: right;
+}
+
+.frame{
+    border: 1px solid #e6d7d7;
+    padding: 0px;
+    overflow: hidden;
+    height: 99.7%;
+}
+
+.title{
+    margin-top: 0px;
+    border-bottom: 1px solid #d3d3d3;
+    background-color: rgba(214, 67, 9, 1);
+    height: 50px;
+    overflow: hidden;
+    color: white;
+}
+
+h1{
+    margin-top: 2px;
+    margin-right: 10px;
+}
+
+#events{
+    overflow: scroll;
+    height: 85%;
+}
+
+.event{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #d3d3d3;
+    background-color: rgba(0, 51, 160, 0.9);
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 45px;
+}
+
+.event:hover{
+    background-color: rgba(0, 51, 160, 0.7);
+}
+
+.event-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.event-time{
+    font-size: 15px;
+}
+
+.event-date{
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
