@@ -8,6 +8,7 @@
 .idea/
 *.iml
 .vscode/
+.env
 
 # Compiled Object files, Static and Dynamic libs (Go)
 *.o

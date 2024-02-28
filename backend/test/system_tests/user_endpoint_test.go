@@ -1,14 +1,15 @@
 package system_tests
 
 import (
-	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
-	"github.com/google/uuid"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/test/testInit"
+	"github.com/google/uuid"
 )
 
 func TestUserEndpointTest(t *testing.T) {
