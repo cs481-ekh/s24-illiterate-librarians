@@ -14,6 +14,7 @@ type User struct {
 	FirstName      string    `gorm:"type:VARCHAR(50);NOT NULL" json:"first_name"`
 	LastName       string    `gorm:"type:VARCHAR(50);NOT NULL" json:"last_name"`
 	MailingAddress string    `gorm:"type:VARCHAR(255)" json:"mailing_address"`
+	PrefMethodComm string    `gorm:"type:VARCHAR(255)" json:"pref_method_comm"`
 	CreatedAt      time.Time `gorm:"type:TIMESTAMP;DEFAULT:CURRENT_TIMESTAMP;NOT NULL" json:"created_at"`
 }
 

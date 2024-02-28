@@ -2,7 +2,6 @@ package db
 
 import (
 	"LiteracyLink.com/backend/api/model"
-	"errors"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -48,9 +47,19 @@ func Login(request model.LoginRequest, db *gorm.DB) (model.User, error) {
 	var user model.User
 	result := db.Where("username = ? AND password_hash = ?", request.Username, request.Password).First(&user)
 	if result.Error != nil {
-		return user, errors.New("Invalid username or password")
+		return user, result.Error
 	}
 	return user, nil
+}
+
+func CreateUser(request model.User, db *gorm.DB) error {
+	result := db.Create(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }
 
 // func SubmitApp(request model.Application, db *gorm.DB) (model.Application, error) {

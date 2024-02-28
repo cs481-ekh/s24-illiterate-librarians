@@ -5,6 +5,7 @@ import (
 	"LiteracyLink.com/backend/api/handlers/session"
 	"LiteracyLink.com/backend/api/handlers/survey"
 	"LiteracyLink.com/backend/api/handlers/user"
+	"LiteracyLink.com/backend/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,29 +19,36 @@ func SetupRoutes(router *gin.Engine) {
 
 	userRoutes := router.Group("/user")
 	{
-		// POST /user/create
+		// POST /user/create (no JWT required)
 		userRoutes.POST("/create", user.CreateUserHandler)
 
-		// GET /user/login
+		// GET /user/login (no JWT required)
 		userRoutes.GET("/login", user.LoginHandler)
 
-		// GET /user/lookup
-		userRoutes.GET("/lookup", user.LookupAllUsersHandler)
+		// ... other user route definitions ...
 
-		// GET /user/lookup/:user_id
-		userRoutes.GET("/lookup/:userId", user.LookupUserHandler)
+		// Protected routes (require JWT)
+		protectedRoutes := userRoutes.Group("")
+		protectedRoutes.Use(middleware.AuthMiddleware())
+		{
+			// GET /user/lookup
+			protectedRoutes.GET("/lookup", user.LookupAllUsersHandler)
 
-		// PUT /user/update/:user_id
-		userRoutes.PUT("/update/:userId", user.UpdateUserHandler)
+			// GET /user/lookup/:user_id
+			protectedRoutes.GET("/lookup/:userId", user.LookupUserHandler)
 
-		// PUT /user/update/password/:user_id
-		userRoutes.PUT("/update/password/:userId", user.UpdatePasswordHandler)
+			// PUT /user/update/:user_id
+			protectedRoutes.PUT("/update/:userId", user.UpdateUserHandler)
 
-		// DELETE /user/delete/:user_id
-		userRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
+			// PUT /user/update/password/:user_id
+			protectedRoutes.PUT("/update/password/:userId", user.UpdatePasswordHandler)
+
+			// DELETE /user/delete/:user_id
+			protectedRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
+		}
 	}
-
 	surveyRoutes := router.Group("/survey")
+	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
 		// POST /survey/pre_semester_survey/:user_id
 		surveyRoutes.POST("/pre_semester_survey/:userId", survey.PostPreSemesterSurveyHandler)
@@ -62,6 +70,7 @@ func SetupRoutes(router *gin.Engine) {
 	}
 
 	sessionRoutes := router.Group("/session")
+	sessionRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET /session/client/:user_id
 		sessionRoutes.GET("/client/:userId", session.GetClientSessionsHandler)
