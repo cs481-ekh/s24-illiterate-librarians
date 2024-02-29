@@ -44,5 +44,9 @@ type Application struct {
 	MiscInfo                    string    `gorm:"type:VARCHAR(50)" json:"misc_info"`
 	HearAboutLitLab            string    `gorm:"type:VARCHAR(50)" json:"hear_about_litLab"`
 
+	// Define a field to represent the relationship with the Parent model
+	Child           Child           `gorm:"foreignKey:ChildID"`
+	Parent          Parent          `gorm:"foreignKey:ParentID"`
+
 	
 }
