@@ -2,6 +2,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <div class="profile-container">
+    <div class="header-gradient">
+    </div>
     <div class="content">
         <div class="nav">
             <a href="#" class="item">
@@ -20,21 +22,25 @@
         <div class="info">
             <h1>Profile</h1>
             <form action="#" method="post">
-                <div class="field">
-                    <label for="firstName">First Name:</label><br>
-                    <input type="text" id="firstName" name="firstName" required><br><br>
+                <div class="group">
+                    <div class="field">
+                        <label for="firstName">First Name</label><br>
+                        <input type="text" id="firstName" name="firstName" required><br><br>
+                    </div>
+                    <div class="field">
+                        <label for="lastName">Last Name</label><br>
+                        <input type="text" id="lastName" name="lastName" required><br><br>
+                    </div>
                 </div>
-
-                <div class="field">
-                    <label for="lastName">Last Name:</label><br>
-                    <input type="text" id="lastName" name="lastName" required><br><br>
+                <div class="group">
+                    <div class="field">
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" name="email" required><br><br>
+                    </div>
                 </div>
-
-                <div class="field">
-                    <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" required><br><br>
+                <div class="group">
+                    <input type="submit" value="Save">
                 </div>
-                <input type="submit" value="Save">
             </form>
         </div>
     </div>
