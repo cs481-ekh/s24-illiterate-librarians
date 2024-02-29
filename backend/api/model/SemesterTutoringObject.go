@@ -3,17 +3,17 @@ package model
 import "time"
 
 type SemesterTutoringObj struct {
-	SemesterTutoringID      []byte    `gorm:"type:BINARY(16);default:UUID_TO_BIN(UUID(), 1);primaryKey"`
-	ChildID                 []byte    `gorm:"type:BINARY(16);not null"`
-	ParentID                []byte    `gorm:"type:BINARY(16);not null"`
-	ApplicationApproved     bool      `gorm:"default:false"`
-	EOSParentSurveyComplete bool      `gorm:"default:false"`
-	SurveyCompleteDate      time.Time `gorm:"type:TIMESTAMP;default:CURRENT_TIMESTAMP"`
-	EOSParentSurveyID       []byte    // Foreign key
+	SemesterTutoringID      []byte    `gorm:"type:BINARY(16);default:UUID_TO_BIN(UUID(), 1);primaryKey" json:"semester_tutoring_id"`
+	ChildID                 []byte    `gorm:"type:BINARY(16);not null" json:"child_id"`
+	ParentID                []byte    `gorm:"type:BINARY(16);not null" json:"parent_id"`
+	ApplicationApproved     bool      `gorm:"default:false" json:"application_approved"`
+	EOSParentSurveyComplete bool      `gorm:"default:false" json:"EOS_parent_survey_complete"`
+	SurveyCompleteDate      time.Time `gorm:"type:TIMESTAMP;default:CURRENT_TIMESTAMP" json:"survey_complete_date"`
+	EOSParentSurveyID       []byte    `gorm:"type:BINARY(16);not null" json:"EOS_parent_survey_id"`
 
-	EOSReportPosted   bool   `gorm:"default:false"`
-	EOSReportFilePath string `gorm:"type:VARCHAR(127)"`
-	SemesterID        []byte `gorm:"type:BINARY(16);not null"`
+	EOSReportPosted   bool   `gorm:"default:false" json:"EOS_report_posted"`
+	EOSReportFilePath string `gorm:"type:VARCHAR(127)" json:"EOS_report_file_path"`
+	SemesterID        []byte `gorm:"type:BINARY(16);not null" json:"semester_id"`
 
 	// Define fields for relationships with other tables
 	Child           Child           `gorm:"foreignKey:ChildID"`

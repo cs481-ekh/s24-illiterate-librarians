@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS Admins (
 
 CREATE TABLE IF NOT EXISTS Child (
      child_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     user_id BINARY(16) NOT NULL,
      parent_id BINARY(16) NOT NULL,
      birth_date DATE,
      grade TINYINT NOT NULL,
