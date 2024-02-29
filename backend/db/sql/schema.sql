@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Users (
      username VARCHAR(255) NOT NULL UNIQUE,
      password_hash VARCHAR(255) NOT NULL,
      email VARCHAR(255) NOT NULL UNIQUE,
-     phone_number VARCHAR(20) NULL UNIQUE,
+     phone_number VARCHAR(20) NOT NULL UNIQUE,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
@@ -45,9 +45,8 @@ CREATE TABLE IF NOT EXISTS Admins (
 
 CREATE TABLE IF NOT EXISTS Child (
      child_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     user_id BINARY(16) NOT NULL,
      parent_id BINARY(16) NOT NULL,
-     birth_date DATE,
+     birth_date DATE NOT NULL,
      grade TINYINT NOT NULL,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
