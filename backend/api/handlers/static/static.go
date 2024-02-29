@@ -7,5 +7,5 @@ import (
 
 // StaticHandler handles the static content of the site
 func StaticHandler(c *gin.Context) {
-	c.File("/static/index.html")
+	c.File("/client/index.html")
 }

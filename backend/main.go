@@ -8,7 +8,7 @@ import (
 func main() {
 	// Initialize Gin router
 	router := gin.Default()
-	// Set up routes
+	// Set up the routes for the application
 	routes.SetupRoutes(router)
 	// Start the server
 	router.Run(":8080")

@@ -18,9 +18,9 @@ func SetupRoutes(router *gin.Engine) {
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
 
-	staticRoutes := router.Group("/static")
+	staticRoutes := router.Group("/client")
 	{
-		// GET /static
+		// serve the static content of the site
 		staticRoutes.GET("", static.StaticHandler)
 	}
 
@@ -89,5 +89,4 @@ func SetupRoutes(router *gin.Engine) {
 		sessionRoutes.GET("/:sessionId", session.GetSessionByIdHandler)
 	}
 
-	// Add more route groups or individual routes as needed
 }
