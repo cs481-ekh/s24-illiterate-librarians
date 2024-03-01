@@ -3,7 +3,6 @@ package routes
 import (
 	"LiteracyLink.com/backend/api/handlers/health"
 	"LiteracyLink.com/backend/api/handlers/session"
-	"LiteracyLink.com/backend/api/handlers/static"
 	"LiteracyLink.com/backend/api/handlers/survey"
 	"LiteracyLink.com/backend/api/handlers/user"
 	"LiteracyLink.com/backend/middleware"
@@ -18,11 +17,11 @@ func SetupRoutes(router *gin.Engine) {
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
 
-	staticRoutes := router.Group("/client")
-	{
-		// serve the static content of the site
-		staticRoutes.GET("", static.StaticHandler)
-	}
+	//staticRoutes := router.Group("/client")
+	//{
+	//	// serve the static content of the site
+	//	staticRoutes.GET("", static.StaticHandler)
+	//}
 
 	userRoutes := router.Group("/user")
 	{

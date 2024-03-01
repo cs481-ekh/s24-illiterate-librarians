@@ -25,7 +25,7 @@ WORKDIR /backend
 # Copy the current directory contents into the container at /backend
 COPY /backend /backend
 
-COPY --from=build /app/dist/frontend/browser ./client
+COPY --from=build /app/dist/frontend/browser .
 
 RUN go get
 # Build the Go app
