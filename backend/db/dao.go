@@ -62,12 +62,13 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
-// func SubmitApp(request model.Application, db *gorm.DB) (model.Application, error) {
-// 	var app model.Application
-// 	//Not 100% sure on what the below line should look like when trying to create a entry in the table vs a query of the table
-// 	//result := db.Where("child_id = ? AND parent_id = ?", request.Username, request.Password).First(&user)
-// 	if result.Error != nil {
-// 		return app, errors.New("Invalid application submission")
-// 	}
-// 	return app, nil
-// }
+func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
+	//Not 100% sure on what the below line should look like when trying to create a entry in the table vs a query of the table
+	result := db.Create(request)
+	
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
