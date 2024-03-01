@@ -14,9 +14,16 @@ services:
     environment:
       - GIN_MODE=release
       - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key}
+      - Literacy_Link_DB_ROOT_PASSWORD= ${Literacy_Link_DB_ROOT_PASSWORD}
+      - Literacy_Link_DB_NAME=${Literacy_Link_DB_NAME}
+      - Literacy_Link_DB_USERNAME=${Literacy_Link_DB_USERNAME}
+      - Literacy_Link_DB_PASSWORD=${Literacy_Link_DB_PASSWORD}
+      - Literacy_Link_DB_HOST="${Literacy_Link_DB_HOST}"
+      - Literacy_Link_DB_PORT=${Literacy_Link_DB_PORT}
 
   mysql:
     image: mysql:latest
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${Literacy_Link_DB_NAME}"
