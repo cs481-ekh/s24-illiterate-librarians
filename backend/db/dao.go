@@ -85,3 +85,14 @@ func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, e
 	return app, nil
 }
 
+
+func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.TutoringApplication, error) {
+	//Not 100% sure on the below 
+	var ses model.TutoringApplication
+	result := db.Where("tutor_session_id = ?", request.TutorSessionID).First(&ses)
+	if result.Error != nil {
+		return ses, result.Error
+	}
+	return ses, nil
+}
+
