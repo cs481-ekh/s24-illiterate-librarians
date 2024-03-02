@@ -1,12 +1,13 @@
 package db
 
 import (
-	"LiteracyLink.com/backend/api/model"
 	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"os"
+
+	"LiteracyLink.com/backend/api/model"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func ConnectDB() *gorm.DB {
@@ -63,7 +64,7 @@ func CreateUser(request model.User, db *gorm.DB) error {
 }
 
 func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
-	//Not 100% sure on what the below line should look like when trying to create a entry in the table vs a query of the table
+	//Not 100% sure on the below 
 	result := db.Create(request)
 	
 	if result.Error != nil {
@@ -72,3 +73,15 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
 
 	return nil
 }
+
+
+func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
+	//Not 100% sure on the below 
+	var app model.TutoringApplication
+	result := db.Where("parent_id = ? AND child_id = ? AND desired_semester_id = ?", request.Parent, request.Child, request.Semester).First(&app)
+	if result.Error != nil {
+		return app, result.Error
+	}
+	return app, nil
+}
+
