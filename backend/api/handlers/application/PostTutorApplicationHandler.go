@@ -6,6 +6,9 @@ import (
 	"net/http"
 )
 
+
+//Is a post handler even doing anything if the new application is being sent from the dao function?
+
 func PostTutorApplicationHandler(c *gin.Context) {
 	userId := c.Param("user_id")
 	c.JSON(http.StatusAccepted, gin.H{
