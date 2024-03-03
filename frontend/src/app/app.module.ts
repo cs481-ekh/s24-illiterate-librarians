@@ -20,6 +20,7 @@ import { DashsessionsComponent } from './dashboard/dashsessions/dashsessions.com
 import { SessionComponent } from './session/session.component';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -51,7 +51,6 @@
 
 .input{
     width: 80%;
-    margin-bottom: 20px;
     margin-left: 10%;
 }
 
@@ -63,4 +62,14 @@
     justify-content: center;
     align-items: center;
     justify-content: space-between;
+}
+
+.error-message{
+    color: red;
+    margin-bottom: 20px;
+    margin-left: 10%;
+}
+
+form{
+    width: 100%;
 }

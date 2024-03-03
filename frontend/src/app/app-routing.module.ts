@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    title: 'login',
+    title: 'Login',
   },
   {
     path: 'session',
