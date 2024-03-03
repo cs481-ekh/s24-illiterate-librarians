@@ -9,6 +9,7 @@ import (
 	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 func GetClientSessionsHandler(c *gin.Context) {
@@ -31,7 +32,7 @@ func GetClientSessionsHandler(c *gin.Context) {
 	dbc := c.MustGet("db").(*gorm.DB)
 	ses, err := db.GetClientSession(request, dbc)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {  //not sure why the gorm keyword is complaining...
+		if errors.Is(err, gorm.ErrRecordNotFound) {  
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
 				"message": fmt.Sprintf("no application exists"),
