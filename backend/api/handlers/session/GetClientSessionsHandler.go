@@ -46,7 +46,6 @@ func GetClientSessionsHandler(c *gin.Context) {
 		}
 	}
 
-	//idk why ses.TutorSessionID is complainning either... I'll try to figure it out...
 	err = ((string(ses.TutorSessionID) != request.TutorSessionID) )
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -55,7 +54,7 @@ func GetClientSessionsHandler(c *gin.Context) {
 		})
 	}
 
-	jwt, err := auth.GenerateJWT(ses.AppForTutId)
+	jwt, err := auth.GenerateJWT(ses.TutorSessionID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
@@ -67,6 +66,6 @@ func GetClientSessionsHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "success",
 		"token":   jwt,
-		"message": fmt.Sprintf("TODO: make func to get application for: %s on behalf of: %s during: %s", request.Parent, request.Child, request.Semester),
+		"message": fmt.Sprintf("TODO: make func to get session: %s", request.TutorSessionID),
 	})
 }
