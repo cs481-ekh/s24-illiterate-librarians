@@ -97,8 +97,6 @@ func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.Tu
 }
 
 
-
-
 func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {
 	//Not 100% sure on the below 
 	var EOS model.EOSParentSurvey
