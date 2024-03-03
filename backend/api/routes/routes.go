@@ -1,6 +1,10 @@
 package routes
 
 import (
+	"net/http"
+	"os"
+	"path/filepath"
+
 	"LiteracyLink.com/backend/api/handlers/health"
 	"LiteracyLink.com/backend/api/handlers/session"
 	"LiteracyLink.com/backend/api/handlers/survey"
@@ -9,6 +13,42 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func ServeStatic(router *gin.Engine) {
+
+	router.Use(func(c *gin.Context) {
+		if c.Request.Method != "GET" && c.Request.Method != "HEAD" {
+			c.Next()
+			return
+		}
+
+		staticDir := "../frontend/dist/frontend/browser"
+		filePath := filepath.Join(staticDir, c.Request.URL.Path)
+
+		// Check if a file exists at the requested path
+		if _, err := os.Stat(filePath); err == nil {
+			c.File(filePath)
+			return
+		}
+
+		// If the file doesn't exist, continue to the next handler
+		c.Next()
+	})
+
+	// If no file is found, serve the index.html file
+	router.NoRoute(func(c *gin.Context) {
+		dir := "../frontend/dist/frontend/browser"
+		file := "index.html"
+
+		// Check if the file exists in the static dir
+		if _, err := os.Stat(filepath.Join(dir, file)); err == nil {
+			// If it exists, serve the file
+			c.File(filepath.Join(dir, file))
+			return
+		}
+		c.JSON(http.StatusNotFound, gin.H{"message": "Not found"})
+	})
+}
+
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
 
@@ -16,12 +56,6 @@ func SetupRoutes(router *gin.Engine) {
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
-
-	//staticRoutes := router.Group("/client")
-	//{
-	//	// serve the static content of the site
-	//	staticRoutes.GET("", static.StaticHandler)
-	//}
 
 	userRoutes := router.Group("/user")
 	{

@@ -1,19 +1,22 @@
 package main
 
 import (
-	"LiteracyLink.com/backend/api/routes"
 	"github.com/gin-gonic/gin"
-	"path/filepath"
+
+	"LiteracyLink.com/backend/api/routes"
 )
 
 func main() {
 	// Initialize Gin router
 	router := gin.Default()
+
+	// Serve API Routes using serve routes
+
 	// Set up the routes for the application
+
 	routes.SetupRoutes(router)
-	router.NoRoute(func(c *gin.Context) {
-		c.File(filepath.Join(".", "index.html"))
-	})
+	routes.ServeStatic(router)
+
 	// Start the server
 	router.Run(":8080")
 }
