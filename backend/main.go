@@ -7,20 +7,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 )
 
 func main() {
 	// Initialize Gin router
 	router := gin.Default()
+
+	// Serve API Routes using serve routes
+
+	// Set up the routes for the application
+
 	connection := db.ConnectDB()
 	router.Use(middleware.DatabaseMiddleware(connection))
 	routes.SetupRoutes(router)
-	// Set up the routes for the application
-	router.NoRoute(func(c *gin.Context) {
-		c.File(filepath.Join(".", "index.html"))
-	})
+	routes.ServeStatic(router)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
