@@ -21,7 +21,7 @@ func ServeStatic(router *gin.Engine) {
 			return
 		}
 
-		staticDir := "../frontend/dist/frontend/browser"
+		staticDir := "."
 		filePath := filepath.Join(staticDir, c.Request.URL.Path)
 
 		// Check if a file exists at the requested path
@@ -36,7 +36,7 @@ func ServeStatic(router *gin.Engine) {
 
 	// If no file is found, serve the index.html file
 	router.NoRoute(func(c *gin.Context) {
-		dir := "../frontend/dist/frontend/browser"
+		dir := "."
 		file := "index.html"
 
 		// Check if the file exists in the static dir
