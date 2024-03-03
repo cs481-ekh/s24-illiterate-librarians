@@ -1,22 +1,9 @@
 version: '3'
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-    networks:
-      - literacy-link
-    environment:
-      - GIN_MODE=release
-      - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key}
-
   mysql:
     image: mysql:latest
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${Literacy_Link_DB_NAME}"
@@ -26,6 +13,27 @@ services:
       - ${Literacy_Link_DB_PORT}:${Literacy_Link_DB_PORT}
     networks:
       - literacy-link
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    restart: on-failure
+    networks:
+      - literacy-link
+    environment:
+      - GIN_MODE=release
+      - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key}
+      - Literacy_Link_DB_ROOT_PASSWORD= ${Literacy_Link_DB_ROOT_PASSWORD}
+      - Literacy_Link_DB_NAME=${Literacy_Link_DB_NAME}
+      - Literacy_Link_DB_USERNAME=${Literacy_Link_DB_USERNAME}
+      - Literacy_Link_DB_PASSWORD=${Literacy_Link_DB_PASSWORD}
+      - Literacy_Link_DB_HOST="${Literacy_Link_DB_HOST}"
+      - Literacy_Link_DB_PORT=${Literacy_Link_DB_PORT}
 
 networks:
   literacy-link:

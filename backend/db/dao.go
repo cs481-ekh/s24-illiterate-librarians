@@ -13,7 +13,7 @@ func ConnectDB() *gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		os.Getenv("Literacy_Link_DB_USERNAME"),
 		os.Getenv("Literacy_Link_DB_PASSWORD"),
-		os.Getenv("Literacy_Link_DB_HOST"),
+		"db",
 		os.Getenv("Literacy_Link_DB_PORT"),
 		os.Getenv("Literacy_Link_DB_NAME"),
 	)
@@ -21,7 +21,7 @@ func ConnectDB() *gorm.DB {
 	var err error
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to database:", err)
+		log.Fatalf("Failed to connect to database: %s \n with dsn %s", err, dsn)
 	}
 	log.Println("Connected to DB!")
 	return db
@@ -45,7 +45,7 @@ func DisconnectDB(db *gorm.DB) {
 
 func Login(request model.LoginRequest, db *gorm.DB) (model.User, error) {
 	var user model.User
-	result := db.Where("username = ? AND password_hash = ?", request.Username, request.Password).First(&user)
+	result := db.Where("username = ?", request.Username).First(&user)
 	if result.Error != nil {
 		return user, result.Error
 	}
