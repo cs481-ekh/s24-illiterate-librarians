@@ -63,7 +63,7 @@ func SetupRoutes(router *gin.Engine) {
 		userRoutes.POST("/create", user.CreateUserHandler)
 
 		// GET /user/login (no JWT required)
-		userRoutes.GET("/login", user.LoginHandler)
+		userRoutes.POST("/login", user.LoginHandler)
 
 		// ... other user route definitions ...
 
