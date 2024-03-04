@@ -1,0 +1,67 @@
+name: Literacy-Link Github Actions 
+
+#This will run if someone pushes to, or does a pull request to the main branch
+on: 
+    pull_request:
+    push:
+        branches: 
+            - main
+    workflow_dispatch:
+
+jobs:
+  test:
+    name: Starting Build and Testing
+    runs-on: ubuntu-latest
+
+# Not sure if these next three lines are strictly necessairy but if you remove them you will need to change the name use on line 21
+    strategy:
+        matrix:
+            node-version: [10.x, 12.x]
+    
+    steps: 
+        - uses: actions/checkout@v1
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: install
+          run: |
+            npm install
+    # add things to this part as more things are needed to be installed for the project to work
+        
+    # if envronment variables are needed for build add them here
+    #      env:
+
+    #can add some things that could be helpfull to know in the future such as:
+        - name: Check building and testing envrionment
+          run: |
+            echo 1. npm and related program versions
+            npm version
+            echo
+            echo 2. Java version
+            java -version
+            echo
+            echo 3. Go version
+            go version
+            echo
+            echo 4. Build tools:
+            mvn --version
+            gradle --version
+            ant -version
+            echo
+
+        - name: Starting build script
+          run: sh ./build.sh
+
+    #run bash script here like this: 
+    #the "sh" infront of the file location gets past the permissions problem
+        - name: Starting unit tests script
+          run: sh ./test.sh
+
+
+#TODO: If someone wants, they can add a github action that will move things 
+#from "in progress" on a sprint to "done" after a pull request has been completed. 
+#Not a big deal if we don't though
+
+            
+
