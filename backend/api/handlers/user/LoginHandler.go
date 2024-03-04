@@ -62,8 +62,6 @@ func LoginHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"token":   jwt,
-		"user_id": user.UserID,
+		"token": jwt,
 	})
 }
