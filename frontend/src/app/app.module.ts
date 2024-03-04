@@ -21,6 +21,7 @@ import { SessionComponent } from './session/session.component';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

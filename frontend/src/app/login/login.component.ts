@@ -64,8 +64,6 @@ export class LoginComponent {
 
   submitted = false;
 
-  userService: UserService = inject(UserService);
-
   get username() {
     return this.loginForm.get('username');
   }
@@ -74,6 +72,8 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
+  constructor(private userService: UserService) {}
+
   async submit(): Promise<void>{
     this.submitted = true;
     if (this.loginForm.valid) {
@@ -81,8 +81,14 @@ export class LoginComponent {
         const username = this.username.value;
         const password = this.password.value;
         if (username && password) {
-          const response = await this.userService.login(username, password);
-          console.log(response);
+          const response = this.userService.login(username, password).subscribe(
+            (response) => {
+              console.log(response);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         }
       }
     }

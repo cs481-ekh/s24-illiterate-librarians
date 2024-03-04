@@ -1,21 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
-
-  async login(username: string, password: string): Promise<JSON> {
-    const response = await fetch('http://localhost:8080/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-    });
-
-    return response.json();
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(
+      'http://localhost:8080/user/login',
+      { username, password },
+      httpOptions
+    );
   }
 }
