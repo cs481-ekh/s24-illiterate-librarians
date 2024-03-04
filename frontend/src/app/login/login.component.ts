@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -63,6 +64,8 @@ export class LoginComponent {
 
   submitted = false;
 
+  userService: UserService = inject(UserService);
+
   get username() {
     return this.loginForm.get('username');
   }
@@ -71,10 +74,17 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  submit() {
+  async submit(): Promise<void>{
     this.submitted = true;
     if (this.loginForm.valid) {
-      // this.login();
+      if (this.username && this.password) {
+        const username = this.username.value;
+        const password = this.password.value;
+        if (username && password) {
+          const response = await this.userService.login(username, password);
+          console.log(response);
+        }
+      }
     }
   }
 }

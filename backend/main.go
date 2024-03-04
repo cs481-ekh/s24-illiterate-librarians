@@ -1,13 +1,17 @@
 package main
 
 import (
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
 	"LiteracyLink.com/backend/api/routes"
 	"LiteracyLink.com/backend/db"
 	"LiteracyLink.com/backend/middleware"
 	"github.com/gin-gonic/gin"
-	"os"
-	"os/signal"
-	"syscall"
+
+	"github.com/gin-contrib/cors"
 )
 
 func main() {
@@ -20,6 +24,15 @@ func main() {
 
 	connection := db.ConnectDB()
 	router.Use(middleware.DatabaseMiddleware(connection))
+
+	// CORS middleware
+	router.Use(cors.New(
+		cors.Config{
+			AllowOrigins:     []string{"http://localhost:4200", "http://localhost:8080"},
+			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+			AllowCredentials: true,
+			MaxAge:           12 * time.Hour,
+		}))
 	routes.SetupRoutes(router)
 	routes.ServeStatic(router)
 

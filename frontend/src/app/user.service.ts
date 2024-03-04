@@ -7,19 +7,16 @@ export class UserService {
 
   constructor() { }
 
-  async login(username: string, password: string): Promise<boolean> {
-    const response = await fetch('/login', {
+  async login(username: string, password: string): Promise<JSON> {
+    const response = await fetch('http://localhost:8080/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username, password })
     });
+    console.log(response)
 
-    if (response.status === 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.json();
   }
 }

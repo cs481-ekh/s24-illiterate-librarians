@@ -1,12 +1,13 @@
 package db
 
 import (
-	"LiteracyLink.com/backend/api/model"
 	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"os"
+
+	"LiteracyLink.com/backend/api/model"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func ConnectDB() *gorm.DB {
