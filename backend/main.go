@@ -31,6 +31,7 @@ func main() {
 			AllowOrigins:     []string{"http://localhost:4200", "http://localhost:8080"},
 			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 			AllowCredentials: true,
+			AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length"},
 			MaxAge:           12 * time.Hour,
 		}))
 	routes.SetupRoutes(router)

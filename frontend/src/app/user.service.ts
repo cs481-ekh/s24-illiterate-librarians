@@ -15,7 +15,6 @@ export class UserService {
       },
       body: JSON.stringify({ username, password })
     });
-    console.log(response)
 
     return response.json();
   }
