@@ -16,7 +16,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		_, err := auth.VerifyUserToken(tokenString)
+		_, err := auth.VerifyJWT(tokenString)
 		if err != nil {
 			c.JSON(401, gin.H{"error": "Invalid token"})
 			c.Abort()

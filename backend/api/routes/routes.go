@@ -90,20 +90,11 @@ func SetupRoutes(router *gin.Engine) {
 	surveyRoutes := router.Group("/survey")
 	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
-		// POST /survey/pre_semester_survey/:user_id
-		surveyRoutes.POST("/pre_semester_survey/:userId", survey.PostPreSemesterSurveyHandler)
-
 		// POST /survey/after_semester_survey/:user_id
 		surveyRoutes.POST("/after_semester_survey/:userId", survey.PostAfterSemesterSurveyHandler)
 
-		// GET /survey/pre_semester_survey/taken/:user_id
-		surveyRoutes.GET("/pre_semester_survey/taken/:userId", survey.PreSemesterSurveyTakenHandler)
-
 		// GET /survey/after_semester_survey/taken/:user_id
 		surveyRoutes.GET("/after_semester_survey/taken/:userId", survey.AfterSemesterSurveyTakenHandler)
-
-		// GET /survey/pre_semester_survey/:user_id
-		surveyRoutes.GET("/pre_semester_survey/:userId", survey.GetPreSemesterSurveyHandler)
 
 		// GET /survey/after_semester_survey/:user_id
 		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)

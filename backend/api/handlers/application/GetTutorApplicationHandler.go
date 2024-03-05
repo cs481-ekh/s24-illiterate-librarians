@@ -1,34 +1,29 @@
-package session
+package application
 
 import (
-	"errors"
-	"fmt"
-	"net/http"
-
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/db"
+	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"net/http"
 )
 
-func GetClientSessionsHandler(c *gin.Context) {
-	sessionId := c.Param("session_id")
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"message": fmt.Sprintf("TODO: make func to get sessions with ID: %s", sessionId),
-	})
+// No idea if this is this will work tbh, but it looks like it could haha
 
-	var request model.ClientSessionRequest
+func GetTutorApplicationHandler(c *gin.Context) {
+	var request model.AppRequest
 	err := c.BindJSON(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
-			"message": fmt.Sprintf("Error while binding tutor session request: %g", err),
+			"message": fmt.Sprintf("Error while binding tutor application request: %g", err),
 		})
 	}
 
 	dbc := c.MustGet("db").(*gorm.DB)
-	ses, err := db.GetClientSession(request, dbc)
+	app, err := db.GetApp(request, dbc)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -46,7 +41,7 @@ func GetClientSessionsHandler(c *gin.Context) {
 	}
 
 	//This error assignment is complaining because its trying to assing a bool to a type Error, TODO: fix this assignment
-	// err = ((string(ses.TutorSessionID) != request.TutorSessionID) )
+	// err = ((string(app.ParentId) != request.Parent) || (string(app.ChildId) != request.Child) || (string(app.DesiredSemesterId) != request.Semester))
 	// if err != nil {
 	// 	c.JSON(http.StatusBadRequest, gin.H{
 	// 		"status":  "failed",
@@ -62,5 +57,6 @@ func GetClientSessionsHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, ses)
+	c.JSON(http.StatusOK, app)
+
 }

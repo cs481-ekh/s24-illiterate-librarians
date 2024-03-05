@@ -10,11 +10,12 @@ CREATE TABLE IF NOT EXISTS Users (
      username VARCHAR(255) NOT NULL UNIQUE,
      password_hash VARCHAR(255) NOT NULL,
      email VARCHAR(255) NOT NULL UNIQUE,
-     phone_number VARCHAR(20) NULL UNIQUE,
+     phone_number VARCHAR(20) NOT NULL UNIQUE,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
-     pref_method_comm VARCHAR(10), -- Has to be "C" for call, "T" for text, or "E" for email.
+     -- The CHECK constraint below has not been tested and I am not 100% sure that it works. However based on mysql documentation it is correct.
+     pref_method_comm VARCHAR(10) CHECK (pref_method_comm = 'C' OR pref_method_comm = 'T' OR pref_method_comm = 'E'), -- Has to be "C" for call, "T" for text, or "E" for email.
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -45,10 +46,9 @@ CREATE TABLE IF NOT EXISTS Admins (
 
 CREATE TABLE IF NOT EXISTS Child (
      child_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     user_id BINARY(16) NOT NULL,
      parent_id BINARY(16) NOT NULL,
-     birth_date DATE,
-     grade TINYINT,
+     birth_date DATE NOT NULL,
+     grade TINYINT NOT NULL,
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -77,9 +77,36 @@ CREATE TABLE IF NOT EXISTS EOS_parent_survey (
      semester_id BINARY(16) NOT NULL,
      survey_complete_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      -- add in all of the responses that need to be recorded in the survey here
+     child_barrier_reading VARCHAR(511) NOT NULL,
+     child_barrier_writing VARCHAR(511) NOT NULL,
+     want_parent_training TINYINT NOT NULL, -- 1 (very likely), 2 (Likely), 3 (Unsure), 4 (unlikely), 5 (very unlikely)
+
+     -- The next group of booleans should together make a single select all type of question, but will be stored using multiple variables.
+     online_modules boolean DEFAULT false,
+     zoom_meetings boolean DEFAULT false,
+     in_person boolean DEFAULT false,
+     blended boolean DEFAULT false,
+     individual_coaching boolean DEFAULT false,
+
+     -- Below group of questions are satisfied/disatisfied ratings: 1 (very dissatisfied) up to 10 (very satisfied)
+     family_tutor_relationship TINYINT NOT NULL,
+     family_tutor_communication TINYINT NOT NULL,
+     child_instruction_recieved TINYINT NOT NULL,
+     child_enjoyment TINYINT NOT NULL,
+     child_confidence_r TINYINT NOT NULL, -- confidence in reading
+     child_confidence_w TINYINT NOT NULL, -- writing
+     child_confidence_s TINYINT NOT NULL, -- spelling
+
+     prefer_zoom boolean NOT NULL, -- true if prefer online(zoom), false if prefer in-person (college of education building)
+     child_enjoy_most VARCHAR(511) NOT NULL,
+     improvments_recommendation VARCHAR(511) NOT NULL,
+     misc_feedback VARCHAR(511) NOT NULL,
+
+
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
      FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
      FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)
+
 );
 
 

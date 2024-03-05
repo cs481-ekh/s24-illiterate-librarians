@@ -19,6 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { DashsessionsComponent } from './dashboard/dashsessions/dashsessions.component';
 import { SessionComponent } from './session/session.component';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
+import { PaymentComponent } from './payment/payment.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,6 +43,7 @@ export function tokenGetter() {
     DashsessionsComponent,
     SessionComponent,
     NotificationsComponent,
+    PaymentComponent,
     RegisterComponent
   ],
   imports: [

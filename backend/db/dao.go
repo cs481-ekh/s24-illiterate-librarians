@@ -1,20 +1,19 @@
 package db
 
 import (
-	"fmt"
-	"log"
-	"os"
-
 	"LiteracyLink.com/backend/api/model"
+	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
+	"os"
 )
 
 func ConnectDB() *gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		os.Getenv("Literacy_Link_DB_USERNAME"),
 		os.Getenv("Literacy_Link_DB_PASSWORD"),
-		"db",
+		os.Getenv("Literacy_Link_DB_PASSWORD"), // should be set to db
 		os.Getenv("Literacy_Link_DB_PORT"),
 		os.Getenv("Literacy_Link_DB_NAME"),
 	)
@@ -63,12 +62,43 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
-// func SubmitApp(request model.Application, db *gorm.DB) (model.Application, error) {
-// 	var app model.Application
-// 	//Not 100% sure on what the below line should look like when trying to create a entry in the table vs a query of the table
-// 	//result := db.Where("child_id = ? AND parent_id = ?", request.Username, request.Password).First(&user)
-// 	if result.Error != nil {
-// 		return app, errors.New("Invalid application submission")
-// 	}
-// 	return app, nil
-// }
+func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
+
+	result := db.Create(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
+func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
+
+	var app model.TutoringApplication
+	result := db.Where("parent_id = ? AND child_id = ? AND desired_semester_id = ?", request.Parent, request.Child, request.Semester).First(&app)
+	if result.Error != nil {
+		return app, result.Error
+	}
+	return app, nil
+}
+
+func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.TutorSession, error) {
+
+	var ses model.TutorSession
+	result := db.Where("tutor_session_id = ?", request.TutorSessionID).First(&ses)
+	if result.Error != nil {
+		return ses, result.Error
+	}
+	return ses, nil
+}
+
+func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {
+
+	var EOS model.EOSParentSurvey
+	result := db.Where("tutor_session_id = ?", request.EOSPSID).First(&EOS)
+	if result.Error != nil {
+		return EOS, result.Error
+	}
+	return EOS, nil
+}

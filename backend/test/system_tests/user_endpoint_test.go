@@ -1,18 +1,15 @@
 package system_tests
 
 import (
+	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/auth"
+	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/auth"
-	"LiteracyLink.com/backend/test/testInit"
-
-	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/test/testInit"
 	"github.com/google/uuid"
 )
 
