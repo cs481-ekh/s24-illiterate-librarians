@@ -13,7 +13,9 @@
     </div>
     <div class = "profile">
       <a [routerLink]="['/dashboard']" class="text">My Dashboard</a>
-      <a [routerLink]="['/login']" class="log-in">Login</a>
+      <a *ngIf="!isLoggedIn" [routerLink]="['/login']" class="log-in">Login</a>
+      <a *ngIf="isLoggedIn" [routerLink]="['/profile']" class="prof-button">Profile</a>
+      <a *ngIf="isLoggedIn" (click)="logout()" class="log-out">Logout</a>
     </div>
   </div>
 </header>

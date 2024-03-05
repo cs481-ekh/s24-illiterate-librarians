@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { Event } from '../event';
-import { EventsService } from '../events.service';
+import { EventsService } from '../_services/events.service';
 
 export interface eventData {
   title: string;

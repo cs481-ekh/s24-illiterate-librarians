@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   title = 'Literacy Link';
+
+  isLoggedIn = false;
+
+  constructor(private authService: AuthService) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+    console.log(this.isLoggedIn);
+  }
+
+  logout() {
+    this.authService.logout();
+    window.location.reload();
+  }
 }

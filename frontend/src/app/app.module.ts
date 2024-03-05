@@ -22,6 +22,13 @@ import { NotificationsComponent } from './dashboard/notifications/notifications.
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './_services/auth-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
+}
 
 @NgModule({
   declarations: [
@@ -49,9 +56,22 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:8080'], // replace with your API's domain
+        disallowedRoutes: [] // replace with routes that don't need the token
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

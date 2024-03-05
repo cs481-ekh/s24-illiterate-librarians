@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { AuthService } from '../_services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,6 @@ import { UserService } from '../user.service';
         <div class="login-title">
           <h1>Login</h1>
         </div>
-
         <div class="login-form">
           <form [formGroup]="loginForm" (submit)="submit()">
             <mat-form-field class="input">
@@ -41,9 +41,15 @@ import { UserService } from '../user.service';
             
             }
             </div>
+            <div class="error-message">
+            @if(!validLogin && submitted){
+              Incorrect username or password
+            
+            }
+            </div>
             <div class="login-button">
               <a routerLink="/register">
-                <button mat-raised-button>Create Account</button>
+                <button mat-raised-button type="button">Create Account</button>
               </a>
               <button mat-raised-button color="primary" type="submit">
                 Login
@@ -63,6 +69,7 @@ export class LoginComponent {
   });
 
   submitted = false;
+  validLogin = true;
 
   get username() {
     return this.loginForm.get('username');
@@ -72,21 +79,23 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  async submit(): Promise<void>{
+  async submit(): Promise<void> {
     this.submitted = true;
     if (this.loginForm.valid) {
       if (this.username && this.password) {
         const username = this.username.value;
         const password = this.password.value;
         if (username && password) {
-          const response = this.userService.login(username, password).subscribe(
+          this.authService.login(username, password).subscribe(
             (response) => {
               console.log(response);
+              this.router.navigate(['/dashboard']);
             },
             (error) => {
               console.log(error);
+              this.validLogin = false;
             }
           );
         }

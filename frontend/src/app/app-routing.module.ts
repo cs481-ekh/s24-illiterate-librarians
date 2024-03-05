@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -8,6 +8,8 @@ import { SessionComponent } from './session/session.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuardService as AuthGuard} from './_services/auth-guard.service';
+
 
 const routes: Routes = [
   {
@@ -19,11 +21,13 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Dashboard',
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
     title: 'Profile',
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',

@@ -1,16 +1,17 @@
 package user
 
 import (
+	"errors"
+	"fmt"
+	"log"
+	"net/http"
+
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
-	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"log"
-	"net/http"
 )
 
 func LoginHandler(c *gin.Context) {
@@ -61,7 +62,9 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
+	c.SetCookie("token", jwt, 60*60*24*7, "/", "localhost", false, true)
 	c.JSON(http.StatusOK, gin.H{
-		"token": jwt,
+		"id_token":   jwt,
+		"expires_at": 60 * 60 * 24 * 7,
 	})
 }
