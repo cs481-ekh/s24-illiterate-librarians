@@ -45,6 +45,7 @@
     justify-content: center;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-right: 100px;
 }
 
 .nav .item {
@@ -59,6 +60,7 @@
     justify-content: left;
     text-decoration: none;
     color: black;
+    cursor: pointer;
 
     transition: 0.2s;
 }
@@ -77,61 +79,4 @@
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
-}
-
-.profile-container .info {
-    margin: 30px 0px 0px 100px;
-    width: calc(100% - 300px);
-}
-
-.info form {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    width: 820px;
-}
-
-form .group {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    margin-bottom: 20px;
-}
-
-.info form .field {
-    width: 200px;
-    height: 100px;
-    margin-right: 100px;
-    /* background-color: red */
-}
-
-.info h1 {
-    color: black;
-    font-size: 40px;
-    margin-top: 0px;
-    margin-bottom: 20px;
-}
-
-.info label {
-    color: black;
-    font-size: 20px;
-}
-
-.info input {
-    width: 100%;
-    height: 40px;
-    margin-top: 10px;
-    border: 1px solid #dadada;
-    border-radius: 5px;
-}
-
-.info input[type=submit] {
-    width: 120px;
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: .2s;
-}
-
-.info input[type=submit]:hover {
-    background-color: #d1d1d1;
 }

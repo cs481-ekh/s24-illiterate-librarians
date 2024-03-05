@@ -1,47 +1,21 @@
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
+<!-- profile.component.html -->
 <div class="profile-container">
-    <div class="header-gradient">
-    </div>
+    <div class="header-gradient"></div>
     <div class="content">
-        <div class="nav">
-            <a href="#" class="item">
-                <span class="material-symbols-outlined">person</span>
-                Profile
-            </a>
-            <a href="#" class="item">
-                <span class="material-symbols-outlined">notifications</span>
-                Notifications
-            </a>
-            <a href="#" class="item">
-                <span class="material-symbols-outlined">settings</span>
-                Settings
-            </a>
-        </div>
-        <div class="info">
-            <h1>Profile</h1>
-            <form action="#" method="post">
-                <div class="group">
-                    <div class="field">
-                        <label for="firstName">First Name</label><br>
-                        <input type="text" id="firstName" name="firstName" required><br><br>
-                    </div>
-                    <div class="field">
-                        <label for="lastName">Last Name</label><br>
-                        <input type="text" id="lastName" name="lastName" required><br><br>
-                    </div>
-                </div>
-                <div class="group">
-                    <div class="field">
-                        <label for="email">Email</label><br>
-                        <input type="email" id="email" name="email" required><br><br>
-                    </div>
-                </div>
-                <div class="group">
-                    <input type="submit" value="Save">
-                </div>
-            </form>
-        </div>
+      <div class="nav">
+        <a class="item" id="parent">
+            <span class="material-symbols-outlined">person</span>
+            Parent</a>
+        <a class="item" id="children">
+            <span class="material-symbols-outlined">person</span>
+            Children</a>
+        <a class="item" id="settings">
+            <span class="material-symbols-outlined">settings</span>
+            Settings</a>
+      </div>
+        <app-parent style="display:block"></app-parent>
+        <app-children style="display:none"></app-children>
+        <app-settings style="display:none"></app-settings>
     </div>
-</div>
+  </div>
+  
