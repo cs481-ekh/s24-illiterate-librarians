@@ -6,8 +6,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import moment from 'moment';
 
 interface AuthResult {
-  expires: number;
-  idToken: string;
+  expires_at: number;
+  id_token: string;
 }
 
 const httpOptions = {
@@ -39,9 +39,9 @@ export class AuthService {
   }
 
   private setSession(authResult: AuthResult) {
-    const expiresAt = moment().add(authResult.expires, 'second');
+    const expiresAt = moment().add(authResult.expires_at, 'second');
 
-    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('id_token', authResult.id_token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
