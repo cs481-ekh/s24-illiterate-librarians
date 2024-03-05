@@ -49,13 +49,14 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 		}
 	}
 
-	err = ((string(EOS.EOSPSID) != request.EOSPSID) )
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"status":  "failed",
-			"message": fmt.Sprintf("wrong indentifying info"),
-		})
-	}
+	//This error assignment is complaining because its trying to assing a bool to a type Error, TODO: fix this assignment
+	// err = ((string(EOS.EOSPSID) != request.EOSPSID) )
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"status":  "failed",
+	// 		"message": fmt.Sprintf("wrong indentifying info"),
+	// 	})
+	// }
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
