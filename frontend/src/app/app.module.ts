@@ -19,7 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { DashsessionsComponent } from './dashboard/dashsessions/dashsessions.component';
 import { SessionComponent } from './session/session.component';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
-
+import { PaymentComponent } from './payment/payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,8 @@ import { NotificationsComponent } from './dashboard/notifications/notifications.
     SessionModal,
     DashsessionsComponent,
     SessionComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
