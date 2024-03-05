@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD:-default_root_password}"
       MYSQL_DATABASE: "${Literacy_Link_DB_NAME:-default_db_name}"
@@ -30,6 +31,8 @@ services:
       - Literacy_Link_DB_NAME=${Literacy_Link_DB_NAME:-default_db_name}
       - Literacy_Link_DB_USERNAME=${Literacy_Link_DB_USERNAME:-default_username}
       - Literacy_Link_DB_PASSWORD=${Literacy_Link_DB_PASSWORD:-default_password}
+      - Literacy_Link_DB_HOST=${Literacy_Link_DB_HOST:-db}
+      - Literacy_Link_DB_PORT=${DB_PORT:-3306}
 
 networks:
   literacy-link:

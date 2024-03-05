@@ -13,7 +13,7 @@ func ConnectDB() *gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		os.Getenv("Literacy_Link_DB_USERNAME"),
 		os.Getenv("Literacy_Link_DB_PASSWORD"),
-		os.Getenv("Literacy_Link_DB_PASSWORD"), // should be set to db
+		os.Getenv("Literacy_Link_DB_HOST"), // should be set to db
 		os.Getenv("Literacy_Link_DB_PORT"),
 		os.Getenv("Literacy_Link_DB_NAME"),
 	)
