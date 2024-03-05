@@ -12,7 +12,7 @@ import (
 )
 
 func GetAfterSemesterSurveyHandler(c *gin.Context) {
-	EOS_ID := c.Param("EOS_p_s_id")
+	// EOS_ID := c.Param("EOS_p_s_id")
 
 	//Need to handle request before sending a success message
 
