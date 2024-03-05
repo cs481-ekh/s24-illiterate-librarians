@@ -1,4 +1,4 @@
-package main
+package testInit
 
 import (
 	"LiteracyLink.com/backend/api/routes"
@@ -6,14 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	// Initialize Gin router
+func InitRouterFunction() *gin.Engine {
 	router := gin.Default()
 
 	router.Use(middleware.AuthMiddleware())
 	// Set up routes
 	routes.SetupRoutes(router)
+	router.Use(middleware.AuthMiddleware())
 
-	// Start the server
-	router.Run(":8080")
+	return router
 }
