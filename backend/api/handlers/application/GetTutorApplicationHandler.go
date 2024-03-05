@@ -2,12 +2,10 @@ package application
 
 import (
 	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -42,14 +40,12 @@ func GetTutorApplicationHandler(c *gin.Context) {
 		}
 	}
 
-	//This error assignment is complaining because its trying to assing a bool to a type Error, TODO: fix this assignment
-	// err = ((string(app.ParentId) != request.Parent) || (string(app.ChildId) != request.Child) || (string(app.DesiredSemesterId) != request.Semester))
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{
-	// 		"status":  "failed",
-	// 		"message": fmt.Sprintf("wrong indentifying info"),
-	// 	})
-	// }
+	if (string(app.ParentId) != request.Parent) || (string(app.ChildId) != request.Child) || (string(app.DesiredSemesterId) != request.Semester) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": fmt.Sprintf("wrong indentifying info"),
+		})
+	}
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -60,6 +56,5 @@ func GetTutorApplicationHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, app)
-
 
 }
