@@ -3,6 +3,7 @@ package unit_test
 import (
 	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/test/testInit"
+	"github.com/google/uuid"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,7 +11,10 @@ import (
 
 func TestJWTGenerationAndAuthentication(t *testing.T) {
 	// Set up a test user ID (you can use a UUID library for dynamic IDs in production)
-	testUserID := "550e8400-e29b-41d4-a716-446655440000"
+	testUserID, err := uuid.NewUUID()
+	if err != nil {
+		t.Errorf("Error generating uuid to test with")
+	}
 
 	// Generate a JWT for the test user
 	token, err := auth.GenerateJWT(testUserID)

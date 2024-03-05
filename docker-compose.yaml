@@ -13,7 +13,7 @@ services:
       - literacy-link
     environment:
       - GIN_MODE=release
-      - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key}
+      - Literacy_Link_Secret_Key=${Literacy_Link_Secret_Key:-default_secret_key}
 
   frontend:
     build:
@@ -29,12 +29,12 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD}"
-      MYSQL_DATABASE: "${Literacy_Link_DB_NAME}"
-      MYSQL_USER: "${Literacy_Link_DB_USERNAME}"
-      MYSQL_PASSWORD: "${Literacy_Link_DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD:-default_root_password}"
+      MYSQL_DATABASE: "${Literacy_Link_DB_NAME:-default_db_name}"
+      MYSQL_USER: "${Literacy_Link_DB_USERNAME:-default_username}"
+      MYSQL_PASSWORD: "${Literacy_Link_DB_PASSWORD:-default_password}"
     ports:
-      - "3306:3306"
+          - "${DB_PORT:-3306}:3306"
     networks:
       - literacy-link
 

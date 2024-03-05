@@ -2,6 +2,7 @@ package auth
 
 import (
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"os"
 	"time"
 )
@@ -9,9 +10,9 @@ import (
 var secretKey = []byte(os.Getenv("Literacy_Link_Secret_Key"))
 
 // GenerateJWT generates a new JWT token for the given user ID
-func GenerateJWT(userID string) (string, error) {
+func GenerateJWT(userID uuid.UUID) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"userID": userID,
+		"userID": userID.String(),
 		"exp":    time.Now().Add(time.Hour * 24).Unix(), // Token expiration time 1 day
 	})
 
@@ -37,6 +38,9 @@ func VerifyJWT(tokenString string) (string, error) {
 	if !ok {
 		return "", jwt.ErrSignatureInvalid
 	}
-
+	_, err = uuid.Parse(userID)
+	if err != nil {
+		return "", err
+	}
 	return userID, nil
 }

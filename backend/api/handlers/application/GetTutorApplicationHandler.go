@@ -1,43 +1,36 @@
-package survey
+package application
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"errors"
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
+	"errors"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"net/http"
 )
 
-func GetAfterSemesterSurveyHandler(c *gin.Context) {
-	// EOS_ID := c.Param("EOS_p_s_id")
+// No idea if this is this will work tbh, but it looks like it could haha
 
-	//Need to handle request before sending a success message
-
-	// c.JSON(http.StatusOK, gin.H{
-	// 	"status":  "success",
-	// 	"message": fmt.Sprintf("TODO: make func to get survey with ID: %s", EOS_ID),
-	// })
-
-	var request model.EOSRequest
+func GetTutorApplicationHandler(c *gin.Context) {
+	var request model.AppRequest
 	err := c.BindJSON(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
-			"message": fmt.Sprintf("Error while binding survey results: %g", err),
+			"message": fmt.Sprintf("Error while binding tutor application request: %g", err),
 		})
 	}
 
-	
 	dbc := c.MustGet("db").(*gorm.DB)
-	EOS, err := db.GetEOSSurvey(request, dbc)
+	app, err := db.GetApp(request, dbc)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {  
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
-				"message": fmt.Sprintf("no survey exists"),
+				"message": fmt.Sprintf("no application exists"),
 			})
 			return
 		} else {
@@ -50,7 +43,7 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 	}
 
 	//This error assignment is complaining because its trying to assing a bool to a type Error, TODO: fix this assignment
-	// err = ((string(EOS.EOSPSID) != request.EOSPSID) )
+	// err = ((string(app.ParentId) != request.Parent) || (string(app.ChildId) != request.Child) || (string(app.DesiredSemesterId) != request.Semester))
 	// if err != nil {
 	// 	c.JSON(http.StatusBadRequest, gin.H{
 	// 		"status":  "failed",
@@ -66,5 +59,7 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, EOS)
+	c.JSON(http.StatusOK, app)
+
+
 }
