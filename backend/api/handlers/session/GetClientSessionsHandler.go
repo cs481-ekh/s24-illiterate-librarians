@@ -43,12 +43,12 @@ func GetClientSessionsHandler(c *gin.Context) {
 			return
 		}
 	}
-
 	if string(ses.TutorSessionID) != request.TutorSessionID {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
 			"message": fmt.Sprintf("wrong indentifying info"),
 		})
+		return
 	}
 
 	if err != nil {
