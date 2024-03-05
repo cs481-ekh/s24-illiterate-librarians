@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS Users (
      first_name VARCHAR(50) NOT NULL,
      last_name VARCHAR(50) NOT NULL,
      mailing_address VARCHAR(255),
-     pref_method_comm VARCHAR(10), -- Has to be "C" for call, "T" for text, or "E" for email.
+     -- The CHECK constraint below has not been tested and I am not 100% sure that it works. However based on mysql documentation it is correct.
+     pref_method_comm VARCHAR(10) CHECK (pref_method_comm = 'C' OR pref_method_comm = 'T' OR pref_method_comm = 'E'), -- Has to be "C" for call, "T" for text, or "E" for email.
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

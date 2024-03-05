@@ -13,10 +13,13 @@ import (
 
 func GetAfterSemesterSurveyHandler(c *gin.Context) {
 	EOS_ID := c.Param("EOS_p_s_id")
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"message": fmt.Sprintf("TODO: make func to get survey with ID: %s", EOS_ID),
-	})
+
+	//Need to handle request before sending a success message
+
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"status":  "success",
+	// 	"message": fmt.Sprintf("TODO: make func to get survey with ID: %s", EOS_ID),
+	// })
 
 	var request model.EOSRequest
 	err := c.BindJSON(request)
@@ -54,7 +57,6 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 		})
 	}
 
-	jwt, err := auth.GenerateJWT(EOS.EOSPSID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
@@ -63,9 +65,5 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"token":   jwt,
-		"message": fmt.Sprintf("TODO: make func to get session: %s", request.EOSPSID),
-	})
+	c.JSON(http.StatusOK, EOS)
 }

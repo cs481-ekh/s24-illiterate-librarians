@@ -50,7 +50,6 @@ func GetTutorApplicationHandler(c *gin.Context) {
 		})
 	}
 
-	jwt, err := auth.GenerateJWT(app.AppForTutId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
@@ -59,11 +58,7 @@ func GetTutorApplicationHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"token":   jwt,
-		"message": fmt.Sprintf("TODO: make func to get application for: %s on behalf of: %s during: %s", request.Parent, request.Child, request.Semester),
-	})
+	c.JSON(http.StatusOK, app)
 
 
 }

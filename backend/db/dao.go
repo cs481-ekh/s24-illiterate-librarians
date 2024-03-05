@@ -64,7 +64,7 @@ func CreateUser(request model.User, db *gorm.DB) error {
 }
 
 func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
-	//Not 100% sure on the below 
+
 	result := db.Create(request)
 	
 	if result.Error != nil {
@@ -76,7 +76,7 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
 
 
 func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
-	//Not 100% sure on the below 
+
 	var app model.TutoringApplication
 	result := db.Where("parent_id = ? AND child_id = ? AND desired_semester_id = ?", request.Parent, request.Child, request.Semester).First(&app)
 	if result.Error != nil {
@@ -87,7 +87,7 @@ func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, e
 
 
 func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.TutorSession, error) {
-	//Not 100% sure on the below 
+
 	var ses model.TutorSession
 	result := db.Where("tutor_session_id = ?", request.TutorSessionID).First(&ses)
 	if result.Error != nil {
@@ -98,7 +98,7 @@ func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.Tu
 
 
 func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {
-	//Not 100% sure on the below 
+
 	var EOS model.EOSParentSurvey
 	result := db.Where("tutor_session_id = ?", request.EOSPSID).First(&EOS)
 	if result.Error != nil {

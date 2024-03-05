@@ -55,7 +55,6 @@ func GetClientSessionsHandler(c *gin.Context) {
 		})
 	}
 
-	jwt, err := auth.GenerateJWT(ses.TutorSessionID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
@@ -64,9 +63,5 @@ func GetClientSessionsHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "success",
-		"token":   jwt,
-		"message": fmt.Sprintf("TODO: make func to get session: %s", request.TutorSessionID),
-	})
+	c.JSON(http.StatusOK, ses)
 }
