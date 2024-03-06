@@ -15,6 +15,8 @@ const httpOptions = {
   withCredentials: true,
 };
 
+const url = "http://localhost:8080"
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +26,7 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     return this.http
       .post(
-        'http://localhost:8080/user/login',
+        url + "/api/user/login",
         { username, password },
         httpOptions
       )
@@ -48,6 +50,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
 
   public isLoggedIn() {
