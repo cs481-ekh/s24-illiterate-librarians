@@ -1,9 +1,10 @@
 package middleware
 
 import (
+	"log"
+
 	"LiteracyLink.com/backend/auth"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 func AuthMiddleware() gin.HandlerFunc {

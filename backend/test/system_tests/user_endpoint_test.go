@@ -6,10 +6,11 @@ import (
 	"LiteracyLink.com/backend/test/testInit"
 	"bytes"
 	"encoding/json"
-	"github.com/google/uuid"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/google/uuid"
 )
 
 func TestUserEndpointTest(t *testing.T) {

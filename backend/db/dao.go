@@ -1,20 +1,19 @@
 package db
 
 import (
-	"fmt"
-	"log"
-	"os"
-
 	"LiteracyLink.com/backend/api/model"
+	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
+	"os"
 )
 
 func ConnectDB() *gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		os.Getenv("Literacy_Link_DB_USERNAME"),
 		os.Getenv("Literacy_Link_DB_PASSWORD"),
-		os.Getenv("Literacy_Link_DB_HOST"),
+		os.Getenv("Literacy_Link_DB_HOST"), // should be set to db
 		os.Getenv("Literacy_Link_DB_PORT"),
 		os.Getenv("Literacy_Link_DB_NAME"),
 	)
@@ -22,7 +21,7 @@ func ConnectDB() *gorm.DB {
 	var err error
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to database:", err)
+		log.Fatalf("Failed to connect to database: %s \n with dsn %s", err, dsn)
 	}
 	log.Println("Connected to DB!")
 	return db
@@ -46,7 +45,7 @@ func DisconnectDB(db *gorm.DB) {
 
 func Login(request model.LoginRequest, db *gorm.DB) (model.User, error) {
 	var user model.User
-	result := db.Where("username = ? AND password_hash = ?", request.Username, request.Password).First(&user)
+	result := db.Where("username = ?", request.Username).First(&user)
 	if result.Error != nil {
 		return user, result.Error
 	}
@@ -63,17 +62,16 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
-func SubmitApp(request model.TutoringApplication, db *gorm.DB) (error) {
+func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 
 	result := db.Create(request)
-	
+
 	if result.Error != nil {
 		return result.Error
 	}
 
 	return nil
 }
-
 
 func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
 
@@ -85,7 +83,6 @@ func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, e
 	return app, nil
 }
 
-
 func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.TutorSession, error) {
 
 	var ses model.TutorSession
@@ -95,7 +92,6 @@ func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.Tu
 	}
 	return ses, nil
 }
-
 
 func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {
 

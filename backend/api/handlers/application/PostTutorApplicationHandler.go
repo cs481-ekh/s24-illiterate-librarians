@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 //Is a post handler even doing anything if the new application is being sent from the dao function?
 
 func PostTutorApplicationHandler(c *gin.Context) {

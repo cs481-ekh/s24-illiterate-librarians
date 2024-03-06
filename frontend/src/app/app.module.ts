@@ -20,6 +20,20 @@ import { DashsessionsComponent } from './dashboard/dashsessions/dashsessions.com
 import { SessionComponent } from './session/session.component';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 import { PaymentComponent } from './payment/payment.component';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './_services/auth-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { ProfileSettingsComponent } from './profile/settings/settings.component';
+import { ProfileChildrenComponent } from './profile/children/children.component';
+import { ProfileParentComponent } from './profile/parent/parent.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +46,11 @@ import { PaymentComponent } from './payment/payment.component';
     DashsessionsComponent,
     SessionComponent,
     NotificationsComponent,
-    PaymentComponent
+    PaymentComponent,
+    RegisterComponent,
+    ProfileSettingsComponent,
+    ProfileChildrenComponent,
+    ProfileParentComponent
   ],
   imports: [
     BrowserModule,
@@ -44,9 +62,24 @@ import { PaymentComponent } from './payment/payment.component';
     CommonModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:8080'], 
+        disallowedRoutes: [] 
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

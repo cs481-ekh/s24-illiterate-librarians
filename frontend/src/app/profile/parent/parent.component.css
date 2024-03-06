@@ -1,0 +1,90 @@
+.info {
+    margin: 30px 0px 0px 0px;
+    width: calc(100% - 300px);
+}
+
+.info form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 820px;
+}
+
+form .group {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.info form .field {
+    width: 200px;
+    height: 60px;
+    margin-right: 100px;
+    /* background-color: red */
+}
+
+.info h1 {
+    color: black;
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.info label {
+    color: black;
+    font-size: 20px;
+}
+
+.info input {
+    height: 30px;
+    margin-top: 10px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+}
+
+.info input.short {
+    width: 100px;
+}
+
+.info input.medium {
+    width: 150px;
+}
+
+.info input.long {
+    width: 200px;
+}
+
+.info select {
+    height: 34px;
+    margin-top: 10px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 5px;
+    font-size: 16px;
+    appearance: none;
+    text-align: left;
+}
+
+.info select:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.info select option {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.info input[type=submit] {
+    width: 120px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: .2s;
+}
+
+.info input[type=submit]:hover {
+    background-color: #d1d1d1;
+}
