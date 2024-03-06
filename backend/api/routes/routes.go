@@ -51,13 +51,12 @@ func ServeStatic(router *gin.Engine) {
 
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
-
 	healthRoutes := router.Group("/health")
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
 
-	userRoutes := router.Group("/user")
+	userRoutes := router.Group("/api/user")
 	{
 		// POST /user/create (no JWT required)
 		userRoutes.POST("/create", user.CreateUserHandler)
@@ -87,7 +86,7 @@ func SetupRoutes(router *gin.Engine) {
 			protectedRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
 		}
 	}
-	surveyRoutes := router.Group("/survey")
+	surveyRoutes := router.Group("/api/survey")
 	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
 		// POST /survey/after_semester_survey/:user_id
@@ -100,7 +99,7 @@ func SetupRoutes(router *gin.Engine) {
 		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)
 	}
 
-	sessionRoutes := router.Group("/session")
+	sessionRoutes := router.Group("/api/session")
 	sessionRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET /session/client/:user_id
