@@ -11,14 +11,14 @@ import (
 
 // TODO: list out in the comments here the questions that should be asked for the benefit of future developers
 
-type TutoringApplication struct {
+type Application struct {
 	AppForTutId      []byte    `gorm:"type:BINARY(16);default:UUID_TO_BIN(UUID(), 1);primaryKey" json:"app_for_tut_id"`
 	ChildId            []byte    `gorm:"type:BINARY(16);not null" json:"child_id"`
 	ParentId           []byte    `gorm:"type:BINARY(16);not null" json:"parent_id"`
 	AppComplete        bool      `gorm:"default:false" json:"app_complete"`
 	AppCompleteDate   time.Time `gorm:"type:TIMESTAMP;default:CURRENT_TIMESTAMP" json:"app_complete_date"`
 	DesiredSemesterId []byte    `gorm:"type:BINARY(16);not null" json:"desired_semester_id"`
-
+	
 	ChildDataConsent        bool      `gorm:"default:false" json:"child_data_consent"`
 	PhotoReleaseConsent     bool      `gorm:"default:false" json:"photo_release_consent"`
 	NeedFinancialAssistance bool      `gorm:"default:false" json:"need_financial_assistance"`
@@ -36,17 +36,13 @@ type TutoringApplication struct {
 	WhatSSemester                string    `gorm:"type:VARCHAR(50)" json:"what_semester"`
 	ChildCurrentSchool         string    `gorm:"type:VARCHAR(50)" json:"child_current_school"`
 	ListLanguagesSpoken        string    `gorm:"type:VARCHAR(255)" json:"list_languages_spoken"`
-	ReceivedSpecialEd          string    `gorm:"type:VARCHAR(511)" json:"received_special_ed"`
-	ListChallenges              string    `gorm:"type:VARCHAR(511)" json:"list_challenges"`
-	HowLongConcerned           string    `gorm:"type:VARCHAR(255)" json:"how_long_concerned"`
-	DescribeHopes               string    `gorm:"type:VARCHAR(511)" json:"describe_hopes"`
-	ChildAllergyMeds           string    `gorm:"type:VARCHAR(255)" json:"child_allergy_meds"`
-	MiscInfo                    string    `gorm:"type:VARCHAR(511)" json:"misc_info"`
-	HearAboutLitLab            string    `gorm:"type:VARCHAR(255)" json:"hear_about_litLab"`
+	ReceivedSpecialEd          string    `gorm:"type:VARCHAR(50)" json:"received_special_ed"`
+	ListChallenges              string    `gorm:"type:VARCHAR(50)" json:"list_challenges"`
+	HowLongConcerned           string    `gorm:"type:VARCHAR(50)" json:"how_long_concerned"`
+	DescribeHopes               string    `gorm:"type:VARCHAR(50)" json:"describe_hopes"`
+	ChildAllergyMeds           string    `gorm:"type:VARCHAR(50)" json:"child_allergy_meds"`
+	MiscInfo                    string    `gorm:"type:VARCHAR(50)" json:"misc_info"`
+	HearAboutLitLab            string    `gorm:"type:VARCHAR(50)" json:"hear_about_litLab"`
 
-	// Define a field to represent the relationship with the Parent model
-	Child           Child           `gorm:"foreignKey:ChildID"`
-	Parent          Parent          `gorm:"foreignKey:ParentID"`
-
-
+	
 }

@@ -2,12 +2,10 @@ package application
 
 import (
 	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -60,6 +58,5 @@ func GetTutorApplicationHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, app)
-
 
 }

@@ -11,7 +11,6 @@
     margin-top: 60px;
     width: 15%;
     margin-left: 40px;
-    overflow: scroll;
     flex: 1;
 }
 
@@ -39,6 +38,7 @@
     color: white;
     display: flex;
     flex-direction: row;
+    height: 80px;
     margin-top: 20px;
     width: 700px;
     justify-content: right;
@@ -47,6 +47,7 @@
 .notification-title{
     font-size: 20px;
     font-weight: bold;
+    overflow: hidden;
 }
 
 .notification-heading{
@@ -77,10 +78,6 @@
     margin-top: 105px;
     font-size: 30px;
     cursor: pointer;
-    /* disable button styling */
-    background: none;
-    border: none;
-    color: #D64309;
     width: 50px;
     max-width: 50px;
   }

@@ -1,14 +1,13 @@
 package survey
 
 import (
+	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/db"
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"errors"
-	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/auth"
-	"LiteracyLink.com/backend/db"
 	"gorm.io/gorm"
+	"net/http"
 )
 
 func GetAfterSemesterSurveyHandler(c *gin.Context) {
@@ -30,11 +29,10 @@ func GetAfterSemesterSurveyHandler(c *gin.Context) {
 		})
 	}
 
-	
 	dbc := c.MustGet("db").(*gorm.DB)
 	EOS, err := db.GetEOSSurvey(request, dbc)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {  
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
 				"message": fmt.Sprintf("no survey exists"),

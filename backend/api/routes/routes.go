@@ -1,6 +1,10 @@
 package routes
 
 import (
+	"net/http"
+	"os"
+	"path/filepath"
+
 	"LiteracyLink.com/backend/api/handlers/health"
 	"LiteracyLink.com/backend/api/handlers/session"
 	"LiteracyLink.com/backend/api/handlers/survey"
@@ -9,21 +13,56 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func ServeStatic(router *gin.Engine) {
+
+	router.Use(func(c *gin.Context) {
+		if c.Request.Method != "GET" && c.Request.Method != "HEAD" {
+			c.Next()
+			return
+		}
+
+		staticDir := "."
+		filePath := filepath.Join(staticDir, c.Request.URL.Path)
+
+		// Check if a file exists at the requested path
+		if _, err := os.Stat(filePath); err == nil {
+			c.File(filePath)
+			return
+		}
+
+		// If the file doesn't exist, continue to the next handler
+		c.Next()
+	})
+
+	// If no file is found, serve the index.html file
+	router.NoRoute(func(c *gin.Context) {
+		dir := "."
+		file := "index.html"
+
+		// Check if the file exists in the static dir
+		if _, err := os.Stat(filepath.Join(dir, file)); err == nil {
+			// If it exists, serve the file
+			c.File(filepath.Join(dir, file))
+			return
+		}
+		c.JSON(http.StatusNotFound, gin.H{"message": "Not found"})
+	})
+}
+
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
-
 	healthRoutes := router.Group("/health")
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
 
-	userRoutes := router.Group("/user")
+	userRoutes := router.Group("/api/user")
 	{
 		// POST /user/create (no JWT required)
 		userRoutes.POST("/create", user.CreateUserHandler)
 
 		// GET /user/login (no JWT required)
-		userRoutes.GET("/login", user.LoginHandler)
+		userRoutes.POST("/login", user.LoginHandler)
 
 		// ... other user route definitions ...
 
@@ -47,29 +86,20 @@ func SetupRoutes(router *gin.Engine) {
 			protectedRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
 		}
 	}
-	surveyRoutes := router.Group("/survey")
+	surveyRoutes := router.Group("/api/survey")
 	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
-		// POST /survey/pre_semester_survey/:user_id
-		surveyRoutes.POST("/pre_semester_survey/:userId", survey.PostPreSemesterSurveyHandler)
-
 		// POST /survey/after_semester_survey/:user_id
 		surveyRoutes.POST("/after_semester_survey/:userId", survey.PostAfterSemesterSurveyHandler)
 
-		// GET /survey/pre_semester_survey/taken/:user_id
-		surveyRoutes.GET("/pre_semester_survey/taken/:userId", survey.PreSemesterSurveyTakenHandler)
-
 		// GET /survey/after_semester_survey/taken/:user_id
 		surveyRoutes.GET("/after_semester_survey/taken/:userId", survey.AfterSemesterSurveyTakenHandler)
-
-		// GET /survey/pre_semester_survey/:user_id
-		surveyRoutes.GET("/pre_semester_survey/:userId", survey.GetPreSemesterSurveyHandler)
 
 		// GET /survey/after_semester_survey/:user_id
 		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)
 	}
 
-	sessionRoutes := router.Group("/session")
+	sessionRoutes := router.Group("/api/session")
 	sessionRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET /session/client/:user_id
@@ -82,5 +112,4 @@ func SetupRoutes(router *gin.Engine) {
 		sessionRoutes.GET("/:sessionId", session.GetSessionByIdHandler)
 	}
 
-	// Add more route groups or individual routes as needed
 }

@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS EOS_parent_survey (
      child_barrier_writing VARCHAR(511) NOT NULL,
      want_parent_training TINYINT NOT NULL, -- 1 (very likely), 2 (Likely), 3 (Unsure), 4 (unlikely), 5 (very unlikely)
 
-     -- The next group of booleans should together make a single select all type of question, but will be stored using multiple variables. 
+     -- The next group of booleans should together make a single select all type of question, but will be stored using multiple variables.
      online_modules boolean DEFAULT false,
      zoom_meetings boolean DEFAULT false,
      in_person boolean DEFAULT false,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS EOS_parent_survey (
      individual_coaching boolean DEFAULT false,
 
      -- Below group of questions are satisfied/disatisfied ratings: 1 (very dissatisfied) up to 10 (very satisfied)
-     family_tutor_relationship TINYINT NOT NULL, 
+     family_tutor_relationship TINYINT NOT NULL,
      family_tutor_communication TINYINT NOT NULL,
      child_instruction_recieved TINYINT NOT NULL,
      child_enjoyment TINYINT NOT NULL,

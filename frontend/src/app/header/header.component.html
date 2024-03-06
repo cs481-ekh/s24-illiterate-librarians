@@ -9,11 +9,13 @@
       <div class="navbar">
       <li><a [routerLink]="['/']">Home</a></li>
       <li><a [routerLink]="['/about']">About</a></li>
-      <li><app-payment></app-payment></li>
+      <li *ngIf="isLoggedIn" class="pay-button"><app-payment></app-payment></li>
     </div>
     <div class = "profile">
       <a [routerLink]="['/dashboard']" class="text">My Dashboard</a>
-      <a [routerLink]="['/login']" class="log-in">Login</a>
+      <a *ngIf="!isLoggedIn" [routerLink]="['/login']" class="log-in">Login</a>
+      <a *ngIf="isLoggedIn" [routerLink]="['/profile']" class="prof-button">Profile</a>
+      <a *ngIf="isLoggedIn" [routerLink]="['/login']" (click)="logout()" class="log-out">Logout</a>
     </div>
   </div>
 </header>

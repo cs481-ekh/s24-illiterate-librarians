@@ -15,7 +15,7 @@ type User struct {
 	LastName       string    `gorm:"type:VARCHAR(50);NOT NULL" json:"last_name"`
 	MailingAddress string    `gorm:"type:VARCHAR(255)" json:"mailing_address"`
 	PrefMethodComm string    `gorm:"type:VARCHAR(255)" json:"pref_method_comm"` //Has to be "C" for call, "T" for text, or "E" for email.
-	CreatedAt      time.Time `gorm:"type:TIMESTAMP;default:CURRENT_TIMESTAMP" json:"created_at"`
+	CreatedAt      time.Time `gorm:"type:TIMESTAMP;DEFAULT:CURRENT_TIMESTAMP" json:"created_at"`
 }
 
 // TableName specifies the table name for the User model

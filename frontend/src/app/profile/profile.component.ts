@@ -8,9 +8,6 @@ import { ProfileSettingsComponent } from './settings/settings.component';
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [RouterModule, RouterOutlet, CommonModule, 
-    ProfileParentComponent, ProfileChildrenComponent, ProfileSettingsComponent],
   templateUrl: "./profile.component.html",
   styleUrl: './profile.component.css'
 })
