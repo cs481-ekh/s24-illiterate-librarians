@@ -1,0 +1,182 @@
+.info {
+    margin: 30px 0px 0px 0px;
+    width: calc(100% - 300px);
+}
+
+h1 {
+    color: black;
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.children-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.child-box {
+    width: 250px;
+    height: 80px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.child-box:hover {
+    background-color: #d1d1d1;
+}
+
+.child-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.child-info h2 {
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.child-info p {
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 40px;
+    gap: 10px;
+}
+
+form .group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+form .field {
+    width: 200px;
+    height: 60px;
+    /* background-color: red */
+}
+
+label {
+    color: black;
+    font-size: 20px;
+}
+
+input {
+    height: 30px;
+    margin-top: 10px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+}
+
+input.short {
+    width: 100px;
+}
+
+input.medium {
+    width: 150px;
+}
+
+input.long {
+    width: 200px;
+}
+
+select {
+    height: 34px;
+    margin-top: 10px;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 5px;
+    font-size: 16px;
+    appearance: none;
+    text-align: left;
+}
+
+select:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+select option {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+input[type=submit] {
+    width: 120px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: .2s;
+}
+
+input[type=submit]:hover {
+    background-color: #d1d1d1;
+}
+
+.child-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.child-close:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
