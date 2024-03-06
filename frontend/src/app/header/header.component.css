@@ -83,6 +83,10 @@
     text-decoration: none;
   }
 
+  .pay-button{
+    margin-top: -7px;
+  }
+
 /* .header {
     background-color: #f8f9fa;
     padding: 10px;
