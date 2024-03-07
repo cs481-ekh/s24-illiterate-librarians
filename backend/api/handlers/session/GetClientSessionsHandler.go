@@ -1,14 +1,13 @@
 package session
 
 import (
-	"errors"
-	"fmt"
-	"net/http"
-
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/db"
+	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"net/http"
 )
 
 func GetClientSessionsHandler(c *gin.Context) {
@@ -44,15 +43,13 @@ func GetClientSessionsHandler(c *gin.Context) {
 			return
 		}
 	}
-
-	//This error assignment is complaining because its trying to assing a bool to a type Error, TODO: fix this assignment
-	// err = ((string(ses.TutorSessionID) != request.TutorSessionID) )
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{
-	// 		"status":  "failed",
-	// 		"message": fmt.Sprintf("wrong indentifying info"),
-	// 	})
-	// }
+	if string(ses.TutorSessionID) != request.TutorSessionID {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": fmt.Sprintf("wrong indentifying info"),
+		})
+		return
+	}
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

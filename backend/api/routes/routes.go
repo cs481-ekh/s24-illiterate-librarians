@@ -1,16 +1,16 @@
 package routes
 
 import (
-	"net/http"
-	"os"
-	"path/filepath"
-
+	"LiteracyLink.com/backend/api/handlers/application"
 	"LiteracyLink.com/backend/api/handlers/health"
 	"LiteracyLink.com/backend/api/handlers/session"
 	"LiteracyLink.com/backend/api/handlers/survey"
 	"LiteracyLink.com/backend/api/handlers/user"
 	"LiteracyLink.com/backend/middleware"
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"os"
+	"path/filepath"
 )
 
 func ServeStatic(router *gin.Engine) {
@@ -51,7 +51,7 @@ func ServeStatic(router *gin.Engine) {
 
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
-	healthRoutes := router.Group("/health")
+	healthRoutes := router.Group("/api/health")
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
@@ -89,6 +89,7 @@ func SetupRoutes(router *gin.Engine) {
 	surveyRoutes := router.Group("/api/survey")
 	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
+
 		// POST /survey/after_semester_survey/:user_id
 		surveyRoutes.POST("/after_semester_survey/:userId", survey.PostAfterSemesterSurveyHandler)
 
@@ -97,6 +98,17 @@ func SetupRoutes(router *gin.Engine) {
 
 		// GET /survey/after_semester_survey/:user_id
 		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)
+	}
+
+	applicationRoutes := router.Group("/api/application")
+	applicationRoutes.Use(middleware.AuthMiddleware())
+	{
+
+		// POST /survey/after_semester_survey/:user_id
+		surveyRoutes.POST("/:userId", application.PostTutorApplicationHandler)
+
+		// GET /survey/after_semester_survey/:user_id
+		surveyRoutes.GET("/:userId", application.GetTutorApplicationHandler)
 	}
 
 	sessionRoutes := router.Group("/api/session")
