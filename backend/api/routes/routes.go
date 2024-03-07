@@ -51,7 +51,7 @@ func ServeStatic(router *gin.Engine) {
 
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
-	healthRoutes := router.Group("/health")
+	healthRoutes := router.Group("/api/health")
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
