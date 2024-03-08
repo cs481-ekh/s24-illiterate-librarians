@@ -29,6 +29,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ProfileSettingsComponent } from './profile/settings/settings.component';
 import { ProfileChildrenComponent } from './profile/children/children.component';
 import { ProfileParentComponent } from './profile/parent/parent.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 export function tokenGetter() {
   return localStorage.getItem('id_token');
@@ -71,7 +72,8 @@ export function tokenGetter() {
         allowedDomains: ['localhost:8080'], 
         disallowedRoutes: [] 
       }
-    })
+    }),
+    MatStepperModule
   ],
   providers: [
     {
