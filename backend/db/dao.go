@@ -73,6 +73,17 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 	return nil
 }
 
+func UpdateApp(request model.TutoringApplication, db *gorm.DB) error {
+
+	result := db.Update(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
 func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
 
 	var app model.TutoringApplication
