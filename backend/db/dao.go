@@ -75,7 +75,7 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 
 func UpdateApp(request model.TutoringApplication, db *gorm.DB) error {
 
-	result := db.Update(request)
+	result := db.Save(request)
 
 	if result.Error != nil {
 		return result.Error
