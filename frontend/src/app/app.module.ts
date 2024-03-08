@@ -30,6 +30,8 @@ import { ProfileSettingsComponent } from './profile/settings/settings.component'
 import { ProfileChildrenComponent } from './profile/children/children.component';
 import { ProfileParentComponent } from './profile/parent/parent.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+
 
 export function tokenGetter() {
   return localStorage.getItem('id_token');
@@ -73,7 +75,8 @@ export function tokenGetter() {
         disallowedRoutes: [] 
       }
     }),
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [
     {
