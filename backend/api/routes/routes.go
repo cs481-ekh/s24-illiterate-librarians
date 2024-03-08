@@ -108,7 +108,7 @@ func SetupRoutes(router *gin.Engine) {
 		surveyRoutes.POST("/:userId", application.PostTutorApplicationHandler)
 
 		// POST /survey/after_semester_survey/:user_id
-		surveyRoutes.POST("/:userId", application.UpdateTutorApplicationHandler)
+		surveyRoutes.PUT("/:userId", application.UpdateTutorApplicationHandler)
 
 		// GET /survey/after_semester_survey/:user_id
 		surveyRoutes.GET("/:userId", application.GetTutorApplicationHandler)
