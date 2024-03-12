@@ -82,6 +82,17 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 	return nil
 }
 
+func UpdateApp(request model.TutoringApplication, db *gorm.DB) error {
+
+	result := db.Save(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
 func GetApp(request model.AppRequest, db *gorm.DB) (model.TutoringApplication, error) {
 
 	var app model.TutoringApplication
@@ -110,4 +121,15 @@ func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey,
 		return EOS, result.Error
 	}
 	return EOS, nil
+}
+
+func SubmitEOSSurvey(request model.EOSParentSurvey, db *gorm.DB) error {
+
+	result := db.Create(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }

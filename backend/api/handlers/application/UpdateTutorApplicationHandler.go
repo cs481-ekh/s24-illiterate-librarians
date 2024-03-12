@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"regexp"
 
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/db"
@@ -13,14 +12,14 @@ import (
 )
 
 
-func PostTutorApplicationHandler(c *gin.Context) {
+func UpdateTutorApplicationHandler(c *gin.Context) {
 	
 	var request model.TutoringApplication
 	err := c.BindJSON(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
-			"message": fmt.Sprintf("Error while binding tutor application post request: %g", err),
+			"message": fmt.Sprintf("Error while binding tutor application update request: %g", err),
 		})
 	}
 
@@ -64,17 +63,17 @@ func PostTutorApplicationHandler(c *gin.Context) {
 	}
 
 	if !isValidPhone(request.EmergencyConPhone) {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Emergency Contact phone number"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Emergency contact phone number"})
 		return
 	}
 
 	dbc := c.MustGet("db").(*gorm.DB)
-	err = db.SubmitApp(request, dbc)
+	err = db.UpdateApp(request, dbc)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
-				"message": fmt.Sprintf("invalid application when trying to post"),
+				"message": fmt.Sprintf("invalid application when trying to update"),
 			})
 			return
 		} else {
@@ -87,24 +86,4 @@ func PostTutorApplicationHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{})
-}
-
-
-func ensureMaxChar(leng int, variable string) (error) {
-	if len(variable) > leng || len(variable) < 1 {
-		return errors.New("Invalid entry length")
-	}
-	return nil
-}
-
-func isValidEmail(email string) bool {
-	// Use a regular expression to validate the email address
-	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
-	return emailRegex.MatchString(email)
-}
-
-func isValidPhone(phone string) bool {
-	// Use a regular expression to validate the email address
-	phoneRegex := regexp.MustCompile(`(?:^|[^0-9])(1[34578][0-9]{9})(?:$|[^0-9])`)
-	return phoneRegex.MatchString(phone)
 }
