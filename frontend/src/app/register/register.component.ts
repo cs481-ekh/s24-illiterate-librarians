@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { RegistrationService } from '../_services/register/registration.service';
 import { NewAccount } from '../new-account';
+import { MatStepper } from '@angular/material/stepper';
 
 export function phoneNumberValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -36,6 +37,9 @@ export function phoneNumberValidator(): ValidatorFn {
               <form [formGroup]="userPassForm" class="name">
                 <ng-template matStepLabel>Username and Password</ng-template>
 
+                <div *ngIf="duplicateUsername" class="error">
+                  Username already exists, please choose another and try again
+                </div>
                 <div
                   *ngIf="isStep1Valid && username?.errors?.['required']"
                   class="error"
@@ -259,6 +263,10 @@ export function phoneNumberValidator(): ValidatorFn {
                     formControlName="last_name"
                   />
                 </mat-form-field>
+
+                <div *ngIf="duplicateEmail" class="error">
+                  Email already exists, please choose another and try again
+                </div>
                 <div
                   *ngIf="isStep3Valid && email?.errors?.['required']"
                   class="error"
@@ -274,6 +282,10 @@ export function phoneNumberValidator(): ValidatorFn {
                 <mat-form-field>
                   <input matInput placeholder="Email" formControlName="email" />
                 </mat-form-field>
+                <div *ngIf="duplicatePhone" class="error">
+                  Phone number already exists, please choose another and try
+                  again
+                </div>
                 <div
                   *ngIf="isStep3Valid && phone?.errors?.['required']"
                   class="error"
@@ -332,12 +344,12 @@ export function phoneNumberValidator(): ValidatorFn {
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-
-
   constructor(
     private regService: RegistrationService,
     private router: Router
   ) {}
+
+  @ViewChild('stepper') stepper!: MatStepper;
 
   isStep1Valid: boolean = false;
   isStep2Valid: boolean = false;
@@ -354,6 +366,10 @@ export class RegisterComponent {
   validateStep3() {
     this.isStep3Valid = true;
   }
+
+  duplicateUsername = false;
+  duplicateEmail = false;
+  duplicatePhone = false;
 
   usStates: string[] = [
     'Alabama',
@@ -543,21 +559,52 @@ export class RegisterComponent {
     }
     let formData = this.compileData();
 
+    let contact = '';
+
+    if (formData.method_of_contact === 'Call') {
+      contact = 'C';
+    } else if (formData.method_of_contact === 'Email') {
+      contact = 'E';
+    } else {
+      contact = 'T';
+    }
+
+    let phone = formData.phone?.replace(/\D/g, '');
+
     let newAccount: NewAccount = {
       username: formData.username ?? '',
-      password: formData.password ?? '',
+      password_hash: formData.password ?? '',
       email: formData.email ?? '',
-      firstName: formData.first_name ?? '',
-      lastName: formData.last_name ?? '',
-      phoneNumber: formData.phone ?? '',
+      first_name: formData.first_name ?? '',
+      last_name: formData.last_name ?? '',
+      phone_number: phone ?? '',
       mailing_address: this.compileAddress() ?? '',
-      pref_method_comm: formData.method_of_contact ?? '',
+      pref_method_comm: contact,
     };
 
-    this.regService.register(newAccount).subscribe((response) => {
-      console.log(response);
-      this.router.navigate(['/login']);
-    });
+    this.regService.register(newAccount).subscribe(
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        const errorMessage = error.error.message;
+        if (errorMessage.includes('username')) {
+          this.duplicateUsername = true;
+          this.stepper.selectedIndex = 0;
+        }
+        if (errorMessage.includes('email')) {
+          this.duplicateEmail = true;
+
+          this.stepper.selectedIndex = 2;
+        }
+        if (errorMessage.includes('phone')) {
+          this.duplicatePhone = true;
+
+          this.stepper.selectedIndex = 2;
+        }
+      }
+    );
   }
 
   compileAddress() {
@@ -572,5 +619,4 @@ export class RegisterComponent {
       ...this.contactForm.value,
     };
   }
-
 }
