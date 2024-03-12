@@ -20,8 +20,8 @@ type EOSParentSurvey struct {
 	Blended            bool      `gorm:"default:false" json:"blended"`
 	IndividualCoaching bool      `gorm:"default:false" json:"individual_coaching"`
 
-	FamilyTutorRelationship    int8      `gorm:"type:TINYINT;NOT NULL" json:"family_tutor_relationship"`
-	FamilyTtutorCommunication  int8      `gorm:"type:TINYINT;NOT NULL" json:"family_tutor_communication"`
+	FamilyTutorRelationship    int8      `gorm:"type:TINYINT;NOT NULL" json:"family_tutor_relationship"`  //All of the rest of these rating type questions will be 1 - 10 ratings with 1 being very dissatisfied and 10 being very satisfied
+	FamilyTutorCommunication  int8      `gorm:"type:TINYINT;NOT NULL" json:"family_tutor_communication"`
 	ChildInstructionRecieved   int8      `gorm:"type:TINYINT;NOT NULL" json:"child_instruction_recieved"`
 	ChildEnjoyment             int8      `gorm:"type:TINYINT;NOT NULL" json:"child_enjoyment"`
 	ChildConfidenceR           int8      `gorm:"type:TINYINT;NOT NULL" json:"child_confidence_r"` //confidence in reading
