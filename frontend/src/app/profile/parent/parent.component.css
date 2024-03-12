@@ -1,61 +1,108 @@
 .info {
     margin: 30px 0px 0px 0px;
     width: calc(100% - 300px);
+    position: relative;
 }
 
-.info form {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    width: 820px;
-}
-
-form .group {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    margin-bottom: 20px;
-}
-
-.info form .field {
-    width: 200px;
-    height: 60px;
-    margin-right: 100px;
-    /* background-color: red */
-}
-
-.info h1 {
+h1 {
     color: black;
     font-size: 40px;
     margin-top: 0px;
     margin-bottom: 20px;
 }
 
-.info label {
+.edit, .save {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 8px 12px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+
+    font-style: bold;
+    font-size: 16px;
+
+    background-color: #3d76f1;
+}
+
+.edit:hover {
+    background-color: #2e5ad7;
+    box-shadow: 0 0 10px #30303050;
+}
+
+.save:hover {
+    background-color: #2e5ad7;
+    box-shadow: 0 0 10px #30303050;
+}
+
+.edit {
+    display: block;
+}
+
+.save {
+    display: none;
+}
+
+/* Info */
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 820px;
+}
+
+.profile.view {
+    display: block;
+}
+
+.profile.editing {
+    display: none;
+}
+
+.profile .group {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.profile .field {
+    width: 200px;
+    height: 60px;
+    margin-right: 100px;
+    /* background-color: red */
+}
+
+label {
     color: black;
     font-size: 20px;
 }
 
-.info input {
+form input {
     height: 30px;
     margin-top: 10px;
     border: 1px solid #dadada;
     border-radius: 5px;
 }
 
-.info input.short {
+form input.short {
     width: 100px;
 }
 
-.info input.medium {
+form input.medium {
     width: 150px;
 }
 
-.info input.long {
+form input.long {
     width: 200px;
 }
 
-.info select {
+form select {
     height: 34px;
     margin-top: 10px;
     border: 1px solid #dadada;
@@ -68,23 +115,23 @@ form .group {
     text-align: left;
 }
 
-.info select:hover {
+form select:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
 
-.info select option {
+form select option {
     background-color: #ffffff;
     color: #333333;
 }
 
-.info input[type=submit] {
+form input[type=submit] {
     width: 120px;
     cursor: pointer;
     background-color: #f1f1f1;
     transition: .2s;
 }
 
-.info input[type=submit]:hover {
+form input[type=submit]:hover {
     background-color: #d1d1d1;
 }

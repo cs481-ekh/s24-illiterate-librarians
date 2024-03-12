@@ -1,0 +1,144 @@
+.info {
+    margin: 30px 0px 0px 0px;
+    width: calc(100% - 300px);
+    position: relative;
+}
+
+.saveButton {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 8px 12px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+
+    font-style: bold;
+    font-size: 16px;
+
+    background-color: #3d76f1;
+}
+
+.saveButton:hover {
+    background-color: #2e5ad7;
+    box-shadow: 0 0 10px #30303050;
+}
+
+.notifications {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 820px;
+
+}
+
+.notifications .section {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    height: 60px;
+    width: 200px;
+}
+
+/* OnOffSwitch */
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+.slider input {
+    display: none;
+}
+
+.slider label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: #9e9fa1;
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+    transform: translate()
+    /* box-shadow: 0 0 20px #477a8550; */
+  }
+
+  label::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-color: #e8f5f7;
+    position: absolute;
+    border-radius: 50%;
+    top: 4px;
+    left: 4px;
+    transition: 0.5s;
+  }
+
+input:checked + label:after {
+    left: calc(100% - 4px);
+    transform: translateX(-100%);
+}
+
+input:checked + label {
+    background-color: #3d76f1;
+}
+
+label:active:after {
+    width: 20px;
+}
+
+/* Account */
+
+.account {
+    width: 100%;
+}
+
+.account .buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.account button {
+    padding: 10px 10px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+
+    font-style: bold;
+    font-size: 16px;
+}
+
+.account button:hover {
+    box-shadow: 0 0 10px #30303050;
+}
+
+.account button.btn.changePassword {
+    background-color: #3d76f1;
+    width: 160px;
+}
+
+.account button.btn.changePassword:hover {
+    background-color: #2e5ad7;
+}
+
+.account button.btn.deleteAccount {
+    background-color: #fa2c33;
+    width: 140px;
+}
+
+.account button.btn.deleteAccount:hover {
+    background-color: #d41f25;
+}
