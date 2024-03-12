@@ -7,6 +7,9 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RegistrationService } from '../_services/register/registration.service';
+import { NewAccount } from '../new-account';
 
 export function phoneNumberValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -66,17 +69,28 @@ export function phoneNumberValidator(): ValidatorFn {
                 </mat-form-field>
 
                 <div class="pass-desc">
-                  Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number
+                  Password must be at least 8 characters and contain at least
+                  one uppercase letter, one lowercase letter, and one number
                 </div>
-                <div *ngIf="isStep1Valid && password?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep1Valid && password?.errors?.['required']"
+                  class="error"
+                >
                   Password is required
                 </div>
-                <div *ngIf="isStep1Valid && password?.errors?.['minlength']" class="error">
+                <div
+                  *ngIf="isStep1Valid && password?.errors?.['minlength']"
+                  class="error"
+                >
                   Password must be at least 8 characters
                 </div>
 
-                <div *ngIf="isStep1Valid && password?.errors?.['pattern']" class="error">
-                  Password must contain at least one uppercase letter, one lowercase letter, and one number
+                <div
+                  *ngIf="isStep1Valid && password?.errors?.['pattern']"
+                  class="error"
+                >
+                  Password must contain at least one uppercase letter, one
+                  lowercase letter, and one number
                 </div>
                 <mat-form-field>
                   <input
@@ -86,10 +100,16 @@ export function phoneNumberValidator(): ValidatorFn {
                     type="password"
                   />
                 </mat-form-field>
-                <div *ngIf="isStep1Valid && confirmPassword?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep1Valid && confirmPassword?.errors?.['required']"
+                  class="error"
+                >
                   Confirm password is required
                 </div>
-                <div *ngIf="isStep1Valid && confirmPassword?.errors?.['minlength']" class="error">
+                <div
+                  *ngIf="isStep1Valid && confirmPassword?.errors?.['minlength']"
+                  class="error"
+                >
                   Confirm password must be at least 8 characters
                 </div>
                 <mat-form-field>
@@ -99,9 +119,11 @@ export function phoneNumberValidator(): ValidatorFn {
                     formControlName="confirmPassword"
                     type="password"
                   />
-                  
                 </mat-form-field>
-                <div *ngIf="isStep1Valid && userPassForm.errors?.['passwordMismatch']" class="error">
+                <div
+                  *ngIf="isStep1Valid && userPassForm.errors?.['passwordMismatch']"
+                  class="error"
+                >
                   Passwords do not match
                 </div>
                 <button mat-button matStepperNext (click)="validateStep1()">
@@ -114,12 +136,18 @@ export function phoneNumberValidator(): ValidatorFn {
               label="Fill out your address"
             >
               <form [formGroup]="locationForm" class="addr">
-                <ng-template matStepLabel>Address</ng-template>
+                <ng-template matStepLabel>Mailing Address</ng-template>
 
-                <div *ngIf="isStep2Valid && address?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep2Valid && address?.errors?.['required']"
+                  class="error"
+                >
                   Address is required
                 </div>
-                <div *ngIf="isStep2Valid && address?.errors?.['pattern']" class="error">
+                <div
+                  *ngIf="isStep2Valid && address?.errors?.['pattern']"
+                  class="error"
+                >
                   Invalid characters in address
                 </div>
                 <mat-form-field>
@@ -130,18 +158,27 @@ export function phoneNumberValidator(): ValidatorFn {
                   />
                 </mat-form-field>
 
-                <div *ngIf="isStep2Valid && city?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep2Valid && city?.errors?.['required']"
+                  class="error"
+                >
                   City is required
                 </div>
 
-                <div *ngIf="isStep2Valid && city?.errors?.['pattern']" class="error">
+                <div
+                  *ngIf="isStep2Valid && city?.errors?.['pattern']"
+                  class="error"
+                >
                   Invalid characters in city
                 </div>
                 <mat-form-field>
                   <input matInput placeholder="City" formControlName="city" />
                 </mat-form-field>
 
-                <div *ngIf="isStep2Valid && state?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep2Valid && state?.errors?.['required']"
+                  class="error"
+                >
                   State is required
                 </div>
                 <mat-form-field>
@@ -156,16 +193,24 @@ export function phoneNumberValidator(): ValidatorFn {
                   </mat-select>
                 </mat-form-field>
 
-                <div *ngIf="isStep2Valid && zip?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep2Valid && zip?.errors?.['required']"
+                  class="error"
+                >
                   Zip is required
                 </div>
-                <div *ngIf="isStep2Valid && zip?.errors?.['pattern']" class="error">
+                <div
+                  *ngIf="isStep2Valid && zip?.errors?.['pattern']"
+                  class="error"
+                >
                   Invalid zip code
                 </div>
                 <mat-form-field>
                   <input matInput placeholder="Zip" formControlName="zip" />
                 </mat-form-field>
-                <button mat-button matStepperNext (click)="validateStep2()">Next</button>
+                <button mat-button matStepperNext (click)="validateStep2()">
+                  Next
+                </button>
               </form>
             </mat-step>
             <mat-step
@@ -174,7 +219,6 @@ export function phoneNumberValidator(): ValidatorFn {
             >
               <form [formGroup]="contactForm" class="contact">
                 <ng-template matStepLabel>Contact Information</ng-template>
-
 
                 <div
                   *ngIf="isStep3Valid && first_name?.errors?.['required']"
@@ -215,17 +259,41 @@ export function phoneNumberValidator(): ValidatorFn {
                     formControlName="last_name"
                   />
                 </mat-form-field>
-                <div *ngIf="isStep3Valid && phone?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep3Valid && email?.errors?.['required']"
+                  class="error"
+                >
+                  Email is required
+                </div>
+                <div
+                  *ngIf="isStep3Valid && email?.errors?.['email']"
+                  class="error"
+                >
+                  Invalid email
+                </div>
+                <mat-form-field>
+                  <input matInput placeholder="Email" formControlName="email" />
+                </mat-form-field>
+                <div
+                  *ngIf="isStep3Valid && phone?.errors?.['required']"
+                  class="error"
+                >
                   Phone number is required
                 </div>
-                <div *ngIf="isStep3Valid && phone?.errors?.['phoneNumberInvalid'] && !phone?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep3Valid && phone?.errors?.['phoneNumberInvalid'] && !phone?.errors?.['required']"
+                  class="error"
+                >
                   Invalid phone number
                 </div>
 
                 <mat-form-field>
                   <input matInput placeholder="Phone" formControlName="phone" />
                 </mat-form-field>
-                <div *ngIf="isStep3Valid && method_of_contact?.errors?.['required']" class="error">
+                <div
+                  *ngIf="isStep3Valid && method_of_contact?.errors?.['required']"
+                  class="error"
+                >
                   Method of contact is required
                 </div>
                 <mat-form-field>
@@ -242,14 +310,18 @@ export function phoneNumberValidator(): ValidatorFn {
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <button mat-button matStepperNext (click)="validateStep3()">Next</button>
+                <button mat-button matStepperNext (click)="validateStep3()">
+                  Next
+                </button>
               </form>
             </mat-step>
             <mat-step label="Done">
               <ng-template matStepLabel>Done</ng-template>
               <div class="done">
-              Thank you for registering with Literacy Link!
-              <button mat-button (click)="submit()" >Submit and Return to Login</button>
+                Thank you for registering with Literacy Link!
+                <button mat-button (click)="submit()">
+                  Submit and Return to Login
+                </button>
               </div>
             </mat-step>
           </div>
@@ -260,6 +332,13 @@ export function phoneNumberValidator(): ValidatorFn {
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+
+
+  constructor(
+    private regService: RegistrationService,
+    private router: Router
+  ) {}
+
   isStep1Valid: boolean = false;
   isStep2Valid: boolean = false;
   isStep3Valid: boolean = false;
@@ -331,26 +410,27 @@ export class RegisterComponent {
 
   contactOptions: string[] = ['Call', 'Email', 'Text'];
 
-  userPassForm = new FormGroup({
-
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$'),
-    ]),
-    confirmPassword: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$'),
-    ]),
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(30),
-      Validators.pattern('^[a-zA-Z0-9_!@#]+$'),
-    ]),
-  }, { validators: this.passwordMatchValidator });
-
+  userPassForm = new FormGroup(
+    {
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30),
+        Validators.pattern('^[a-zA-Z0-9_!@#]+$'),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$'),
+      ]),
+      confirmPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$'),
+      ]),
+    },
+    { validators: this.passwordMatchValidator }
+  );
 
   get username() {
     return this.userPassForm.get('username');
@@ -412,6 +492,8 @@ export class RegisterComponent {
       Validators.maxLength(30),
       Validators.pattern('^[a-zA-Z]+$'),
     ]),
+
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
 
   get first_name() {
@@ -430,18 +512,65 @@ export class RegisterComponent {
     return this.contactForm.get('method_of_contact');
   }
 
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  if (password && confirmPassword && password.value === confirmPassword.value) {
-    return null; 
-  } else {
-    return { passwordMismatch: true };
+  get email() {
+    return this.contactForm.get('email');
   }
-}
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+
+    if (
+      password &&
+      confirmPassword &&
+      password.value === confirmPassword.value
+    ) {
+      return null;
+    } else {
+      return { passwordMismatch: true };
+    }
+  }
 
   submit() {
-    console.log('Submitted');
+    if (
+      !(
+        this.userPassForm.valid &&
+        this.locationForm.valid &&
+        this.contactForm.valid
+      )
+    ) {
+      return;
+    }
+    let formData = this.compileData();
+
+    let newAccount: NewAccount = {
+      username: formData.username ?? '',
+      password: formData.password ?? '',
+      email: formData.email ?? '',
+      firstName: formData.first_name ?? '',
+      lastName: formData.last_name ?? '',
+      phoneNumber: formData.phone ?? '',
+      mailing_address: this.compileAddress() ?? '',
+      pref_method_comm: formData.method_of_contact ?? '',
+    };
+
+    this.regService.register(newAccount).subscribe((response) => {
+      console.log(response);
+      this.router.navigate(['/login']);
+    });
   }
+
+  compileAddress() {
+    // return string with address, city, state, zip
+    return `${this.locationForm.value.address}, ${this.locationForm.value.city}, ${this.locationForm.value.state}, ${this.locationForm.value.zip}`;
+  }
+
+  compileData() {
+    return {
+      ...this.userPassForm.value,
+      ...this.locationForm.value,
+      ...this.contactForm.value,
+    };
+  }
+
 }
