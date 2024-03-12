@@ -113,3 +113,14 @@ func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey,
 	}
 	return EOS, nil
 }
+
+func SubmitEOSSurvey(request model.EOSParentSurvey, db *gorm.DB) error {
+
+	result := db.Create(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
