@@ -28,7 +28,7 @@ func main() {
 	// CORS middleware
 	router.Use(cors.New(
 		cors.Config{
-			AllowOrigins:     []string{"http://localhost:8080", "http://localhost:4200"},
+			AllowOrigins:     []string{"http://localhost:8080", "http://localhost:4200", "https://sdp.boisestate.edu/s24-illiterate-librarians"},
 			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 			AllowCredentials: true,
 			AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length"},

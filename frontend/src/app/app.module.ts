@@ -33,6 +33,11 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 
 
+export function getEnv(key: string, fallback: string): string {
+  const value = process.env[key];
+  return value !== undefined ? value : fallback;
+}
+
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -71,7 +76,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:8080'], 
+        allowedDomains: [getEnv('BASE_URL', 'http://localhost:8080')], 
         disallowedRoutes: [] 
       }
     }),
