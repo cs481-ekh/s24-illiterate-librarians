@@ -62,6 +62,15 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
+func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
+	var user model.User
+	result := db.Save(request) //will need to test this
+	if result.Error != nil {
+		return user, result.Error
+	}
+	return nil
+}
+
 func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 
 	result := db.Create(request)
