@@ -67,7 +67,9 @@ CREATE TABLE IF NOT EXISTS Semesters (
      first_tutor_day DATE NOT NULL,
      last_tutor_day DATE NOT NULL,
      tuesday_of_break DATE NOT NULL,
-     thursday_of_break DATE NOT NULL
+     thursday_of_break DATE NOT NULL,
+     open_enrollment_date DATE NOT NULL,
+     close_enrollment_date DATE NOT NULL
 );
 
 
