@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS Child (
 
 -- Create Semester structures
 
--- Will need to update this
 CREATE TABLE IF NOT EXISTS Semesters (
      semester_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
      spring_or_fall VARCHAR(20) NOT NULL, -- "spring" for spring, "fall" for fall
@@ -173,18 +172,24 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
 
 CREATE TABLE IF NOT EXISTS Tutor_session (
      tutor_session_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     child_id BINARY(16) NOT NULL,
-     parent_id BINARY(16) NOT NULL,
      zoom_join_link VARCHAR(512),
      zoom_recording_link VARCHAR(512),
      meeting_date DATETIME NOT NULL,
      parent_avail boolean DEFAULT true,
-     tutor_id BINARY(16) NOT NULL,
-     semester_id BINARY(16) NOT NULL,
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
      FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
      FOREIGN KEY (tutor_id) REFERENCES Tutors(tutor_id),
      FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)
+);
+
+CREATE TABLE IF NOT EXISTS Tutor_session_linker (
+     FOREIGN KEY (semester_tutoring_obj) REFERENCES Semester_tutoring_obj(semester_tutoring_id),
+     FOREIGN KEY (tutor_session) REFERENCES Tutor_session(tutor_session_id)
+);
+
+CREATE TABLE IF NOT EXISTS Tutor_linker (
+     FOREIGN KEY (semester_tutoring_obj) REFERENCES Semester_tutoring_obj(semester_tutoring_id),
+     FOREIGN KEY (tutor_id) REFERENCES Tutors(tutor_id)
 );
 
 
