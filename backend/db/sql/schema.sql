@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS Child (
 
 -- Create Semester structures
 
+-- Will need to update this
 CREATE TABLE IF NOT EXISTS Semesters (
      semester_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
      spring_or_fall VARCHAR(20) NOT NULL, -- "spring" for spring, "fall" for fall
