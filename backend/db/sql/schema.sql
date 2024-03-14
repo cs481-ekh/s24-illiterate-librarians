@@ -180,8 +180,7 @@ CREATE TABLE IF NOT EXISTS Tutor_session (
      meeting_date DATETIME NOT NULL,
      parent_avail boolean DEFAULT true,
      semester_id BINARY(16) NOT NULL,
-     FOREIGN KEY (child_id) REFERENCES Child(child_id),
-     FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
+     tutor_id BINARY(16) NOT NULL,
      FOREIGN KEY (tutor_id) REFERENCES Tutors(tutor_id),
      FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)
 );
