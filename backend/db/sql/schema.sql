@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS Child (
 
 -- Create Semester structures
 
--- Will need to update this
 CREATE TABLE IF NOT EXISTS Semesters (
      semester_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
      spring_or_fall VARCHAR(20) NOT NULL, -- "spring" for spring, "fall" for fall
@@ -67,7 +66,9 @@ CREATE TABLE IF NOT EXISTS Semesters (
      first_tutor_day DATE NOT NULL,
      last_tutor_day DATE NOT NULL,
      tuesday_of_break DATE NOT NULL,
-     thursday_of_break DATE NOT NULL
+     thursday_of_break DATE NOT NULL,
+     open_enrollment_date DATE NOT NULL,
+     close_enrollment_date DATE NOT NULL
 );
 
 
@@ -124,6 +125,9 @@ CREATE TABLE IF NOT EXISTS Semester_tutoring_obj (
      semester_id BINARY(16) NOT NULL,
      FOREIGN KEY (child_id) REFERENCES Child(child_id),
      FOREIGN KEY (parent_id) REFERENCES Parents(parent_id)
+     FOREIGN KEY (EOS_parent_survey_id) REFERENCES EOS_parent_survey(EOS_p_s_id)
+     FOREIGN KEY (survey_complete_date) REFERENCES EOS_parent_survey(survey_complete_date)
+     FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)
 );
 
 
@@ -171,18 +175,28 @@ CREATE TABLE IF NOT EXISTS App_for_tutoring (
 
 CREATE TABLE IF NOT EXISTS Tutor_session (
      tutor_session_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
-     child_id BINARY(16) NOT NULL,
-     parent_id BINARY(16) NOT NULL,
      zoom_join_link VARCHAR(512),
      zoom_recording_link VARCHAR(512),
      meeting_date DATETIME NOT NULL,
      parent_avail boolean DEFAULT true,
-     tutor_id BINARY(16) NOT NULL,
      semester_id BINARY(16) NOT NULL,
-     FOREIGN KEY (child_id) REFERENCES Child(child_id),
-     FOREIGN KEY (parent_id) REFERENCES Parents(parent_id),
+     tutor_id BINARY(16) NOT NULL,
      FOREIGN KEY (tutor_id) REFERENCES Tutors(tutor_id),
      FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)
+);
+
+CREATE TABLE IF NOT EXISTS Tutor_session_linker (
+     semester_tutoring_obj BINARY(16) NOT NULL,
+     tutor_session BINARY(16) NOT NULL,
+     FOREIGN KEY (semester_tutoring_obj) REFERENCES Semester_tutoring_obj(semester_tutoring_id),
+     FOREIGN KEY (tutor_session) REFERENCES Tutor_session(tutor_session_id)
+);
+
+CREATE TABLE IF NOT EXISTS Tutor_linker (
+     semester_tutoring_obj BINARY(16) NOT NULL,
+     tutor_id BINARY(16) NOT NULL,
+     FOREIGN KEY (semester_tutoring_obj) REFERENCES Semester_tutoring_obj(semester_tutoring_id),
+     FOREIGN KEY (tutor_id) REFERENCES Tutors(tutor_id)
 );
 
 
@@ -191,6 +205,23 @@ CREATE TABLE IF NOT EXISTS Session_notes (
      tutor_session_id BINARY(16) NOT NULL,
      created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      FOREIGN KEY (tutor_session_id) REFERENCES Tutor_session(tutor_session_id)
+);
+
+CREATE TABLE IF NOT EXISTS Announcements (
+     announcement_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
+     a_text VARCHAR(512) NOT NULL,
+     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     semester_id BINARY(16) NOT NULL,
+     FOREIGN KEY (semester_id) REFERENCES Semester(semester_id)
+);
+
+CREATE TABLE IF NOT EXISTS Events (
+     event_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
+     event_title VARCHAR(255) NOT NULL,
+     event_descrip VARCHAR(512) NOT NULL,
+     due_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     semester_id BINARY(16) NOT NULL,
+     FOREIGN KEY (semester_id) REFERENCES Semester(semester_id)
 );
 
 
