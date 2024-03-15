@@ -33,7 +33,6 @@ services:
       - Literacy_Link_DB_PASSWORD=${Literacy_Link_DB_PASSWORD:-default_password}
       - Literacy_Link_DB_HOST=${Literacy_Link_DB_HOST:-db}
       - Literacy_Link_DB_PORT=${DB_PORT:-3306}
-      - BASE_URL=${BASE_URL:-http://localhost:8080}
 
 networks:
   literacy-link:

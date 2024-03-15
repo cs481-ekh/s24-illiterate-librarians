@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, catchError, throwError } from 'rxjs';
 import { NewAccount } from '../../new-account';
-import { getEnv } from '../../app.module';
-
+import { environment } from '../../../environments/environment';
 
 
 const httpOptions = {
@@ -12,7 +11,7 @@ const httpOptions = {
   withCredentials: true,
 };
 
-const url = getEnv('BASE_URL', 'http://localhost:8080');
+const url = environment.BASE_URL;
 
 @Injectable({
   providedIn: 'root'
