@@ -115,13 +115,13 @@ func SetupRoutes(router *gin.Engine) {
 	sessionRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET /session/client/:user_id
-		sessionRoutes.GET("/client/:userId", session.GetClientSessionsHandler)
+		sessionRoutes.GET("/client/:sessionId", session.GetClientSessionsHandler)
 
 		// GET /session/tutor/:user_id
-		sessionRoutes.GET("/tutor/:userId", session.GetTutorSessionsHandler)
+		sessionRoutes.GET("/tutor/:sessionId", session.GetTutorSessionsHandler)
 
-		// GET /session/:session_id
-		sessionRoutes.GET("/:sessionId", session.GetSessionByIdHandler)
+		// GET /session
+		sessionRoutes.GET("", session.GetSessionByIdHandler)
 	}
 
 }

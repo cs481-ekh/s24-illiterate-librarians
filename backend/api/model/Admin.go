@@ -7,3 +7,7 @@ type Admin struct {
 	// Define a field to represent the relationship with the User model
 	User User `gorm:"foreignKey:UserID"`
 }
+
+func (Admin) TableName() string {
+	return "Admin" // Specify the exact table name in the database
+}

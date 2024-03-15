@@ -14,3 +14,7 @@ type Semester struct {
 	TuesdayOfBreak  time.Time `gorm:"type:DATE;NOT NULL" json:"tuesday_of_break"`
 	ThursdayOfBreak time.Time `gorm:"type:DATE;NOT NULL" json:"thursday_of_break"`
 }
+
+func (Semester) TableName() string {
+	return "Semester" // Specify the exact table name in the database
+}

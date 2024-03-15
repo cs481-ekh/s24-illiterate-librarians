@@ -43,13 +43,34 @@ func DisconnectDB(db *gorm.DB) {
 	}
 }
 
-func Login(request model.LoginRequest, db *gorm.DB) (model.User, error) {
+func Login(request model.LoginRequest, db *gorm.DB) (model.User, string, error) {
 	var user model.User
 	result := db.Where("username = ?", request.Username).First(&user)
 	if result.Error != nil {
-		return user, result.Error
+		return user, "", result.Error
 	}
-	return user, nil
+	userType, _ := FindUserTable(user.UserID.String(), db)
+
+	return user, userType, nil
+}
+
+func FindUserTable(userID string, db *gorm.DB) (string, error) {
+	var parent model.Parent
+	if err := db.Where("user_id = UUID_TO_BIN(?)", userID).First(&parent).Error; err == nil {
+		return "parent", nil
+	}
+
+	var tutor model.Tutor
+	if err := db.Where("user_id = UUID_TO_BIN(?)", userID).First(&tutor).Error; err == nil {
+		return "tutor", nil
+	}
+
+	var instructor model.Instructor
+	if err := db.Where("user_id = UUID_TO_BIN(?)", userID).First(&instructor).Error; err == nil {
+		return "instructor", nil
+	}
+
+	return "user", gorm.ErrRecordNotFound
 }
 
 func CreateUser(request model.User, db *gorm.DB) error {
@@ -91,6 +112,28 @@ func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.Tu
 		return ses, result.Error
 	}
 	return ses, nil
+}
+
+func GetSessionsByUserIdAndType(userID string, userType string, db *gorm.DB) ([]model.TutorSession, error) {
+	var sessions []model.TutorSession
+
+	switch userType {
+	case "parent":
+		if err := db.Joins("JOIN Parents ON Tutor_session.parent_id = Parents.parent_id").
+			Where("Parents.user_id = UUID_TO_BIN(?)", userID).
+			Find(&sessions).Error; err != nil {
+			return nil, err
+		}
+	case "tutor":
+		err := db.Where("tutor_id = UUID_TO_BIN(?)", userID).Find(&sessions).Error
+		if err != nil {
+			return nil, err
+		}
+	default:
+		return nil, gorm.ErrRecordNotFound
+	}
+
+	return sessions, nil
 }
 
 func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {

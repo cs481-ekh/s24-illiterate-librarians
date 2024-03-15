@@ -19,3 +19,7 @@ type TutorSession struct {
 	Tutor    Tutor    `gorm:"foreignKey:TutorID"`
 	Semester Semester `gorm:"foreignKey:SemesterID"`
 }
+
+func (TutorSession) TableName() string {
+	return "Tutor_session" // Specify the exact table name in the database
+}

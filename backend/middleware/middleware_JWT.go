@@ -16,7 +16,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		_, err := auth.VerifyJWT(tokenString)
+		userId, userType, err := auth.VerifyJWT(tokenString)
 		if err != nil {
 			c.JSON(401, gin.H{"error": "Invalid token"})
 			c.Abort()
@@ -25,7 +25,9 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		// The user is authenticated, continue to the next middleware or handler
 		entry := log.Default()
-		entry.Print("Token Validated")
+		entry.Printf("Token Validated userID: %s , userType: %s", userId, userType)
+		c.Set("UserID", userId)
+		c.Set("UserType", userType)
 		c.Next()
 	}
 }
