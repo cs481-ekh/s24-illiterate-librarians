@@ -10,8 +10,6 @@ import (
 	"net/http"
 )
 
-// No idea if this is this will work tbh, but it looks like it could haha
-
 func GetTutorApplicationHandler(c *gin.Context) {
 	var request model.AppRequest
 	err := c.BindJSON(request)
