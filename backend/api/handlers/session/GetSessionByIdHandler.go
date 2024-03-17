@@ -1,7 +1,6 @@
 package session
 
 import (
-	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/db"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -25,28 +24,33 @@ func GetSessionByIdHandler(c *gin.Context) {
 		return
 	}
 	dbc := c.MustGet("db").(*gorm.DB)
-	//var response []model.TutoringSessionResponse
-	sessions, err := db.GetSessionsByUserIdAndType(userID.(string), userType.(string), dbc)
-	if err != nil {
+	if userType == "parent" {
+		sessions, err := db.GetClientsSessions(userID.(string), dbc)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": fmt.Sprintf("Error: %s", err),
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"sessions": sessions,
+		})
+		return
+	} else if userType == "tutor" {
+		sessions, err := db.GetTutorsSessions(userID.(string), dbc)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": fmt.Sprintf("Error: %s", err),
+			})
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"sessions": sessions,
+		})
+		return
+	} else {
 		c.JSON(http.StatusNotFound, gin.H{
 			"message": fmt.Sprintf("could not find sessions for userid: %s", userID),
 		})
 		return
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"sessions": sessions,
-	})
-	//for _, tutorSession := range sessions {
-	//	tmp := convertToTutorSessionResponse(tutorSession)
-	//	response = append(response, tmp)
-	//}
-}
-
-func convertToTutorSessionResponse(tutorSession model.TutorSession) model.TutoringSessionResponse {
-	return model.TutoringSessionResponse{
-		SessionId: tutorSession.TutorSessionID,
-		Title:     "Tutoring",
-		When:      tutorSession.MeetingDate,
-		ZoomLink:  tutorSession.ZoomJoinLink,
 	}
 }

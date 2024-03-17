@@ -125,26 +125,28 @@ func GetClientSession(request model.ClientSessionRequest, db *gorm.DB) (model.Tu
 	return ses, nil
 }
 
-func GetSessionsByUserIdAndType(userID string, userType string, db *gorm.DB) ([]model.TutorSession, error) {
-	var sessions []model.TutorSession
+func GetTutorsSessions(userID string, db *gorm.DB) ([]model.GetTutorSessionReply, error) {
+	var sessions []model.GetTutorSessionReply
+	err := db.Table("Tutor_session AS ts").
+		Select("BIN_TO_UUID(ts.tutor_session_id) as tutor_session_id, ts.zoom_join_link, ts.zoom_recording_link, ts.meeting_date, ts.parent_avail").
+		Joins("JOIN Tutor_linker tl ON ts.semester_tutoring_obj = tl.semester_tutoring_obj").
+		Joins("JOIN Tutors t ON tl.tutor_id = t.tutor_id").
+		Joins("JOIN Users AS u ON t.user_id = u.user_id").
+		Where("u.user_id = UUID_TO_BIN(?)", userID).
+		Find(&sessions).Error
+	return sessions, err
+}
 
-	switch userType {
-	case "parent":
-		if err := db.Joins("JOIN Parents ON Tutor_session.parent_id = Parents.parent_id").
-			Where("Parents.user_id = UUID_TO_BIN(?)", userID).
-			Find(&sessions).Error; err != nil {
-			return nil, err
-		}
-	case "tutor":
-		err := db.Where("tutor_id = UUID_TO_BIN(?)", userID).Find(&sessions).Error
-		if err != nil {
-			return nil, err
-		}
-	default:
-		return nil, gorm.ErrRecordNotFound
-	}
-
-	return sessions, nil
+func GetClientsSessions(userID string, db *gorm.DB) ([]model.GetTutorSessionReply, error) {
+	var sessions []model.GetTutorSessionReply
+	err := db.Table("Tutor_session AS ts").
+		Select("BIN_TO_UUID(ts.tutor_session_id) as tutor_session_id, ts.zoom_join_link, ts.zoom_recording_link, ts.meeting_date, ts.parent_avail").
+		Joins("JOIN Semester_tutoring_obj sto ON ts.semester_tutoring_obj = sto.semester_tutoring_id").
+		Joins("JOIN Parents p ON sto.parent_id = p.parent_id").
+		Joins("JOIN Users u ON p.user_id = u.user_id").
+		Where("u.user_id = UUID_TO_BIN(?)", userID).
+		Find(&sessions).Error
+	return sessions, err
 }
 
 func GetEOSSurvey(request model.EOSRequest, db *gorm.DB) (model.EOSParentSurvey, error) {
