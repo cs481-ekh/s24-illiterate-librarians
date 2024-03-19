@@ -31,6 +31,7 @@ import { ProfileChildrenComponent } from './profile/children/children.component'
 import { ProfileParentComponent } from './profile/parent/parent.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import { ApplicationComponent } from './application/application.component';
 
 
 export function tokenGetter() {
@@ -53,7 +54,8 @@ export function tokenGetter() {
     RegisterComponent,
     ProfileSettingsComponent,
     ProfileChildrenComponent,
-    ProfileParentComponent
+    ProfileParentComponent,
+    ApplicationComponent
   ],
   imports: [
     BrowserModule,

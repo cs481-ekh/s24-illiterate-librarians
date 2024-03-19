@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private router: Router) { 
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/login' || event.url === '/register') {
+        if (event.url === '/login' || event.url === '/register' || event.url === '/application') {
           this.showHead = false;
         } else {
           this.showHead = true;

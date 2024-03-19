@@ -9,6 +9,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuardService as AuthGuard} from './_services/auth-guard.service';
+import { ApplicationComponent } from './application/application.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,11 @@ const routes: Routes = [
     component: RegisterComponent,
     title: 'Register',
 
+  },
+  {
+    path: 'application',
+    component: ApplicationComponent,
+    title: 'Application',
   }
 ];
 
