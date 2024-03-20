@@ -10,11 +10,14 @@ COPY /frontend/package*.json .
 # Install dependencies
 RUN npm install
 
+
+RUN npm install -g @angular/cli
+
 # Copy the current directory contents into the container at /app
 COPY /frontend .
 
 # Build the Angular app
-RUN npm run build
+RUN ng build --configuration=production
 
 # Use an official Golang runtime as a parent image
 FROM golang:1.21
