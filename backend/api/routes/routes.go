@@ -2,6 +2,7 @@ package routes
 
 import (
 	"LiteracyLink.com/backend/api/handlers/application"
+	"LiteracyLink.com/backend/api/handlers/event"
 	"LiteracyLink.com/backend/api/handlers/health"
 	"LiteracyLink.com/backend/api/handlers/session"
 	"LiteracyLink.com/backend/api/handlers/survey"
@@ -125,6 +126,15 @@ func SetupRoutes(router *gin.Engine) {
 
 		// GET /session
 		sessionRoutes.GET("", session.GetSessionByIdHandler)
+	}
+	eventRoutes := router.Group("/api/event")
+	eventRoutes.Use(middleware.AuthMiddleware())
+	{
+		// GET api/event/Announcements
+		eventRoutes.GET("/announcements", event.GetAnnouncementsHandler)
+
+		// GET api/event/
+		eventRoutes.GET("", event.GetEventHandler)
 	}
 
 }

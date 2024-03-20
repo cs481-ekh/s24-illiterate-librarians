@@ -169,3 +169,25 @@ func SubmitEOSSurvey(request model.EOSParentSurvey, db *gorm.DB) error {
 
 	return nil
 }
+
+func GetAnnouncements(db *gorm.DB) ([]model.GetAnnouncements, error) {
+	var result []model.GetAnnouncements
+	err := db.
+		Select("BIN_TO_UUID(announcement_id) as announcement_id, a_text, created_date").
+		Where("created_date between date_sub(now(),INTERVAL 2 WEEK) and now();").Find(&result).Error
+	if err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+func GetEvents(db *gorm.DB) ([]model.GetEvents, error) {
+	var result []model.GetEvents
+	err := db.
+		Select("BIN_TO_UUID(event_id) as event_id, event_title, event_descrip, created_date, due_date").
+		Where("due_date >= date_sub(NOW(), INTERVAL 1 WEEK)").Find(&result).Error
+	if err != nil {
+		return result, err
+	}
+	return result, nil
+}

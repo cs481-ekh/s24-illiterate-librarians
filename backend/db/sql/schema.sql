@@ -213,9 +213,7 @@ CREATE TABLE IF NOT EXISTS Announcements
 (
     announcement_id BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
     a_text          VARCHAR(512) NOT NULL,
-    created_date    TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    semester_id     BINARY(16)   NOT NULL,
-    FOREIGN KEY (semester_id) REFERENCES Semesters (semester_id)
+    created_date    TIMESTAMP  DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS Events
@@ -223,8 +221,7 @@ CREATE TABLE IF NOT EXISTS Events
     event_id      BINARY(16) DEFAULT (UUID_TO_BIN(UUID(), 1)) PRIMARY KEY,
     event_title   VARCHAR(255) NOT NULL,
     event_descrip VARCHAR(512) NOT NULL,
-    due_date      TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    semester_id   BINARY(16)   NOT NULL,
-    FOREIGN KEY (semester_id) REFERENCES Semesters (semester_id)
+    created_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date      TIMESTAMP  DEFAULT CURRENT_TIMESTAMP
 );
 
