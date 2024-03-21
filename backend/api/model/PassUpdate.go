@@ -1,6 +1,6 @@
 package model
 
 type PassUpdate struct {
-	Username string `json:"username" binding:"required"` //is binding required for these two?
-	Password string `json:"password" binding:"required"`
+	UserID string `json:"user_id" binding:"required"` //is binding required for these two?
+	PasswordHash string `json:"password" binding:"required"`
 }

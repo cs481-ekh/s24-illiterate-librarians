@@ -27,10 +27,30 @@ func UpdatePasswordHandler(c *gin.Context) {
 		})
 		return
 	}
+	
+	//get the id (therby jwt token)
+	id := c.MustGet("userID");
 
-	// how are we verifying the password is long enough? In the front end? I feel like it should 
-	// be done in both but at this point the password is already hashed right?
+	//set it into the passupdate struct
+	request.UserID = id;
 
+	// Validate password
+	if !isValidPassword(request.PasswordHash) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid password"})
+		return
+	}
+
+	// Hash the password
+	hashedPassword, err := hashPassword(request.PasswordHash)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error hashing password"})
+		return
+	}
+
+	// Set the hashed password in the User struct
+	request.PasswordHash = hashedPassword
+
+	// Now you can use the request to update the password
 	dbc := c.MustGet("db").(*gorm.DB)
 	err = db.UpdatePass(request, dbc)
 	if err != nil {
@@ -49,29 +69,6 @@ func UpdatePasswordHandler(c *gin.Context) {
 		}
 	}
 
-	//uneeded in this case?
-
-	// err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(request.Password))
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{
-	// 		"status":  "failed",
-	// 		"message": fmt.Sprintf("incorrect username or password"),
-	// 	})
-	// }
-
-	// jwt, err := auth.GenerateJWT(user.UserID)
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{
-	// 		"status":  "failed",
-	// 		"message": fmt.Sprintf("ERROR: %g", err),
-	// 	})
-	// 	return
-	// }
-
-	// c.SetCookie("token", jwt, 60*60*24*7, "/", "localhost", false, true)
-	// c.JSON(http.StatusOK, gin.H{
-	// 	"id_token":   jwt,
-	// 	"expires_at": 60 * 60 * 24 * 7,
-	// })
 }
+
 
