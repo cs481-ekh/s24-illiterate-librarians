@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/auth"
@@ -62,7 +63,12 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("token", jwt, 60*60*24*7, "/", "localhost", false, true)
+	url, exists := os.LookupEnv("BASE_URL")
+	if !exists {
+		url = "localhost:8080"
+	}
+
+	c.SetCookie("token", jwt, 60*60*24*7, "/", url, false, true)
 	c.JSON(http.StatusOK, gin.H{
 		"id_token":   jwt,
 		"expires_at": 60 * 60 * 24 * 7,
