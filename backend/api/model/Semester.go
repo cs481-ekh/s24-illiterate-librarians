@@ -16,3 +16,7 @@ type Semester struct {
 	Open_Enrollment_Date  time.Time `gorm:"type:DATE;NOT NULL" json:"open_enrollment_date"`
 	Close_Enrollment_Date time.Time `gorm:"type:DATE;NOT NULL" json:"close_enrollment_date"`
 }
+
+func (Semester) TableName() string {
+	return "Semester" // Specify the exact table name in the database
+}

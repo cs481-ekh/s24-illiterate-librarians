@@ -17,7 +17,7 @@ func TestJWTGenerationAndAuthentication(t *testing.T) {
 	}
 
 	// Generate a JWT for the test user
-	token, err := auth.GenerateUserToken(testUserID)
+	token, err := auth.GenerateJWT(testUserID, "parent")
 	if err != nil {
 		t.Fatalf("Error generating JWT: %v", err)
 	}
