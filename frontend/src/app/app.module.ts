@@ -31,12 +31,13 @@ import { ProfileChildrenComponent } from './profile/children/children.component'
 import { ProfileParentComponent } from './profile/parent/parent.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import { APP_BASE_HREF } from '@angular/common';
+import { environment } from '../environments/environment';
 
 
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:8080'], 
+        allowedDomains: ['http://localhost:8080', environment.BASE_URL], 
         disallowedRoutes: [] 
       }
     }),
@@ -84,6 +85,7 @@ export function tokenGetter() {
       useClass: AuthInterceptorService,
       multi: true,
     },
+    {provide: APP_BASE_HREF, useValue : '/' }
   ],
   bootstrap: [AppComponent]
 })
