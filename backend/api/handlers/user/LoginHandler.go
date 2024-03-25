@@ -29,7 +29,7 @@ func LoginHandler(c *gin.Context) {
 	}
 
 	dbc := c.MustGet("db").(*gorm.DB)
-	user, err := db.Login(request, dbc)
+	user, userType, err := db.Login(request, dbc)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -52,9 +52,10 @@ func LoginHandler(c *gin.Context) {
 			"status":  "failed",
 			"message": fmt.Sprintf("incorrect username or password"),
 		})
+		return
 	}
 
-	jwt, err := auth.GenerateJWT(user.UserID)
+	jwt, err := auth.GenerateJWT(user.UserID, userType)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
