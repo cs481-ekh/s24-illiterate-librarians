@@ -14,8 +14,12 @@ func UpdateUserHandler(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "error binding json body to user type"})
 	}
+
+
+
+	
 	c.JSON(http.StatusAccepted, gin.H{
 		"status":  "success",
-		"message": fmt.Sprintf("TODO: make func let user with id: %s update password", user_id),
+		"message": fmt.Sprintf("TODO: make func let user with id: %s update attributes of user", user_id),
 	})
 }

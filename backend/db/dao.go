@@ -63,10 +63,9 @@ func CreateUser(request model.User, db *gorm.DB) error {
 }
 
 func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
-	var user model.User
-	result := db.Save(request) //will need to test this
+	result := db.Save(request) //will need to test save function
 	if result.Error != nil {
-		return user, result.Error
+		return result.Error
 	}
 	return nil
 }
@@ -84,7 +83,7 @@ func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 
 func UpdateApp(request model.TutoringApplication, db *gorm.DB) error {
 
-	result := db.Save(request)
+	result := db.Save(request) //need to test save function
 
 	if result.Error != nil {
 		return result.Error
