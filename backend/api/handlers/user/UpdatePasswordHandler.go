@@ -27,7 +27,7 @@ func UpdatePasswordHandler(c *gin.Context) {
 	}
 	
 	//get the id (therby jwt token)
-	id := c.MustGet("userID");
+	var id = c.MustGet("userID").(string);
 
 	//set it into the passupdate struct
 	request.UserID = id;
