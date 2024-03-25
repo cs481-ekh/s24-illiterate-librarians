@@ -62,6 +62,18 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
+//NOTE: THIS CANNOT BE USED FOR UPDATING PASSWORDS
+//How would I enforce that in the handler? Also should I not allow you to change the email?
+func UpdateUser(request model.User, db *gorm.DB) error {
+	result := db.Save(request)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
 func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
 	result := db.Save(request) //will need to test save function
 	if result.Error != nil {
