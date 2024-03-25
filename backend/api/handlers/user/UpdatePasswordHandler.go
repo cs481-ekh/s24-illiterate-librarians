@@ -7,10 +7,8 @@ import (
 	"net/http"
 
 	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/auth"
 	"LiteracyLink.com/backend/db"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -68,6 +66,9 @@ func UpdatePasswordHandler(c *gin.Context) {
 			return
 		}
 	}
+
+	// return 204 to front end showing success
+	return c.JSON(http.StatusNoContent, gin.H{})
 
 }
 
