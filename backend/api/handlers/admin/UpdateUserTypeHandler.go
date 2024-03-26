@@ -40,5 +40,7 @@ func UpdateUserTypeHandler(c *gin.Context) {
 	err = db.SetUserType(updateUser, dbc)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
 	}
+	c.JSON(http.StatusNoContent, gin.H{})
 }
