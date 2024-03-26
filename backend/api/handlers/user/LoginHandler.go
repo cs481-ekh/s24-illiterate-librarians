@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"LiteracyLink.com/backend/api/model"
 	"LiteracyLink.com/backend/auth"
@@ -28,7 +29,7 @@ func LoginHandler(c *gin.Context) {
 	}
 
 	dbc := c.MustGet("db").(*gorm.DB)
-	user, err := db.Login(request, dbc)
+	user, userType, err := db.Login(request, dbc)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -51,9 +52,10 @@ func LoginHandler(c *gin.Context) {
 			"status":  "failed",
 			"message": fmt.Sprintf("incorrect username or password"),
 		})
+		return
 	}
 
-	jwt, err := auth.GenerateJWT(user.UserID)
+	jwt, err := auth.GenerateJWT(user.UserID, userType)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
@@ -62,7 +64,12 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("token", jwt, 60*60*24*7, "/", "localhost", false, true)
+	url, exists := os.LookupEnv("BASE_URL")
+	if !exists {
+		url = "localhost:8080"
+	}
+
+	c.SetCookie("token", jwt, 60*60*24*7, "/", url, false, true)
 	c.JSON(http.StatusOK, gin.H{
 		"id_token":   jwt,
 		"expires_at": 60 * 60 * 24 * 7,

@@ -16,3 +16,7 @@ type Child struct {
 	// Define a field to represent the relationship with the Parent model
 	Parent Parent `gorm:"foreignKey:ParentID"`
 }
+
+func (Child) TableName() string {
+	return "Child" // Specify the exact table name in the database
+}

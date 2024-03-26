@@ -44,3 +44,7 @@ type Application struct {
 	MiscInfo                     string `gorm:"type:VARCHAR(50)" json:"misc_info"`
 	HearAboutLitLab              string `gorm:"type:VARCHAR(50)" json:"hear_about_litLab"`
 }
+
+func (Application) TableName() string {
+	return "Application" // Specify the exact table name in the database
+}

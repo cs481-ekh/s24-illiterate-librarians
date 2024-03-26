@@ -7,3 +7,7 @@ type Instructor struct {
 	// Define a field to represent the relationship with the User model
 	User User `gorm:"foreignKey:UserID"`
 }
+
+func (Instructor) TableName() string {
+	return "Instructors" // Specify the exact table name in the database
+}

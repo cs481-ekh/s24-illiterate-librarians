@@ -3,6 +3,8 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
+    volumes:
+      - ./backend/db/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: "${Literacy_Link_DB_ROOT_PASSWORD:-default_root_password}"
@@ -19,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "${HOST_PORT:-8080}:8080"
     depends_on:
       - mysql
     restart: on-failure
