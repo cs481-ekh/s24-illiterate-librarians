@@ -17,6 +17,18 @@ type Child struct {
 	Parent Parent `gorm:"foreignKey:ParentID"`
 }
 
+type ChildJSON struct {
+	ChildID   string `json:"child_id"`
+	ParentID  string `json:"parent_id"`
+	Grade     int8   `json:"grade"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
+
+func (ChildJSON) TableName() string {
+	return "Child" // Specify the exact table name in the database
+}
+
 func (Child) TableName() string {
 	return "Child" // Specify the exact table name in the database
 }
