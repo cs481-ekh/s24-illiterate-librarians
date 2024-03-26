@@ -24,3 +24,16 @@
     justify-content: center;
     width: 100%;
   }
+
+  .informed-consent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-left: 170px;
+  }
+  .document-photo{
+    width: 600px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }

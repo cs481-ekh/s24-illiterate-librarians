@@ -4,7 +4,7 @@
       <h1>Literacy Lab Tutoring Application</h1>
     </div>
     <div class="form">
-      <mat-stepper [linear]="false" #stepper class="stepper">
+      <mat-stepper [linear]="true" #stepper class="stepper">
         <mat-step [stepControl]="prelimFormGroup">
           <ng-template matStepLabel>Preliminary Information</ng-template>
           <div class="preamble">
@@ -60,21 +60,43 @@
               >Agreements/Permissions & Payments</ng-template
             >
             <div class="field-title">
-              Please type your name below to confirm that you have read and
-              agree to the Literacy Lab policies found
-              <a> here </a>
-              and understand that my child's data will be used for research
-              purposes.
+              DOCUMENTATION OF POLICY AGREEMENT: Type your name indicating you
+              have read and agree to the Boise State University Policies written
+              in the permission slip below.
+            </div>
+            <div class="informed-consent">
+            <img src="../../assets/Screenshot 2023-11-29 at 7.47.23 AM.png" class="document-photo"/>
             </div>
             <mat-form-field>
               <mat-label>Policy Agreement</mat-label>
               <input matInput formControlName="PolicyAgreement" />
             </mat-form-field>
-            <div class="field-title">
-              DOCUMENTATION OF CONSENT: I have read the two-page form found
-              <a> here </a>and have decided that my child's data can be used by
-              the lab to study child and pre-service teacher learning.
+
+
+            <div class="error" *ngIf="isStep1Valid && PolicyAgreement?.errors?.['required']">
+              This is a required field
             </div>
+
+            <div class="field-title">
+              Boise State University Informed Consent Study Title: Literacy
+              Center Efficacy Principal Investigators: Dr. Katherine Wright &
+              Dr. Hannah Carter
+            </div>
+            <div class="informed-consent">
+              <img
+                src="../../assets/Informed Consent 1.jpeg"
+                alt="Consent Form"
+                class="document-photo"
+              />
+              <img
+                src="../../assets/Informed Consent 2.jpeg"
+                alt="Consent Form"
+                class="document-photo"
+              />
+            </div>
+            DOCUMENTATION OF CONSENT: I have read the two-page form seen above
+            and have decided that my child's data can be used by the lab to
+            study child and pre-service teacher learning.
             <mat-form-field>
               <mat-label>Child Data Consent</mat-label>
               <mat-select formControlName="ChildDataConsent">
