@@ -76,7 +76,7 @@ func UpdateUser(request model.User, db *gorm.DB) error {
 
 func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
 	var user model.User
-	res := (db.Model(&user).Where("user_id = ?", request.UserID).Update("password_hash", request.PasswordHash))
+	res := (db.Model(&user).Where("user_id = UUID_TO_BIN(?)", request.UserID).Update("password_hash", request.PasswordHash))
 	if res.Error != nil {
 		return res.Error
 	}

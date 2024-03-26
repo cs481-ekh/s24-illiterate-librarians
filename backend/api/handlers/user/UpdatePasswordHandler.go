@@ -23,7 +23,6 @@ func UpdatePasswordHandler(c *gin.Context) {
 		return
 	}
 
-	//Do I really need this if I have the id in UUID form from the PassUpdate?
 	//get the id (therby jwt token)
 	var id = c.MustGet("userID").(string);
 
