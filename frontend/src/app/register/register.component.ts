@@ -333,7 +333,7 @@ export function phoneNumberValidator(): ValidatorFn {
               <div class="done">
                 Thank you for registering with Literacy Link!
                 <button mat-button (click)="submit()">
-                  Go to Dashboard
+                  Submit and Go to Dashboard
                 </button>
               </div>
             </mat-step>
