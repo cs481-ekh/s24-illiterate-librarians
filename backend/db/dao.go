@@ -86,7 +86,7 @@ func CreateUser(request model.User, db *gorm.DB) error {
 func GetUser(request model.UserRequest, db *gorm.DB) (model.User, error) {
 
 	var user model.User
-	result := db.Where("user_id = UUID_TO_BIN?", request.UserID).First(&user)
+	result := db.Where("user_id = UUID_TO_BIN(?)", request.UserID).First(&user)
 	if result.Error != nil {
 		return user, result.Error
 	}
