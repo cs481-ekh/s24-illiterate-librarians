@@ -1,6 +1,10 @@
 package routes
 
 import (
+	"net/http"
+	"os"
+	"path/filepath"
+
 	"LiteracyLink.com/backend/api/handlers/admin"
 	"LiteracyLink.com/backend/api/handlers/application"
 	"LiteracyLink.com/backend/api/handlers/event"
@@ -10,9 +14,6 @@ import (
 	"LiteracyLink.com/backend/api/handlers/user"
 	"LiteracyLink.com/backend/middleware"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"os"
-	"path/filepath"
 )
 
 func ServeStatic(router *gin.Engine) {
@@ -107,13 +108,13 @@ func SetupRoutes(router *gin.Engine) {
 	{
 
 		// POST /survey/after_semester_survey/:user_id
-		surveyRoutes.POST("/:userId", application.PostTutorApplicationHandler)
+		applicationRoutes.POST("/", application.PostTutorApplicationHandler)
 
 		// POST /survey/after_semester_survey/:user_id
-		surveyRoutes.PUT("/:userId", application.UpdateTutorApplicationHandler)
+		applicationRoutes.PUT("/", application.UpdateTutorApplicationHandler)
 
 		// GET /survey/after_semester_survey/:user_id
-		surveyRoutes.GET("/:userId", application.GetTutorApplicationHandler)
+		applicationRoutes.GET("/", application.GetTutorApplicationHandler)
 	}
 
 	sessionRoutes := router.Group("/api/session")
