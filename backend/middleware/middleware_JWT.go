@@ -9,12 +9,13 @@ import (
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		tokenString := c.GetHeader("Authorization")
-		if tokenString == "" {
+		cookie, err := c.Request.Cookie("token")
+		if err != nil {
 			c.JSON(401, gin.H{"error": "Authorization header is missing"})
 			c.Abort()
 			return
 		}
+		tokenString := cookie.Value
 
 		userId, userType, err := auth.VerifyJWT(tokenString)
 		if err != nil {

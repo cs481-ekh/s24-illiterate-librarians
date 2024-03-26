@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"LiteracyLink.com/backend/api/handlers/admin"
 	"LiteracyLink.com/backend/api/handlers/application"
 	"LiteracyLink.com/backend/api/handlers/event"
 	"LiteracyLink.com/backend/api/handlers/health"
@@ -135,6 +136,12 @@ func SetupRoutes(router *gin.Engine) {
 
 		// GET api/event/
 		eventRoutes.GET("", event.GetEventHandler)
+	}
+	adminRoutes := router.Group("/api/admin")
+	adminRoutes.Use(middleware.AuthMiddleware())
+	{
+		adminRoutes.PUT("/update/privileges", admin.UpdateUserTypeHandler)
+
 	}
 
 }
