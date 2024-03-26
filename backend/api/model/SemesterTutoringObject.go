@@ -16,8 +16,9 @@ type SemesterTutoringObj struct {
 	SemesterID        []byte `gorm:"type:BINARY(16);NOT NULL" json:"semester_id"`
 
 	// Define fields for relationships with other tables
-	Child           Child           `gorm:"foreignKey:ChildID"`
-	Parent          Parent          `gorm:"foreignKey:ParentID"`
-	EOSParentSurvey EOSParentSurvey `gorm:"foreignKey:EOSParentSurveyID"`
-	Semester        Semester        `gorm:"foreignKey:SemesterID"`
+	Child           Child             `gorm:"foreignKey:ChildID"`
+	Parent          Parent            `gorm:"foreignKey:ParentID"`
+	EOSParentSurvey EOSParentSurvey   `gorm:"foreignKey:EOSParentSurveyID"`
+	SurveyCompleteDay EOSParentSurvey `gorm:"foreignKey:SurveyCompleteDate"`
+	Semester        Semester          `gorm:"foreignKey:SemesterID"`
 }

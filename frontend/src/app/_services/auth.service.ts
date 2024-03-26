@@ -4,6 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import moment from 'moment';
+import { environment } from '../../environments/environment';
 
 interface AuthResult {
   expires_at: number;
@@ -15,7 +16,7 @@ const httpOptions = {
   withCredentials: true,
 };
 
-const url = "http://localhost:8080"
+const url = environment.BASE_URL;
 
 @Injectable({
   providedIn: 'root',
