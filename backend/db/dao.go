@@ -74,10 +74,11 @@ func UpdateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
-func UpdatePass(request model.User, db *gorm.DB) error {
-	result := db.Save(request) //will need to test save function
-	if result.Error != nil {
-		return result.Error
+func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
+	var user model.User
+	res := (db.model(&user).where("user_id = ?", request.UserID).Update("password_hash", request.PasswordHash))
+	if res.Error != nil {
+		return res.Error
 	}
 	return nil
 }

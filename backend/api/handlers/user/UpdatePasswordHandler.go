@@ -3,7 +3,6 @@ package user
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 
 	"LiteracyLink.com/backend/api/model"
@@ -14,7 +13,7 @@ import (
 
 func UpdatePasswordHandler(c *gin.Context) {
 	
-	var request model.User
+	var request model.PassUpdate
 	err := c.BindJSON(&request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -25,7 +24,7 @@ func UpdatePasswordHandler(c *gin.Context) {
 	}
 
 	//get the id (therby jwt token)
-	var id = c.MustGet("userID").(string);
+	var id = c.MustGet("userID").uuid.UUID;
 
 	//set it into the passupdate struct
 	request.UserID = id;
@@ -53,7 +52,7 @@ func UpdatePasswordHandler(c *gin.Context) {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
-				"message": fmt.Sprintf("Unable to findd user with id: " + request.UserID),
+				"message": fmt.Sprintf("Unable to findd user with id: " + string(request.UserID)),
 			})
 			return
 		} else {
