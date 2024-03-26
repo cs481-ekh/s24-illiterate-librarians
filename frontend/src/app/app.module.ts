@@ -33,6 +33,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 import { APP_BASE_HREF } from '@angular/common';
 import { environment } from '../environments/environment';
+import { SessionNotesComponent } from './session-notes/session-notes.component';
 
 
 export function tokenGetter() {
@@ -54,7 +55,8 @@ export function tokenGetter() {
     RegisterComponent,
     ProfileSettingsComponent,
     ProfileChildrenComponent,
-    ProfileParentComponent
+    ProfileParentComponent,
+    SessionNotesComponent
   ],
   imports: [
     BrowserModule,
