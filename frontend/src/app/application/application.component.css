@@ -1,0 +1,26 @@
+#application{
+  display: flex;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px #000000;
+    position: absolute;
+    left: 50%;
+    margin-left: -480px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  .agreements, .fam-info, .child-info, .done{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }

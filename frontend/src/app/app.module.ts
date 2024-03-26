@@ -31,6 +31,7 @@ import { ProfileChildrenComponent } from './profile/children/children.component'
 import { ProfileParentComponent } from './profile/parent/parent.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 import { ApplicationComponent } from './application/application.component';
 
 
@@ -70,6 +71,7 @@ export function tokenGetter() {
     MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatRadioModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
