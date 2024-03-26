@@ -28,6 +28,9 @@ export interface eventData {
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
   </div>
+  <div class="session-notes">
+    <app-session-notes></app-session-notes>
+  </div>
   
 </div>
   `,
