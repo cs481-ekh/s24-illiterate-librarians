@@ -83,6 +83,16 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
+func GetUser(request model.UserRequest, db *gorm.DB) (model.User, error) {
+
+	var user model.User
+	result := db.Where("user_id = UUID_TO_BIN(?)", request.UserID).First(&user)
+	if result.Error != nil {
+		return user, result.Error
+	}
+	return user, nil
+}
+
 //NOTE: THIS CANNOT BE USED FOR UPDATING PASSWORDS
 //How would I enforce that in the handler? Also should I not allow you to change the email?
 func UpdateUser(request model.User, db *gorm.DB) error {
