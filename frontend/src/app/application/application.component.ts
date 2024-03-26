@@ -171,9 +171,7 @@ export class ApplicationComponent {
   }
 
   submit(){
-    console.log(this.firstFormGroup.value);
-    console.log(this.secondFormGroup.value);
-    console.log(this.thirdFormControlGroup.value);
+    
   }
 
   constructor() {}
