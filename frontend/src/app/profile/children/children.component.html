@@ -1,6 +1,6 @@
 <div class="info">
     <h1>Children</h1>
-    <button class="addButton" id="add">Add Child</button>
+    <button class="addButton" id="addButton">Add Child</button>
     <div class="children-list">
         <div class="child-box">
             <div class="child-info">
@@ -20,7 +20,7 @@
 
 <div id="childModal" class="modal">
     <div class="modal-content">
-        <span id="childClose" class="child-close">&times;</span>
+        <span id="childClose" class="childClose">&times;</span>
         <h2>Edit Child Information</h2>
         <form action="#" method="post">
             <div class="group">
@@ -59,6 +59,52 @@
             </div>
             <div class="group">
                 <input type="submit" value="Save" class="button">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span id="addClose" class="childClose">&times;</span>
+        <h2>Edit Child Information</h2>
+        <form action="#" method="post">
+            <div class="group">
+                <div class="field">
+                    <label for="first">First</label><br>
+                    <input type="text" id="childName" name="childName" required><br><br>
+                </div>
+                <div class="field">
+                    <label for="last">Last</label><br>
+                    <input type="text" id="childLastName" name="childLastName" required><br><br>
+                </div>
+            </div> 
+            <div class="group">
+                <div class="field">
+                    <label for="grade">Grade</label><br>
+                    <select id="state" name="state" required><br><br>
+                        <option value="">Grade</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="birthday">Birthday</label><br>
+                    <input type="date" id="birthday" name="birthday" required><br><br>
+                </div>
+            </div>
+            <div class="group">
+                <input type="submit" value="Add" class="button">
             </div>
         </form>
     </div>

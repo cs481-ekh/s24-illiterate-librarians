@@ -107,24 +107,28 @@ export class ProfileParentComponent {
 
   submit() {
     if (this.profileForm.valid) {
-      this.formValid = true;
+      // If the form is valid, submit it
       const profileData: ProfileData = {
-        firstName: this.profileForm.value.first_name ?? '',
-        lastName: this.profileForm.value.last_name ?? '',
+        first_name: this.profileForm.value.first_name ?? '',
+        last_name: this.profileForm.value.last_name ?? '',
         username: this.profileForm.value.username ?? '',
         email: this.profileForm.value.email ?? '',
         phone: this.profileForm.value.phone ?? '',
         address: this.compileAddress() ?? '',
       };
-      this.profileService.updateProfile(profileData).subscribe((response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
+      this.profileService.updateProfile(profileData).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
       );
+    } else {
+      this.formValid = true;
     }
   }
+  
 
   ngOnInit() {
     const editButton = document.getElementById('edit');

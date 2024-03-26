@@ -181,15 +181,16 @@ input[type=submit]:hover {
     background-color: #d1d1d1;
 }
 
-.child-close {
+.childClose {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
-.child-close:hover {
+.childClose:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;

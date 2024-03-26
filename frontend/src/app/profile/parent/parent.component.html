@@ -5,55 +5,51 @@
         <h3>Personal Information</h3>
         <div class="group">
             <div class="field">
-                <label for="firstName">First Name</label><br>
-                <p>John</p><br><br>
+                <label for="firstName">First Name</label>
+                <p>{{first_name}}</p>
             </div>
             <div class="field">
-                <label for="lastName">Last Name</label><br>
-                <p>Doe</p><br><br>
-            </div>
-        </div>
-        <div class="group">
-            <div class="field">
-                <label for="username">Username</label><br>
-                <p>john_doe</p><br><br>
+                <label for="lastName">Last Name</label>
+                <p>{{last_name}}</p>
             </div>
         </div>
         <div class="group">
             <div class="field">
-                <label for="email">Email</label><br>
-                <p>johndoeatexample.com</p><br><br>
+                <label for="username">Username</label>
+                <p>{{username}}</p>
+            </div>
+        </div>
+        <div class="group">
+            <div class="field">
+                <label for="email">Email</label>
+                <p>{{email}}</p>
             </div>
             <div class="field">
-                <label for="phone">Phone</label><br>
-                <p>123-456-7890</p><br><br>
+                <label for="phone">Phone</label>
+                <p>{{phone}}</p>
             </div>
         </div>
         <h3>Address</h3>
         <div class="group">
             <div class="field">
-                <label for="streetAddress">Street Address</label><br>
-                <p>123 Main St</p><br><br>
+                <label for="streetAddress">Street Address</label>
+                <p>{{street_address}}</p>
             </div>
         </div>
         <div class="group">
             <div class="field">
-                <label for="city">City</label><br>
-                <p>Anytown</p><br><br>
+                <label for="city">City</label>
+                <p>{{city}}</p>
             </div>
             <div class="field">
-                <label for="state">State</label><br>
-                <p>CA</p><br><br>
+                <label for="state">State</label>
+                <p>{{city}}</p>
             </div>
         </div>
         <div class="group">
             <div class="field">
-                <label for="zip">Zip</label><br>
-                <p>12345</p><br><br>
-            </div>
-            <div class="field">
-                <label for="country">Country</label><br>
-                <p>USA</p><br><br>
+                <label for="zip">Zip</label>
+                <p>{{zip}}</p>
             </div>
         </div>
     </div>
@@ -62,126 +58,153 @@
         <form [formGroup]="profileForm">
             <div class="group">
                 <div class="field">
-                    <label for="firstName">First Name</label><br>
-                    <input formControlName="first_name" class="medium" type="text" id="firstName" name="firstName" formControlName="firstName" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && first_name?.errors?.['required']" class="error">
-                    First name is required
-                    </div>
-                    <div *ngIf="formValid && first_name?.errors?.['minlength']" class="error">
-                    First name must be at least 2 characters
-                    </div>
-                    <div *ngIf="formValid && first_name?.errors?.['maxlength']" class="error">
-                    First name cannot be more than 30 characters
-                    </div>
-                    <div *ngIf="formValid && first_name?.errors?.['pattern']" class="error">
-                    First name must contain only letters
+                    <label for="firstName">First Name</label>
+                    <input formControlName="first_name" class="medium" type="text" id="firstName" name="firstName" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && first_name?.errors?.['required']" class="error">
+                        First name is required
+                        </div>
+                        <div *ngIf="formValid && first_name?.errors?.['minlength']" class="error">
+                        First name too short
+                        </div>
+                        <div *ngIf="formValid && first_name?.errors?.['maxlength']" class="error">
+                        First name too long
+                        </div>
+                        <div *ngIf="formValid && first_name?.errors?.['pattern']" class="error">
+                        First name must contain only letters
+                        </div>
                     </div>
                 </div>
                 <div class="field">
-                    <label for="lastName">Last Name</label><br>
-                    <input formControlName="last_name" class="medium" type="text" id="lastName" name="lastName" formControlName="lastName" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && last_name?.errors?.['required']" class="error">
-                    Last name is required
-                    </div>
-                    <div *ngIf="formValid && last_name?.errors?.['minlength']" class="error">
-                    Last name must be at least 2 characters
-                    </div>
-                    <div *ngIf="formValid && last_name?.errors?.['maxlength']" class="error">
-                    Last name cannot be more than 30 characters
-                    </div>
-                    <div *ngIf="formValid && last_name?.errors?.['pattern']" class="error">
-                    Last name must contain only letters
+                    <label for="lastName">Last Name</label>
+                    <input formControlName="last_name" class="medium" type="text" id="last_name" name="last_name" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && last_name?.errors?.['required']" class="error">
+                        Last name is required
+                        </div>
+                        <div *ngIf="formValid && last_name?.errors?.['minlength']" class="error">
+                        Last name too short
+                        </div>
+                        <div *ngIf="formValid && last_name?.errors?.['maxlength']" class="error">
+                        Last name too long
+                        </div>
+                        <div *ngIf="formValid && last_name?.errors?.['pattern']" class="error">
+                        Last name must contain only letters
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="group">
                 <div class="field">
-                    <label for="username">Username</label><br>
-                    <input formControlName="username" class="medium" type="text" id="username" name="username" formControlName="username" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && username?.errors?.['required']" class="error">
-                    Username is required
-                    </div>
-                    <div *ngIf="formValid && username?.errors?.['minlength']" class="error">
-                    Username must be at least 2 characters
-                    </div>
-                    <div *ngIf="formValid && username?.errors?.['maxlength']" class="error">
-                    Username cannot be more than 30 characters
-                    </div>
-                    <div *ngIf="formValid && username?.errors?.['pattern']" class="error">
-                    Username must contain only letters and numbers and special characters
+                    <label for="username">Username</label>
+                    <input formControlName="username" class="medium" type="text" id="username" name="username" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && username?.errors?.['required']" class="error">
+                        Username is required
+                        </div>
+                        <div *ngIf="formValid && username?.errors?.['minlength']" class="error">
+                        Username too short
+                        </div>
+                        <div *ngIf="formValid && username?.errors?.['maxlength']" class="error">
+                        Username too long
+                        </div>
+                        <div *ngIf="formValid && username?.errors?.['pattern']" class="error">
+                        Username must contain only letters and numbers and special characters
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="group">
                 <div class="field">
-                    <label for="email">Email</label><br>
-                    <input formControlName="email" class="long" type="email" id="email" name="email" formControlName="email" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && email?.errors?.['required']" class="error">
-                    Email is required
-                    </div>
-                    <div *ngIf="formValid && email?.errors?.['email']" class="error">
-                    Email must be a valid email address
+                    <label for="email">Email</label>
+                    <input formControlName="email" class="long" type="email" id="email" name="email" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && email?.errors?.['required']" class="error">
+                        Email is required
+                        </div>
+                        <div *ngIf="formValid && email?.errors?.['email']" class="error">
+                        Email must be a valid email address
+                        </div>
                     </div>
                 </div>
                 <div class="field">
-                    <label for="phone">Phone</label><br>
-                    <input formControlName="phone" class="medium" type="tel" id="phone" name="phone" formControlName="phone" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && phone?.errors?.['required']" class="error">
-                    Phone is required
-                    </div>
-                    <div *ngIf="formValid && phone?.errors?.['pattern']" class="error">
-                    Phone must be a valid phone number
+                    <label for="phone">Phone</label>
+                    <input formControlName="phone" class="medium" type="tel" id="phone" name="phone" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && phone?.errors?.['required']" class="error">
+                        Phone is required
+                        </div>
+                        <div *ngIf="formValid && phone?.errors?.['pattern']" class="error">
+                        Phone must be a valid phone number
+                        </div>
                     </div>
                 </div>
             </div>
             <h3>Address</h3>
             <div class="group">
                 <div class="field">
-                    <label for="streetAddress">Street Address</label><br>
-                    <input formControlName="street_address" class="long" type="text" id="streetAddress" name="streetAddress" formControlName="streetAddress" required><br><br>
-                </div>
-                <div class="formErrors">
-                    <div *ngIf="formValid && street_address?.errors?.['required']" class="error">
-                    Street address is required
-                    </div>
-                    <div *ngIf="formValid && street_address?.errors?.['minlength']" class="error">
-                    Street address must be at least 2 characters
-                    </div>
-                    <div *ngIf="formValid && street_address?.errors?.['maxlength']" class="error">
-                    Street address cannot be more than 30 characters
-                    </div>
-                    <div *ngIf="formValid && street_address?.errors?.['pattern']" class="error">
-                    Street address must contain only letters and numbers
+                    <label for="streetAddress">Street Address</label>
+                    <input formControlName="street_address" class="long" type="text" id="streetAddress" name="streetAddress" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && street_address?.errors?.['required']" class="error">
+                        Street address is required
+                        </div>
+                        <div *ngIf="formValid && street_address?.errors?.['minlength']" class="error">
+                        Street address too short
+                        </div>
+                        <div *ngIf="formValid && street_address?.errors?.['maxlength']" class="error">
+                        Street address too long
+                        </div>
+                        <div *ngIf="formValid && street_address?.errors?.['pattern']" class="error">
+                        Street address must contain only letters and numbers
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="group">
                 <div class="field">
-                    <label for="city">City</label><br>
-                    <input formControlName="city" class="medium" type="text" id="city" name="city" formControlName="city" required><br><br>
+                    <label for="city">City</label>
+                    <input formControlName="city" class="medium" type="text" id="city" name="city" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && city?.errors?.['required']" class="error">
+                        City is required
+                        </div>
+                        <div *ngIf="formValid && city?.errors?.['minlength']" class="error">
+                        City too short
+                        </div>
+                        <div *ngIf="formValid && city?.errors?.['maxlength']" class="error">
+                        City too long
+                        </div>
+                        <div *ngIf="formValid && city?.errors?.['pattern']" class="error">
+                        City must contain only letters
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
-                    <label for="state">State</label><br>
-                    <select formControlName="state" id="state" name="state"required><br><br>
+                    <label for="state">State</label>
+                    <select formControlName="state" id="state" name="state"required>
                         <option value="">Select a state</option>
                         <option *ngFor="let state of states" [value]="state.value">{{ state.name }}</option>
+                        <!-- <div class="formErrors">
+                            <div *ngIf="formValid && state?.errors?.['required']" class="error">
+                            State is required
+                            </div>
+                        </div> -->
                     </select>
                 </div>
             </div>
             <div class="group">
                 <div class="field">
-                    <label for="zip">Zip</label><br>
-                    <input formControlName="zip" class="short" type="text" id="zip" name="zip" formControlName="zip" required><br><br>
+                    <label for="zip">Zip</label>
+                    <input formControlName="zip" class="short" type="text" id="zip" name="zip" required>
+                    <div class="formErrors">
+                        <div *ngIf="formValid && zip?.errors?.['required']" class="error">
+                        Zip is required
+                        </div>
+                        <div *ngIf="formValid && zip?.errors?.['pattern']" class="error">
+                        Zip must be a valid zip code
+                        </div>
+                    </div>
                 </div>
             </div>
             <button (click)="submit()" class="save" id="save">Save</button>

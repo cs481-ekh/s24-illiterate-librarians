@@ -10,9 +10,12 @@ export class ProfileChildrenComponent {
     const childBoxes = document.querySelectorAll('.child-box');
     const childModal = document.getElementById('childModal');
     const childClose = document.getElementById('childClose');
+    const addButton = document.getElementById('addButton');
+    const addModal = document.getElementById('addModal');
+    const addClose = document.getElementById('addClose');
 
 
-    if (childBoxes && childClose && childModal) {
+    if (childBoxes && childClose && childModal && addButton && addModal && addClose) {
       childBoxes.forEach(childBox => {
         childBox.addEventListener('click', function () {
           childModal.style.display = 'block';
@@ -21,6 +24,14 @@ export class ProfileChildrenComponent {
 
       childClose.addEventListener('click', function () {
         childModal.style.display = 'none';
+      });
+
+      addButton.addEventListener('click', function () {
+        addModal.style.display = 'block';
+      });
+
+      addClose.addEventListener('click', function () {
+        addModal.style.display = 'none';
       });
     }
   }

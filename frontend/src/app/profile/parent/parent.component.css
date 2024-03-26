@@ -12,9 +12,6 @@ h1 {
 }
 
 .edit, .save {
-    position: absolute;
-    right: 0px;
-    top: 0px;
     padding: 8px 12px;
     margin: 10px 0px;
     border: none;
@@ -41,9 +38,13 @@ h1 {
 
 .edit {
     display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 .save {
+    margin-top: 30px;
     display: none;
 }
 
@@ -68,14 +69,25 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    margin-bottom: 20px;
 }
 
 .profile .field {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    position: relative;
+}
+
+/* .profile.editing .field  {
     width: 200px;
-    height: 60px;
     margin-right: 100px;
-    /* background-color: red */
+} */
+
+.profile .formErrors {
+    color: red;
+    font-size: 16px;
+    position: absolute;
+    bottom: 0;
 }
 
 label {
@@ -86,6 +98,7 @@ label {
 form input {
     height: 30px;
     margin-top: 10px;
+    margin-bottom: 20px;
     border: 1px solid #dadada;
     border-radius: 5px;
 }
@@ -104,6 +117,7 @@ form input.long {
 
 form select {
     height: 34px;
+    width: 160px;
     margin-top: 10px;
     border: 1px solid #dadada;
     border-radius: 5px;
