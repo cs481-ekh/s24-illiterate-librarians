@@ -40,7 +40,7 @@ func LookupUserHandler(c *gin.Context) {
 	}
 
 	//not sure if type verification with the string(user.UserID) will mess things up
-	if (string(user.UserID) != request.UserID) {
+	if (user.UserID != request.UserID) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
 			"message": fmt.Sprintf("wrong indentifying info"),
