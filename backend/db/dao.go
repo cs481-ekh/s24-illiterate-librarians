@@ -2,6 +2,7 @@ package db
 
 import (
 	"LiteracyLink.com/backend/api/model"
+	"errors"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -71,6 +72,37 @@ func FindUserTable(userID string, db *gorm.DB) (string, error) {
 	}
 
 	return "user", gorm.ErrRecordNotFound
+}
+
+func SetUserType(UpdatedUserType model.UpdateUserType, db *gorm.DB) error {
+	admin, err := FindUserTable(UpdatedUserType.AdminID, db)
+	if err != nil {
+		return err
+	}
+	if admin != "instructor" {
+		return errors.New("lacks permissions")
+	}
+	switch UpdatedUserType.UserType {
+	case "parent":
+		// Execute raw MySQL query to insert into Parents table
+		if err := db.Exec("INSERT INTO Parents (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			return err
+		}
+	case "instructor":
+		// Execute raw MySQL query to insert into Instructors table
+		if err := db.Exec("INSERT INTO Instructors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			return err
+		}
+	case "tutor":
+		// Execute raw MySQL query to insert into Tutors table
+		if err := db.Exec("INSERT INTO Tutors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			return err
+		}
+	default:
+		return gorm.ErrInvalidData
+	}
+
+	return nil
 }
 
 func CreateUser(request model.User, db *gorm.DB) error {
