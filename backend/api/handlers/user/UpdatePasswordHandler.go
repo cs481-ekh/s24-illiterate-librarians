@@ -17,8 +17,6 @@ func UpdatePasswordHandler(c *gin.Context) {
 	var request model.PassUpdate
 	err := c.BindJSON(&request)
 	if err != nil {
-		log.Default()
-		log.Println(c.Request.Body)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
 			"message": fmt.Sprintf("Error while binding password update request: %s", err),
@@ -55,7 +53,7 @@ func UpdatePasswordHandler(c *gin.Context) {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  "failed",
-				"message": fmt.Sprintf("incorrect username"),
+				"message": fmt.Sprintf("Unable to findd user with id: " + request.UserID),
 			})
 			return
 		} else {
