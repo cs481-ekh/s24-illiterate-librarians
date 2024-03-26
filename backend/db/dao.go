@@ -83,6 +83,16 @@ func CreateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
+func GetUser(request model.UserRequest, db *gorm.DB) (model.User, error) {
+
+	var user model.User
+	result := db.Where("user_id = ?", request.UserID).First(&user)
+	if result.Error != nil {
+		return user, result.Error
+	}
+	return user, nil
+}
+
 func SubmitApp(request model.TutoringApplication, db *gorm.DB) error {
 
 	result := db.Create(request)
