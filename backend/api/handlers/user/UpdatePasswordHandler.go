@@ -68,7 +68,7 @@ func UpdatePasswordHandler(c *gin.Context) {
 	}
 
 	// return 204 to front end showing success
-	return c.JSON(http.StatusNoContent, gin.H{})
+	c.JSON(http.StatusNoContent, gin.H{})
 
 }
 

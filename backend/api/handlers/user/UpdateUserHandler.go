@@ -12,15 +12,12 @@ import (
 )
 
 func UpdateUserHandler(c *gin.Context) {
-	user_id := c.Param("userId")
+
 	var user model.User
 	err := c.BindJSON(&user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "error binding json body to user type"})
 	}
-
-	//is failing because of this line, how do I make the user_id variable a uuid.UUID type? I don't think type assertion will work...
-	user.UserID = user_id.(uuid.UUID);
 
 
 	dbc := c.MustGet("db").(*gorm.DB)
