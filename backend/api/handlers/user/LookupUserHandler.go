@@ -9,6 +9,8 @@ import (
 	"LiteracyLink.com/backend/db"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"github.com/google/uuid"
+
 )
 
 func LookupUserHandler(c *gin.Context) {
@@ -39,7 +41,15 @@ func LookupUserHandler(c *gin.Context) {
 		}
 	}
 
-	if (user.UserID != request.UserID) {
+
+	// Parse UserID as UUID
+	UID, err := uuid.Parse(request.UserID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid UserID format"})
+		return
+	}
+
+	if (user.UserID != UID) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "failed",
 			"message": fmt.Sprintf("wrong indentifying info"),
