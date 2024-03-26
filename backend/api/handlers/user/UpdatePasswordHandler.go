@@ -14,8 +14,8 @@ import (
 
 func UpdatePasswordHandler(c *gin.Context) {
 	
-	var request model.PassUpdate
-	err := c.BindJSON(&request)
+	var PassRequest model.PassUpdate
+	err := c.BindJSON(&PassRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -23,7 +23,12 @@ func UpdatePasswordHandler(c *gin.Context) {
 		})
 		return
 	}
-	
+	var request model.User
+
+	//This wont work right now because its not been implimented but after implimentation, would this theoretically work?
+	//Or should I be replacing the model in line 17 with User?
+	request = LookupUserHandler(PassRequest.UserID); 
+
 	//get the id (therby jwt token)
 	var id = c.MustGet("userID").(string);
 

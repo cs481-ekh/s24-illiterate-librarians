@@ -74,7 +74,7 @@ func UpdateUser(request model.User, db *gorm.DB) error {
 	return nil
 }
 
-func UpdatePass(request model.PassUpdate, db *gorm.DB) error {
+func UpdatePass(request model.User, db *gorm.DB) error {
 	result := db.Save(request) //will need to test save function
 	if result.Error != nil {
 		return result.Error
