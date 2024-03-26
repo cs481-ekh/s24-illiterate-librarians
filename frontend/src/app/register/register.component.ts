@@ -587,8 +587,15 @@ export class RegisterComponent {
     this.regService.register(newAccount).subscribe(
       (response) => {
         console.log(response);
-        this.authService.login(newAccount.username, newAccount.password_hash);
-        this.router.navigate(['/dashboard']);
+        this.authService.login(newAccount.username, newAccount.password_hash).subscribe
+        (response => {
+          console.log(response);
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          console.log(error);
+          this.router.navigate(['/login']);
+        });
       },
       (error) => {
         const errorMessage = error.error.message;
