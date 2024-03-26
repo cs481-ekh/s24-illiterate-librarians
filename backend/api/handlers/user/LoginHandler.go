@@ -69,9 +69,9 @@ func LoginHandler(c *gin.Context) {
 		url = "localhost:8080"
 	}
 
-	c.SetCookie("token", jwt, 60*60*24*7, "/", url, false, true)
+	c.SetCookie("token", jwt, 60*60*24, "/", url, false, true)
 	c.JSON(http.StatusOK, gin.H{
 		"id_token":   jwt,
-		"expires_at": 60 * 60 * 24 * 7,
+		"expires_at": 60 * 60 * 24,
 	})
 }
