@@ -21,53 +21,76 @@ export function phoneNumberValidator(): ValidatorFn {
 })
 export class ProfileParentComponent {
   formValid: boolean = false;
-
+  profileForm: FormGroup = new FormGroup({});
+  profileData: ProfileData = {
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    phone: '',
+    address: '',
+  };
 
   constructor(
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private formBuilder: FormBuilder
   ) {}
+  
+  initForm(): void {
+    this.profileForm = this.formBuilder.group({
+      first_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z]+$')]],
+      last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z]+$')]],
+      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[a-zA-Z0-9_!@#]+$')]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, phoneNumberValidator()]],
+      street_address: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s,-.]+$')]],
+      city: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
+      state: ['', Validators.required],
+      zip: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
+    });
+  }
 
-  profileForm = new FormGroup({
-    first_name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(30),
-      Validators.pattern('^[a-zA-Z]+$'),
-    ]),
-    last_name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(30),
-      Validators.pattern('^[a-zA-Z]+$'),
-    ]),
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(30),
-      Validators.pattern('^[a-zA-Z0-9_!@#]+$'),
-    ]),
-    email: new FormControl('', [
-      Validators.required, 
-      Validators.email
-    ]),
-    phone: new FormControl('', [
-      Validators.required, 
-      phoneNumberValidator()
-    ]),
-    street_address: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-zA-Z0-9\\s,-.]+$'),
-    ]),
-    city: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-zA-Z\\s]+$'),
-    ]),
-    state: new FormControl('', Validators.required),
-    zip: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]{5}$'),
-    ]),
-  });
+  // profileForm = new FormGroup({
+  //   first_name: new FormControl('', [
+  //     Validators.required,
+  //     Validators.minLength(2),
+  //     Validators.maxLength(30),
+  //     Validators.pattern('^[a-zA-Z]+$'),
+  //   ]),
+  //   last_name: new FormControl('', [
+  //     Validators.required,
+  //     Validators.minLength(2),
+  //     Validators.maxLength(30),
+  //     Validators.pattern('^[a-zA-Z]+$'),
+  //   ]),
+  //   username: new FormControl('', [
+  //     Validators.required,
+  //     Validators.minLength(2),
+  //     Validators.maxLength(30),
+  //     Validators.pattern('^[a-zA-Z0-9_!@#]+$'),
+  //   ]),
+  //   email: new FormControl('', [
+  //     Validators.required, 
+  //     Validators.email
+  //   ]),
+  //   phone: new FormControl('', [
+  //     Validators.required, 
+  //     phoneNumberValidator()
+  //   ]),
+  //   street_address: new FormControl('', [
+  //     Validators.required,
+  //     Validators.pattern('^[a-zA-Z0-9\\s,-.]+$'),
+  //   ]),
+  //   city: new FormControl('', [
+  //     Validators.required,
+  //     Validators.pattern('^[a-zA-Z\\s]+$'),
+  //   ]),
+  //   state: new FormControl('', Validators.required),
+  //   zip: new FormControl('', [
+  //     Validators.required,
+  //     Validators.pattern('^[0-9]{5}$'),
+  //   ]),
+  // });
 
   get first_name() {
     return this.profileForm.get('first_name');
@@ -131,6 +154,9 @@ export class ProfileParentComponent {
   
 
   ngOnInit() {
+    this.fetchProfileData();
+    this.initForm();
+
     const editButton = document.getElementById('edit');
     const saveButton = document.getElementById('save');
     const profileEditing = document.getElementById('profile-editing');
@@ -152,6 +178,28 @@ export class ProfileParentComponent {
         profileView.style.display = 'block';
       });
     }
+  }
+
+  fetchProfileData() {
+    this.profileService.fetchProfile().subscribe(
+      (response) => {
+        console.log(response);
+        this.profileForm.patchValue({
+          first_name: response.first_name,
+          last_name: response.last_name,
+          username: response.username,
+          email: response.email,
+          phone: response.phone,
+          street_address: response.address.split(',')[0],
+          city: response.address.split(',')[1],
+          state: response.address.split(',')[2].split(' ')[1],
+          zip: response.address.split(',')[2].split(' ')[2],
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   compileAddress() {
