@@ -1,13 +1,14 @@
 package application
 
 import (
-	"LiteracyLink.com/backend/api/model"
-	"LiteracyLink.com/backend/db"
 	"errors"
 	"fmt"
+	"net/http"
+
+	"LiteracyLink.com/backend/api/model"
+	"LiteracyLink.com/backend/db"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 func GetTutorApplicationHandler(c *gin.Context) {

@@ -7,7 +7,9 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-
+import { Application } from './application';
+import { ApplicationService } from '../_services/application.service';
+import { Router } from '@angular/router';
 
 export function phoneNumberValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -29,6 +31,8 @@ export function phoneNumberValidator(): ValidatorFn {
 
 
 export class ApplicationComponent {
+
+  constructor(private applicationService: ApplicationService, private router: Router) {}
 
   isStep1Valid = false;
   isStep2Valid = false;
@@ -171,8 +175,43 @@ export class ApplicationComponent {
   }
 
   submit(){
-    
+  
+    let newApp: Application = {
+      ChildDataConsent: this.ChildDataConsent?.value ?? '',
+      PhotoReleaseConsent: this.PhotoReleaseConsent?.value ?? '',
+      ZoomConsent: this.ZoomConsent?.value ?? '',
+      NeedFinancialAssistance: this.NeedFinancialAssistance?.value ?? '',
+      Guardian2FirstN: this.Guardian2FirstN?.value ?? '',
+      Guardian2LastN: this.Guardian2LastN?.value ?? '',
+      Guardian2Phone: this.Guardian2Phone?.value ?? '',
+      Guardian2Email: this.Guardian2Email?.value ?? '',
+      EmergencyConName: this.EmergencyConName?.value ?? '',
+      EmergencyConRelation: this.EmergencyConRelation?.value ?? '',
+      EmergencyConPhone: this.EmergencyConPhone?.value ?? '',
+      PreviousChildParticipation: this.PreviousChildParticipation?.value ?? '',
+      WhatSSemester: this.WhatSSemester?.value ?? '',
+      ChildCurrentSchool: this.ChildCurrentSchool?.value ?? '',
+      ListLanguagesSpoken: this.ListLanguagesSpoken?.value ?? '',
+      ReceivedSpecialEd: this.ReceivedSpecialEd?.value ?? '',
+      ListChallenges: this.ListChallenges?.value ?? '',
+      HowLongConcerned: this.HowLongConcerned?.value ?? '',
+      DescribeHopes: this.DescribeHopes?.value ?? '',
+      ChildAllergyMeds: this.ChildAllergyMeds?.value ?? '',
+      MiscInfo: this.MiscInfo?.value ?? '',
+      HearAboutLitLab: this.HearAboutLitLab?.value ?? '',
+    };
+
+    this.applicationService.createApplication(newApp).subscribe(
+      (response) => {
+        console.log('Application submitted successfully');
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.log('Error submitting application');
+        console.log(error);
+      }
+    );
+
   }
 
-  constructor() {}
 }

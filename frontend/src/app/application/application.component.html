@@ -65,22 +65,32 @@
               in the permission slip below.
             </div>
             <div class="informed-consent">
-            <img src="../../assets/Screenshot 2023-11-29 at 7.47.23 AM.png" class="document-photo"/>
+              <img
+                src="../../assets/permission_slip.png"
+                class="document-photo"
+                alt="Permission Slip"
+              />
             </div>
             <mat-form-field>
               <mat-label>Policy Agreement</mat-label>
               <input matInput formControlName="PolicyAgreement" />
             </mat-form-field>
 
-
-            <div class="error" *ngIf="isStep1Valid && PolicyAgreement?.errors?.['required']">
+            <div
+              class="error"
+              *ngIf="isStep1Valid && PolicyAgreement?.errors?.['required']"
+            >
               This is a required field
             </div>
-
             <div class="field-title">
-              Boise State University Informed Consent Study Title: Literacy
-              Center Efficacy Principal Investigators: Dr. Katherine Wright &
-              Dr. Hannah Carter
+              <p>
+                Boise State University Informed Consent Study Title: Literacy
+                Center Efficacy
+              </p>
+              <p>
+                Principal Investigators: Dr. Katherine Wright & Dr. Hannah
+                Carter
+              </p>
             </div>
             <div class="informed-consent">
               <img
@@ -94,9 +104,11 @@
                 class="document-photo"
               />
             </div>
-            DOCUMENTATION OF CONSENT: I have read the two-page form seen above
-            and have decided that my child's data can be used by the lab to
-            study child and pre-service teacher learning.
+            <div class="field-title">
+              DOCUMENTATION OF CONSENT: I have read the two-page form seen above
+              and have decided that my child's data can be used by the lab to
+              study child and pre-service teacher learning.
+            </div>
             <mat-form-field>
               <mat-label>Child Data Consent</mat-label>
               <mat-select formControlName="ChildDataConsent">
@@ -151,9 +163,12 @@
             <div class="field-title">
               The cost for enrollment in the Literacy Lab is $175 per child per
               semester, which is due when you apply. If you have not paid
-              already, please do so by copying/pasting the link below into your
-              browser. https://commerce.cashnet.com/boisestateLiteracyLab If
-              your family is unable to pay for tutoring in full, please note
+              already, please do so by clicking the link below or by pasting it
+              into your browser.
+              <a href="https://commerce.cashnet.com/boisestateLiteracyLab">
+                https://commerce.cashnet.com/boisestateLiteracyLab
+              </a>
+              If your family is unable to pay for tutoring in full, please note
               that below, and we will contact you. Otherwise, please note below
               that your payment has been made.
             </div>

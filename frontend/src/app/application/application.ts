@@ -1,4 +1,6 @@
 export interface Application {
+    ChildID: string;
+    ParentID: string;
     ChildDataConsent: string;
     PhotoReleaseConsent: string;
     ZoomConsent: string;
