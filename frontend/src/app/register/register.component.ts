@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { RegistrationService } from '../_services/register/registration.service';
 import { NewAccount } from '../new-account';
 import { MatStepper } from '@angular/material/stepper';
+import { AuthService } from '../_services/auth.service';
 
 export function phoneNumberValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -332,7 +333,7 @@ export function phoneNumberValidator(): ValidatorFn {
               <div class="done">
                 Thank you for registering with Literacy Link!
                 <button mat-button (click)="submit()">
-                  Submit and Return to Login
+                  Submit and Go to Dashboard
                 </button>
               </div>
             </mat-step>
@@ -346,7 +347,8 @@ export function phoneNumberValidator(): ValidatorFn {
 export class RegisterComponent {
   constructor(
     private regService: RegistrationService,
-    private router: Router
+    private router: Router,
+    private authService : AuthService
   ) {}
 
   @ViewChild('stepper') stepper!: MatStepper;
@@ -585,7 +587,15 @@ export class RegisterComponent {
     this.regService.register(newAccount).subscribe(
       (response) => {
         console.log(response);
-        this.router.navigate(['/login']);
+        this.authService.login(newAccount.username, newAccount.password_hash).subscribe
+        (response => {
+          console.log(response);
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          console.log(error);
+          this.router.navigate(['/login']);
+        });
       },
       (error) => {
         const errorMessage = error.error.message;
