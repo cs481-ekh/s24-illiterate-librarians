@@ -50,12 +50,12 @@ func Login(request model.LoginRequest, db *gorm.DB) (model.User, string, error) 
 	if result.Error != nil {
 		return user, "", result.Error
 	}
-	userType, _ := FindUserTable(user.UserID.String(), db)
+	userType, _ := FindUserTableStringKey(user.UserID.String(), db)
 
 	return user, userType, nil
 }
 
-func FindUserTable(userID string, db *gorm.DB) (string, error) {
+func FindUserTableStringKey(userID string, db *gorm.DB) (string, error) {
 	var parent model.Parent
 	if err := db.Where("user_id = UUID_TO_BIN(?)", userID).First(&parent).Error; err == nil {
 		return "parent", nil
@@ -71,45 +71,96 @@ func FindUserTable(userID string, db *gorm.DB) (string, error) {
 		return "instructor", nil
 	}
 
-	return "user", gorm.ErrRecordNotFound
+	return "user", nil
 }
 
 func SetUserType(UpdatedUserType model.UpdateUserType, db *gorm.DB) error {
-	admin, err := FindUserTable(UpdatedUserType.AdminID, db)
+	// Check if the admin has permissions
+	admin, err := FindUserTableStringKey(UpdatedUserType.AdminID, db)
 	if err != nil {
 		return err
 	}
 	if admin != "instructor" {
 		return errors.New("lacks permissions")
 	}
+
+	// Begin a transaction
+	tx := db.Begin()
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	// Delete old rows from other tables
+	if err := tx.Exec("DELETE FROM Instructors WHERE user_id = UUID_TO_BIN(?)", UpdatedUserType.UserID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	if err := tx.Exec("DELETE FROM Tutors WHERE user_id = UUID_TO_BIN(?)", UpdatedUserType.UserID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	if err := tx.Exec("DELETE FROM Parents WHERE user_id = UUID_TO_BIN(?)", UpdatedUserType.UserID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Insert the user into the new user type table
 	switch UpdatedUserType.UserType {
 	case "parent":
-		// Execute raw MySQL query to insert into Parents table
-		if err := db.Exec("INSERT INTO Parents (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+		if err := tx.Exec("INSERT INTO Parents (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			tx.Rollback()
 			return err
 		}
 	case "instructor":
-		// Execute raw MySQL query to insert into Instructors table
-		if err := db.Exec("INSERT INTO Instructors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+		if err := tx.Exec("INSERT INTO Instructors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			tx.Rollback()
 			return err
 		}
 	case "tutor":
-		// Execute raw MySQL query to insert into Tutors table
-		if err := db.Exec("INSERT INTO Tutors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+		if err := tx.Exec("INSERT INTO Tutors (user_id) VALUES (UUID_TO_BIN(?))", UpdatedUserType.UserID).Error; err != nil {
+			tx.Rollback()
 			return err
 		}
 	default:
+		tx.Rollback()
 		return gorm.ErrInvalidData
+	}
+
+	// Commit the transaction
+	if err := tx.Commit().Error; err != nil {
+		return err
 	}
 
 	return nil
 }
 
 func CreateUser(request model.User, db *gorm.DB) error {
-	result := db.Create(request)
+	// Begin a transaction
+	tx := db.Begin()
+	if tx.Error != nil {
+		return tx.Error
+	}
 
-	if result.Error != nil {
-		return result.Error
+	// Create the user entry
+	if err := tx.Create(&request).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Retrieve the generated UserID
+	var userID string
+	if err := tx.Raw("SELECT BIN_TO_UUID(user_id) FROM Users WHERE username = ?;", request.Username).Scan(&userID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	if err := tx.Exec("INSERT INTO Parents (user_id) VALUES (UUID_TO_BIN(?));", userID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Commit the transaction
+	if err := tx.Commit().Error; err != nil {
+		return err
 	}
 
 	return nil
@@ -222,4 +273,32 @@ func GetEvents(db *gorm.DB) ([]model.GetEvents, error) {
 		return result, err
 	}
 	return result, nil
+}
+
+func GetChildren(id string, db *gorm.DB) ([]model.ChildJSON, error) {
+	var result []model.ChildJSON
+	err := db.
+		Table("Users").
+		Select("BIN_TO_UUID(c.child_id) as child_id, BIN_TO_UUID(p.parent_id) as parent_id, c.grade, c.first_name, c.last_name").
+		Joins("JOIN Parents p ON Users.user_id = p.user_id").
+		Joins("JOIN Child c ON p.parent_id = c.parent_id").
+		Where("Users.user_id = UUID_TO_BIN(?)", id).Find(&result).Error
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func AddChild(userID string, child model.Child, dbc *gorm.DB) error {
+	var parentId string
+	err := dbc.Raw("SELECT BIN_TO_UUID(parent_id) FROM Parents WHERE user_id = UUID_TO_BIN(?)", userID).Find(&parentId).Error
+	if err != nil {
+		return err
+	}
+	// Create the child entry
+	if err := dbc.Exec("INSERT INTO Child (parent_id, birth_date, grade, first_name, last_name) VALUES (UUID_TO_BIN(?), ?, ?, ?, ?)", parentId, child.BirthDate, child.Grade, child.FirstName, child.LastName).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

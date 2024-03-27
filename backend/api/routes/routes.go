@@ -87,6 +87,10 @@ func SetupRoutes(router *gin.Engine) {
 
 			// DELETE /user/delete/:user_id
 			protectedRoutes.DELETE("/delete/:userId", user.DeleteUserHandler)
+
+			protectedRoutes.GET("/children", user.GetChildrenHandler)
+
+			protectedRoutes.POST("/child", user.CreateChildHandler)
 		}
 	}
 	surveyRoutes := router.Group("/api/survey")
