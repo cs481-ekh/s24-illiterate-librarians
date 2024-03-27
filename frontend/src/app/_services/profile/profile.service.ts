@@ -35,7 +35,7 @@ export class ProfileService {
     fetchProfile(): Observable<any> {
         return this.http
             .get(
-                url + "/api/user/LookupUserHandler",
+                url + "/api/user/lookup",
                 httpOptions
             ).pipe(
                 catchError((error: any) => {

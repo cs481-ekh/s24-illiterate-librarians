@@ -154,8 +154,8 @@ export class ProfileParentComponent {
   
 
   ngOnInit() {
-    this.fetchProfileData();
     this.initForm();
+    this.fetchProfileData();
 
     const editButton = document.getElementById('edit');
     const saveButton = document.getElementById('save');

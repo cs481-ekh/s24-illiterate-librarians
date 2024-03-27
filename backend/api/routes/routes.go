@@ -72,11 +72,11 @@ func SetupRoutes(router *gin.Engine) {
 		protectedRoutes := userRoutes.Group("")
 		protectedRoutes.Use(middleware.AuthMiddleware())
 		{
-			// GET /user/lookup
-			protectedRoutes.GET("/lookup", user.LookupAllUsersHandler)
+			// GET /user/lookupAll
+			protectedRoutes.GET("/lookupAll", user.LookupAllUsersHandler)
 
-			// GET /user/lookup/:user_id
-			protectedRoutes.GET("/lookup/:userId", user.LookupUserHandler)
+			// GET /user/lookup
+			protectedRoutes.GET("/lookup", user.LookupUserHandler)
 
 			// PUT /user/update/:user_id
 			protectedRoutes.PUT("/update/:userId", user.UpdateUserHandler)
