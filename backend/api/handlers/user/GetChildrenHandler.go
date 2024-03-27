@@ -15,6 +15,7 @@ func GetChildrenHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "User not classified as parent",
 		})
+		return
 	}
 	children, err := db.GetChildren(userID, dbc)
 	if err != nil {

@@ -288,3 +288,17 @@ func GetChildren(id string, db *gorm.DB) ([]model.ChildJSON, error) {
 	}
 	return result, nil
 }
+
+func AddChild(userID string, child model.Child, dbc *gorm.DB) error {
+	var parentId string
+	err := dbc.Raw("SELECT BIN_TO_UUID(parent_id) FROM Parents WHERE user_id = UUID_TO_BIN(?)", userID).Find(&parentId).Error
+	if err != nil {
+		return err
+	}
+	// Create the child entry
+	if err := dbc.Exec("INSERT INTO Child (parent_id, birth_date, grade, first_name, last_name) VALUES (UUID_TO_BIN(?), ?, ?, ?, ?)", parentId, child.BirthDate, child.Grade, child.FirstName, child.LastName).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
