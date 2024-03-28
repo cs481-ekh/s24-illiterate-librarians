@@ -22,6 +22,9 @@ RUN ng build --configuration=production
 # Use an official Golang runtime as a parent image
 FROM golang:1.21
 
+# Set the working directory in the container
+ENV ROUTE_PREFIX=/s24-illiterate-librarians
+
 # Set the working directory to /backend
 WORKDIR /backend
 

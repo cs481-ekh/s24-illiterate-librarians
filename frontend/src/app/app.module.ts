@@ -89,7 +89,7 @@ export function tokenGetter() {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    {provide: APP_BASE_HREF, useValue : '/' }
+    {provide: APP_BASE_HREF, useValue : environment.BASE_URL }
   ],
   bootstrap: [AppComponent]
 })

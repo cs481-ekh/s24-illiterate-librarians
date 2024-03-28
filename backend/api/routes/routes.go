@@ -18,6 +18,7 @@ import (
 
 func ServeStatic(router *gin.Engine) {
 
+	// routePrefix := os.Getenv("ROUTE_PREFIX")
 	router.Use(func(c *gin.Context) {
 		if c.Request.Method != "GET" && c.Request.Method != "HEAD" {
 			c.Next()
@@ -54,12 +55,17 @@ func ServeStatic(router *gin.Engine) {
 
 // Set up the routes for the application
 func SetupRoutes(router *gin.Engine) {
-	healthRoutes := router.Group("/api/health")
+
+	routePrefix := os.Getenv("ROUTE_PREFIX")
+
+	parentGroup := router.Group(routePrefix)
+
+	healthRoutes := parentGroup.Group("/api/health")
 	{
 		healthRoutes.GET("", health.HealthCheckHandler)
 	}
 
-	userRoutes := router.Group("/api/user")
+	userRoutes := parentGroup.Group("/api/user")
 	{
 		// POST /user/create (no JWT required)
 		userRoutes.POST("/create", user.CreateUserHandler)
@@ -93,7 +99,7 @@ func SetupRoutes(router *gin.Engine) {
 			protectedRoutes.POST("/child", user.CreateChildHandler)
 		}
 	}
-	surveyRoutes := router.Group("/api/survey")
+	surveyRoutes := parentGroup.Group("/api/survey")
 	surveyRoutes.Use(middleware.AuthMiddleware())
 	{
 
@@ -107,7 +113,7 @@ func SetupRoutes(router *gin.Engine) {
 		surveyRoutes.GET("/after_semester_survey/:userId", survey.GetAfterSemesterSurveyHandler)
 	}
 
-	applicationRoutes := router.Group("/api/application")
+	applicationRoutes := parentGroup.Group("/api/application")
 	applicationRoutes.Use(middleware.AuthMiddleware())
 	{
 
@@ -121,7 +127,7 @@ func SetupRoutes(router *gin.Engine) {
 		applicationRoutes.GET("/", application.GetTutorApplicationHandler)
 	}
 
-	sessionRoutes := router.Group("/api/session")
+	sessionRoutes := parentGroup.Group("/api/session")
 	sessionRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET /session/client/:user_id
@@ -133,7 +139,7 @@ func SetupRoutes(router *gin.Engine) {
 		// GET /session
 		sessionRoutes.GET("", session.GetSessionByIdHandler)
 	}
-	eventRoutes := router.Group("/api/event")
+	eventRoutes := parentGroup.Group("/api/event")
 	eventRoutes.Use(middleware.AuthMiddleware())
 	{
 		// GET api/event/Announcements
@@ -142,7 +148,7 @@ func SetupRoutes(router *gin.Engine) {
 		// GET api/event/
 		eventRoutes.GET("", event.GetEventHandler)
 	}
-	adminRoutes := router.Group("/api/admin")
+	adminRoutes := parentGroup.Group("/api/admin")
 	adminRoutes.Use(middleware.AuthMiddleware())
 	{
 		adminRoutes.PUT("/update/privileges", admin.UpdateUserTypeHandler)
